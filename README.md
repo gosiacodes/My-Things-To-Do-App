@@ -1,6 +1,6 @@
 ![poster](poster.png)
 
-# Fullstack Todo App
+# AdComo Todo App
 
 ## Steg 1 - CRUD Base
 ### API
