@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: paleturquoise;
+    margin: 0;
+}
+
+div {
+    display: block;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.title {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    top: 0;
+    text-align: center;
+    padding: 20px;
+    background-color: darkturquoise;
+    color: white;
+}
+
+.container-tasks {
+    position: relative;
+    padding: 16px;
+}
