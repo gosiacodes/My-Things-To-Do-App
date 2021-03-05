@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8">
+        <meta name="description" content="ToDo List | Web Application">
+        <meta name="keywords" content="ToDo App, Java Developer, javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API">
+        <meta name="author" content="Malgorzata Pick">
+        <title>ToDo App</title>
+        <link rel="icon" href="images/task-list.png" type="image/jpg" sizes="16x16">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
+        <link href="style.css" rel="stylesheet">
+        <script src="jquery-3.4.1.js"></script>   
+    </head>
 
-<head>
+    <body>
+        <div class="header"> 
+            <h1 id="title">My ToDo List</h1>
+        </div>
+        <div>
+            <img src="images/office-checklist.png" alt="checklist" id="checklist">  
+        </div>
+        <div class="main">
+            <div class="container-tasks">
+                <input type="text" class="input" id="new-task" placeholder="What to do?">
+                <button class="buttons" id="new-task-button">Add</button>
+                <ul id="task-list"></ul>
+                <button class="buttons" id="remove-button">Delete</button>
+            </div>              
+        </div>
+        
+        <script src="app.js"></script>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta charset="utf-8">
-	<meta name="description" content="ToDo List | Web Application">
-    <meta name="keywords" content="ToDo App, Java Developer, javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API">
-	<meta name="author" content="Malgorzata Pick">
-	<title>ToDo App</title>   
-	<link href="style.css" rel="stylesheet">
-    <script src="jquery-3.4.1.js"></script>
-    
-</head>
-
-<body>
-    
-    <h1 class="title">ToDo List</h1>
-    <div class="container-tasks">
-        <input type="text" class="add-element" id="new-task" placeholder="Add new task">
-        <button class="new-task-button" id="new-task-button">Add task</button>
-        <ul id="task-list"></ul>
-		<button class="remove-button" id="remove-button">Remove finished tasks</button>
-    </div>  
-
-	<script src="app.js"></script>
-    
-</body>
-
+    </body>
 </html>

@@ -1,6 +1,7 @@
 body {
-    font-family: Arial, Helvetica, sans-serif;
-    background-color: paleturquoise;
+    font-family: Roboto, Tahoma, Helvetica, Verdana, Arial, sans-serif;
+    background-color: #FEFEDF;
+    color: #4A4453;
     margin: 0;
 }
 
@@ -12,18 +13,86 @@ div {
     box-sizing: border-box;
 }
 
-.title {
+.header {
+    font-family: Varela Round, Tahoma, Helvetica, Verdana, Arial, sans-serif;
     position: relative;
     overflow: hidden;
     width: 100%;
     top: 0;
     text-align: center;
-    padding: 20px;
-    background-color: darkturquoise;
-    color: white;
+    padding: 10px;
+    background-color: #7F65C5;
+    color: #FEFEDF;
+}
+
+.main {
+    padding: 30px;
 }
 
 .container-tasks {
     position: relative;
-    padding: 16px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    max-width: 1200px;
+    height: auto;
+    padding: 60px;
+    background-color: #00C9A2;
+    border-radius: 15px;
+    box-shadow: 0px 1px 5px rgba(74,68,83,.7);
+}
+
+.container-tasks:hover {
+    box-shadow: 0px 5px 10px rgba(74,68,83,.7);
+}
+
+.input {
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    width: 75%;
+    height: 40px;
+    padding: 10px;
+    float: left;
+    font-size: 16px;
+}
+
+.buttons {
+    color: #FEFEDF;
+    background-color: #7F65C5;
+    width: 25%;
+    height: 40px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    border: none;
+}
+
+.buttons:hover {
+    color: #4A4453;
+    background-color: #EACAFF;
+}
+
+.responsive {
+    max-width: 100%;
+    height: auto;
+}
+
+#checklist {
+    position: absolute;    
+    top: 0;
+    left: 0;
+    bottom: 0;
+    margin-left: 12%;
+    width: 200px;
+}
+
+@media only screen and (max-width: 730px) {
+    #checklist {
+        margin-left: 3%;
+        width: 120px;
+    }
+    #title {
+        font-size: 5vw;
+    }
 }
