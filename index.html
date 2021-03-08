@@ -11,24 +11,33 @@
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
-        <script src="jquery-3.4.1.js"></script>   
+        <script src="https://kit.fontawesome.com/3318035e44.js"></script>
     </head>
 
     <body>
-        <div class="header"> 
+        <div class="header font-style"> 
             <h1 id="title">My ToDo List</h1>
         </div>
-        <div>
-            <img src="images/office-checklist.png" alt="checklist" id="checklist">  
-        </div>
+     
         <div class="main">
             <div class="container-tasks">
                 <input type="text" class="input" id="new-task" placeholder="What to do?">
-                <button class="buttons" id="new-task-button">Add</button>
-                <ul id="task-list"></ul>
-                <button class="buttons" id="remove-button">Delete</button>
-            </div>              
+                <i class="fas fa-plus-square add-icon"></i>
+                <i class="fas fa-check-square done-icon"></i>
+                <i class="fas fa-minus-square delete-icon"></i>
+                <ul class="list" id="task-list"></ul>
+            </div>          
         </div>
+      
+         <!-- Footer -->
+        <footer>
+            <img src="images/office-checklist.png" alt="checklist" id="checklist">
+            <div class="footer">
+                <span class="chevron" title="To The Top"><a href="#"><i class="fas fa-chevron-circle-up"></i></a></span>
+                <p class="copyright font-style">Copyright &copy; 2021 | Malgorzata Pick</p>
+            </div>
+        </footer>
+        <!-- End footer -->
         
         <script src="app.js"></script>
 
