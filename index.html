@@ -15,25 +15,27 @@
     </head>
 
     <body>
-        <div class="header font-style"> 
-            <h1 id="title">My ToDo List</h1>
+        <div class="header font-style topnav">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-tasks"></i></a></li>
+                <li><h1 id="title">My Things To Do</h1></li>
+            </ul>
         </div>
-     
+         
         <div class="main">
             <div class="container-tasks">
                 <input type="text" class="input" id="new-task" placeholder="What to do?">
-                <i class="fas fa-plus-square add-icon"></i>
-                <i class="fas fa-check-square done-icon"></i>
-                <i class="fas fa-minus-square delete-icon"></i>
+                <i class="fas fa-plus-square add-icon" title="Add new task"></i>
                 <ul class="list" id="task-list"></ul>
-            </div>          
+            </div> 
+            <div>
+                <i class="fas fa-trash trash-icon" title="Delete task"></i>
+            </div>
         </div>
-      
          <!-- Footer -->
         <footer>
-            <img src="images/office-checklist.png" alt="checklist" id="checklist">
             <div class="footer">
-                <span class="chevron" title="To The Top"><a href="#"><i class="fas fa-chevron-circle-up"></i></a></span>
+                <span class="chevron" title="To the top"><a href="#"><i class="fas fa-chevron-circle-up"></i></a></span>
                 <p class="copyright font-style">Copyright &copy; 2021 | Malgorzata Pick</p>
             </div>
         </footer>

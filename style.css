@@ -1,6 +1,6 @@
 body {
     font-family: Roboto, Tahoma, Helvetica, Verdana, Arial, sans-serif;
-    background-color: #FEFEDF;
+    background-color: #E1E2E1;
     color: #4A4453;
     margin: 0;
 }
@@ -25,7 +25,37 @@ div {
     text-align: center;
     padding: 10px;
     background-color: #7F65C5;
-    color: #FEFEDF;
+    color: #FFFFFF;
+}
+
+.logo {
+    float: left;
+    color: #ffffff;
+    font-size: 50px;
+    margin-left: 20px;
+}
+
+.topnav {
+    overflow: hidden;
+}
+
+.topnav a {
+    float: left;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 45px;
+}
+
+.topnav a:hover {
+  color: #5ffdd2;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 .main {
@@ -37,10 +67,10 @@ div {
     margin-left: auto;
     margin-right: auto;
     margin-top: 50px;
-    max-width: 1200px;
+    max-width: 1000px;
     height: auto;
     padding: 60px;
-    background-color: #00C9A2;
+    background-color: #ffffff;
     border-radius: 15px;
     box-shadow: 0px 1px 5px rgba(74,68,83,.7);
 }
@@ -53,77 +83,35 @@ div {
     margin: 0;
     border: none;
     border-radius: 0;
-    width: 70%;
-    height: 40px;
+    width: 85%;
+    height: 50px;
     padding: 10px;
     float: left;
     font-size: 16px;
+    border: 5px solid #00C9A2;
+    border-radius: 15px;
 }
 
 .add-icon {
-    width: 5%;
-    color: #7F65C5;
-    background-color: #00C9A2;
-    font-size: 40px;
+    width: 15%;
+    color: #00C9A2;
+    background-color: #ffffff;
+    font-size: 50px;
     text-align: center;
-    margin-left: 20px;
 }
 
 .add-icon:hover {
-    color: #FEFEDF;
+    color: #5ffdd2;
 }
 
-.done-icon {
-    width: 5%;
-    color: #7F65C5;
-    background-color: #00C9A2;
-    font-size: 40px;
-    text-align: center;
+.trash-icon {
+    color: #00C9A2;
+    font-size: 25px;
+    float: right;
 }
 
-.done-icon:hover {
-    color: #FEFEDF;
-}
-
-.delete-icon {
-    width: 5%;
-    color: #7F65C5;
-    background-color: #00C9A2;
-    font-size: 40px;
-    text-align: center;
-}
-
-.delete-icon:hover {
-    color: #FEFEDF;
-}
-
-.buttons {
-    color: #FEFEDF;
-    background-color: #7F65C5;
-    width: 25%;
-    height: 40px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: 0.3s;
-    border: none;
-}
-
-.buttons:hover {
-    color: #4A4453;
-    background-color: #EACAFF;
-}
-
-.responsive {
-    max-width: 100%;
-    height: auto;
-}
-
-#checklist {
-    position: relative;
-    margin-left: auto;
-    margin-right: auto;
-	top: 140px;
-    width: 200px;
+.trash-icon:hover {
+    color: #5ffdd2;
 }
 
 .footer {
@@ -133,7 +121,7 @@ div {
     padding: 10px;
     width: 100%;
     height: auto;
-    color: #FEFEDF;
+    color: #FFFFFF;
     background-color: #7F65C5; 
     text-align: center;
     display: block;
@@ -142,20 +130,18 @@ div {
 
 .chevron {
     float: right;
-    font-size: 25px;
+    font-size: 50px;
 }
 
 .chevron a {
-    color: #FEFEDF;
+    color: #FFFFFF;
 }
 
 .chevron a:hover {
-    color: #00C9A2;
+    color: #5ffdd2;
 }
 
 @media only screen and (max-width: 730px) {
-    #checklist {
-    }
     #title {
         font-size: 1.5em;
     }
