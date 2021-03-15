@@ -4,7 +4,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
         <meta name="description" content="ToDo List | Web Application">
-        <meta name="keywords" content="ToDo App, Java Developer, javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API">
+        <meta name="keywords" content="ToDo App, To-Do List, Checklist, Application, Java Developer, Javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API">
         <meta name="author" content="Malgorzata Pick">
         <title>ToDo App</title>
         <link rel="icon" href="images/task-list.png" type="image/jpg" sizes="16x16">
@@ -14,28 +14,23 @@
         <script src="https://kit.fontawesome.com/3318035e44.js"></script>
     </head>
 
-    <body>
-        <div class="header font-style topnav">
-            <ul>
-                <li><a href="index.html"><i class="fas fa-tasks"></i></a></li>
-                <li><h1 id="title">My Things To Do</h1></li>
-            </ul>
-        </div>
-         
+    <body> 
+            <div class="header topnav font-style">
+                <h1 class="title">My Things To Do</h1>
+            </div> 
         <div class="main">
+            <div class="img"><img src="images/office-checklist.png" alt="checklist" id="checklist"></div>
             <div class="container-tasks">
                 <input type="text" class="input" id="new-task" placeholder="What to do?">
                 <i class="fas fa-plus-square add-icon" title="Add new task"></i>
                 <ul class="list" id="task-list"></ul>
             </div> 
-            <div>
-                <i class="fas fa-trash trash-icon" title="Delete task"></i>
-            </div>
         </div>
          <!-- Footer -->
         <footer>
             <div class="footer">
                 <span class="chevron" title="To the top"><a href="#"><i class="fas fa-chevron-circle-up"></i></a></span>
+                <span class="trash-icon" title="Delete task"><a href="#"><i class="fas fa-trash"></i></a></span>
                 <p class="copyright font-style">Copyright &copy; 2021 | Malgorzata Pick</p>
             </div>
         </footer>
