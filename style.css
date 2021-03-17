@@ -31,13 +31,12 @@ div {
 }
 
 #checklist {
-    width: 200px;
+    max-width: 200px;
 }
 
 .img {
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
     text-align: center;
 }
 
@@ -45,7 +44,8 @@ div {
     position: relative;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    margin-top: 20px;
+    margin-bottom: 30px;
     max-width: 1000px;
     height: auto;
     padding: 60px;
@@ -60,19 +60,17 @@ div {
 
 .input {
     margin: 0;
-    border: none;
-    border-radius: 0;
-    width: 85%;
+    width: 90%;
     height: 50px;
-    padding: 10px;
+    padding: 15px;
     float: left;
-    font-size: 16px;
+    font-size: 18px;
     border: 5px solid #00C9A2;
     border-radius: 15px;
 }
 
 .add-icon {
-    width: 15%;
+    width: 10%;
     color: #00C9A2;
     background-color: #ffffff;
     font-size: 50px;
@@ -83,11 +81,16 @@ div {
     color: #5ffdd2;
 }
 
+ul {
+    padding: 0;
+}
+
 ul li {
+    margin: 0;
     width: 100%;
     cursor: pointer;
     position: relative;
-    padding: 12px 8px 12px 40px;
+    padding: 15px;
     list-style-type: none;
     background: #E1E2E1;
     font-size: 18px;
@@ -100,6 +103,27 @@ ul li {
 
 ul li:nth-child(odd) {
   background: #EEEEEE;
+}
+
+ul li:hover {
+  background: #CCCCCC;
+}
+
+.trash {
+    width: 25px;
+    height: 25px;
+}
+
+.close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 11px;
+}
+
+.close:hover {
+  background-color: #f44336;
+  color: white;
 }
 
 .footer {
@@ -117,34 +141,56 @@ ul li:nth-child(odd) {
     box-shadow: 0px 1px 5px rgba(74,68,83,.7);
 }
 
-.trash-icon a {
-    color: #ff1a1a;
-    font-size: 45px;
-    margin-right: 10px;
-    float: right;
-}
-
-.trash-icon a:hover {
-    color: #5ffdd2;
-}
-
 .chevron a {
     color: #FFFFFF;
-    font-size: 45px;
+    font-size: 40px;
     margin-left: 10px;
-    float: left;
+    float: right;
 }
 
 .chevron a:hover {
     color: #5ffdd2;
 }
 
-@media only screen and (max-width: 730px) {
+@media only screen and (max-width: 770px) {
     .title {
         font-size: 1.5em;
     }
-
-    .add-icon {
-        margin left: 10px;
+    #checklist {
+        width: 150px;
+    }
+    .container-tasks {
+        padding: 30px;
+}
+    .input {
+        width: 80%;
+        height: 40px;
+        font-size: 15px;
+        padding: 10px;
+    }
+    .add-icon {       
+        font-size: 40px;
+        widows: 8%;
+        padding-left: 5px;
+    }
+    ul li {
+        font-size: 15px;
+        padding: 10px;
+    }
+    .trash {
+        width: 20px;
+        height: 20px;
+    }
+    .close {
+        padding: 7px;
+    }
+    .footer {
+        font-size: 15px;
+    }
+    .trash-icon a {
+        font-size: 30px;
+    }
+    .chevron a {
+        font-size: 30px;
     }
 }
