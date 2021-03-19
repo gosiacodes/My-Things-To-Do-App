@@ -23,7 +23,7 @@ div {
     text-align: center;
     padding: 10px;
     background-color: #7F65C5;
-    color: #FFFFFF;
+    color: #ffffff;
 }
 
 .main {
@@ -75,6 +75,7 @@ div {
     background-color: #ffffff;
     font-size: 50px;
     text-align: center;
+    cursor: pointer;
 }
 
 .add-icon:hover {
@@ -87,10 +88,10 @@ ul {
 
 ul li {
     margin: 0;
-    width: 100%;
+    width: 90%;
     cursor: pointer;
     position: relative;
-    padding: 15px 15px 15px 40px;
+    padding: 15px 15px 15px 45px;
     list-style-type: none;
     background: #E1E2E1;
     font-size: 18px;
@@ -102,11 +103,11 @@ ul li {
 }
 
 ul li:nth-child(odd) {
-    background: #EEEEEE;
+    background: #eeeeee;
 }
 
 ul li:hover {
-    background: #CCCCCC;
+    background: #cccccc;
 }
 
 ul li.checked {
@@ -118,7 +119,7 @@ ul li.checked {
 ul li.checked::before {
     content: '';
     position: absolute;
-    border-color: #fff;
+    border-color: #ffffff;
     border-style: solid;
     border-width: 0 2px 2px 0;
     top: 10px;
@@ -134,15 +135,14 @@ ul li.checked::before {
 }
 
 .close {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 11px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 11px;
 }
 
 .close:hover {
-  background-color: #f44336;
-  color: white;
+    background-color: #f44336;
 }
 
 .footer {
@@ -152,16 +152,16 @@ ul li.checked::before {
     padding: 10px;
     width: 100%;
     height: auto;
-    color: #FFFFFF;
+    color: #ffffff;
     background-color: #7F65C5; 
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     display: block;
     box-shadow: 0px 1px 5px rgba(74,68,83,.7);
 }
 
 .chevron a {
-    color: #FFFFFF;
+    color: #ffffff;
     font-size: 40px;
     margin-left: 10px;
     float: right;
@@ -195,6 +195,10 @@ ul li.checked::before {
     ul li {
         font-size: 15px;
         padding: 10px;
+    }
+    ul li.checked::before {
+        height: 12px;
+        width: 6px;
     }
     .trash {
         width: 20px;

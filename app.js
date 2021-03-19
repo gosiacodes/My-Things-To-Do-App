@@ -19,7 +19,7 @@ function newTask() {
     span.className = "close";
     span.appendChild(img);
     listItem.appendChild(span);
-
+    
     for (i = 0; i < close.length; i++) {
         close[i].onclick = function() {
             var div = this.parentElement;
@@ -39,8 +39,17 @@ for (i = 0; i < close.length; i++) {
 }
 
 // Add "checked" sign and "line-through" when clicking on a list item.
-document.querySelector("ul").addEventListener('click',(event)  => {
+document.querySelector("ul").addEventListener("click",(event)  => {
     if (event.target.tagName === "LI") {
         event.target.classList.toggle("checked");
     }
 });
+
+// Setting EventListener for "enter" key.
+document.querySelector(".input").addEventListener("keyup", (event) => {
+    if (event.keyCode === 13) {
+        event.preventDefault();
+        document.querySelector(".add-icon").click();
+    }
+});
+
