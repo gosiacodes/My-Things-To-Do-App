@@ -15,18 +15,23 @@
     </head>
 
     <body> 
-            <div class="header topnav font-style">
-                <h1 class="title">My Things To Do</h1>
-            </div> 
+        <div class="header topnav font-style">
+            <h1 class="title">My Things To Do</h1>
+        </div> 
         <div class="main">
             <div class="img"><img src="images/office-checklist.png" alt="checklist" id="checklist"></div>
             <div class="container-tasks">
-                <input type="text" class="input" id="new-task" placeholder="What to do?">
-                <i class="fas fa-plus-square add-icon" onclick="newTask()" title="Add new task"></i>
-                <ul class="list" id="task-list">
-                    <li>Work on the project</li>
-                </ul>
-            </div> 
+                <input type="text" class="input" id="new-task" placeholder="What is there to do?">
+                <div >
+                    <ul class = "button-group">
+                        <button type="submit" class="button col1" id="add-button"  title="Add new task">ADD TASK</button>
+                        <button type="submit" class="button col1" id="edit-button" title="Edit task">EDIT TASK</button>
+                        <button type="submit" class="button col2" id="sort-button" title="Sort tasks">SORT TASKS</button>
+                        <button type="submit" class="button col2" id="delete-all-button" title="Delete all tasks">DELETE ALL</button>
+                    </ul>
+                </div>
+                <ul class="list" id="task-list"></ul>
+            </div>
         </div>
          <!-- Footer -->
         <footer>
@@ -40,14 +45,13 @@
         <script src="app.js"></script>
         
         <!-- The core Firebase JS SDK is always required and must be listed first -->
-        <script src="/__/firebase/8.3.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
-        https://firebase.google.com/docs/web/setup#available-libraries -->
-        <script src="/__/firebase/8.3.1/firebase-analytics.js"></script>
+             https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
 
-        <!-- Initialize Firebase -->
-        <script src="/__/firebase/init.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
 
     </body>
 </html>
