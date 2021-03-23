@@ -99,6 +99,12 @@ div {
     color: #000000;
 }
 
+.button:disabled {
+    background-color: #cccccc;
+    color: #ffffff;
+    cursor: inherit;
+}
+
 ul.button-group {
     display: flex;
     flex-direction: row;
@@ -138,22 +144,22 @@ ul li.checked {
     background: #888888;
     color: #ffffff;
     text-decoration: line-through;
+    text-decoration-color: #ff4d4d;
 }
 
-ul li.checked::before {
-    content: '';
+.check {
     position: absolute;
-    border-color: #ffffff;
-    border-style: solid;
-    border-width: 0 2px 2px 0;
-    top: 10px;
-    left: 16px;
-    transform: rotate(45deg);
-    height: 20px;
-    width: 10px;
+    left: 0;
+    top: 0;
+    padding: 11px;
 }
 
-.trash, .pencil {
+.checkbox {
+    width: 25px;
+    height: 25px;
+}
+
+.trash {
     width: 25px;
     height: 25px;
 }
@@ -166,7 +172,7 @@ ul li.checked::before {
 }
 
 .close:hover {
-    background-color: #f44336;
+    background-color: #ff4d4d;
 }
 
 .footer {    

@@ -1,3 +1,9 @@
+// Disable buttons without functions
+document.getElementById("edit-button").disabled = true;
+document.getElementById("sort-button").disabled = true;
+document.getElementById("delete-all-button").disabled = true;
+
+/*
 // Read input and create a new list item when clicking on the "Add new task" button.
 document.getElementById("add-button").addEventListener("click", () => {
     const listItem = document.createElement("li");
@@ -26,7 +32,59 @@ document.getElementById("add-button").addEventListener("click", () => {
             div.style.display = "none";
         }
     }
+    const span2 = document.createElement("span");
+    const checkbox = document.createElement("INPUT");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.className = "checkbox";
+    span2.className = "check";
+    span2.appendChild(checkbox);
+    listItem.appendChild(span2);
 });
+*/
+
+// Read input, send it to database and create a new list item when clicking on the "Add new task" button.
+document.getElementById("add-button").addEventListener("click", () => {
+    const listItem = document.createElement("li");
+    const inputValue = document.getElementById("new-task").value;
+    
+    if (inputValue === '') {
+        alert("You must write what you want to do!");
+    } else {
+        let task = {
+            todo: inputValue,
+            done: false
+        };    
+        firebase.database().ref("my_todos/").push(task);
+        listItem.id = task.key;
+        document.getElementById("task-list").appendChild(listItem);
+        document.getElementById("new-task").value = "";
+    } 
+    
+    // Add "trash can" icon at the end of task.
+    const span = document.createElement("span");
+    const deleteIcon = document.createElement("img");
+    deleteIcon.setAttribute('src', 'images/trash-can.png');
+    deleteIcon.className = "trash";
+    span.className = "close";
+    span.appendChild(deleteIcon);
+    listItem.appendChild(span);
+    
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+    const span2 = document.createElement("span");
+    const checkbox = document.createElement("INPUT");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.className = "checkbox";
+    span2.className = "check";
+    span2.appendChild(checkbox);
+    listItem.appendChild(span2);
+
+});
+
 
 // Click on a "trush can" icon to delete item from the list.
 const close = document.getElementsByClassName("close");
@@ -71,3 +129,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 let database = firebase.database();
+
+var bigOne = document.getElementById("bigOne");
+var dbRef = firebase.database().ref().child("text");
+dbRef.on("value", snap => bigOne.innerText = snap.val());
