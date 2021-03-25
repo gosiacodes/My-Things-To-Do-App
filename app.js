@@ -1,3 +1,8 @@
+// Disable buttons without functions.
+document.getElementById("edit-button").disabled = true;
+document.getElementById("sort-button").disabled = true;
+//document.getElementById("delete-all-button").disabled = true;
+
 // Web app's Firebase configuration.
 var firebaseConfig = {
     apiKey: "AIzaSyB5kRc09ifanS9_tXPoOAPh2OYcYGZibM8",
@@ -15,43 +20,42 @@ firebase.analytics();
 
 let database = firebase.database();
 
-
 // Testing Firebase - will be deleted soon. 
 var bigOne = document.getElementById("bigOne");
 var dbRef = firebase.database().ref().child("text");
 dbRef.on("value", snap => bigOne.innerText = snap.val());
 
-// Disable buttons without functions.
-document.getElementById("edit-button").disabled = true;
-document.getElementById("sort-button").disabled = true;
-//document.getElementById("delete-all-button").disabled = true;
-
-// Read input, send it to database and create a new list item when clicking on the "Add new task" button.
+// Read input when clicking on the "Add new task" button.
 document.getElementById("add-button").addEventListener("click", () => {
-    //const listItem = document.createElement("li");
-    const inputValue = document.getElementById("new-task").value;
-    
+    const inputValue = document.getElementById("new-task").value;   
     if (inputValue === '') {
         alert("You must write what you want to do!");
     } else {
         addItemsToList(inputValue);
     } 
-
 });
 
+// Add items to list and send data to Firebase database.
 const addItemsToList = (inputValue) => {
     const listItem = document.createElement("li");
+    let key = database.ref().child("my_todos/").push().key;
     let task = {
             title: inputValue,
-            done: false
-        };    
-        database.ref("my_todos/").push(task);
-        listItem.id = task.key;      
-        listItem.innerHTML = task.title;
-        
-        document.getElementById("task-list").appendChild(listItem);
-        document.getElementById("new-task").value = "";
+            done: false,
+            key: key
+        };
     
+    let updates = {};
+    updates["my_todos/" + key] = task;
+    firebase.database().ref().update(updates);
+      
+    //database.ref("my_todos/").push(task);
+    listItem.id = task.key;      
+    listItem.innerHTML = task.title;
+
+    document.getElementById("task-list").appendChild(listItem);
+    document.getElementById("new-task").value = "";
+   
     // Add "trash can" icon at the end of task.
     const span = document.createElement("span");
     const deleteIcon = document.createElement("img");
@@ -67,6 +71,8 @@ const addItemsToList = (inputValue) => {
             div.style.display = "none";
         }
     }
+    
+    // Add checkbox at the begining of task.
     const span2 = document.createElement("span");
     const checkbox = document.createElement("INPUT");
     checkbox.setAttribute("type", "checkbox");
@@ -87,7 +93,7 @@ for (i = 0; i < close.length; i++) {
     }
 }
 
-// Add "checked" sign and "line-through" when clicking on a list item.
+// Add "line-through" when clicking on a list item.
 document.querySelector(".list").addEventListener("click",(event)  => {
     if (event.target.tagName === "LI") {
         event.target.classList.toggle("checked");     
@@ -102,21 +108,8 @@ document.querySelector(".input").addEventListener("keyup", (event) => {
     }
 });
 
+// Delete all tasks from Firebase database.
 document.getElementById("delete-all-button").addEventListener("click", () => {
     database.ref("my_todos/").remove();
 });
-
-
-function fetchAllData(){
-    database.ref("my_todos/").once("value", function(snapshot){
-        snapshot.forEach(
-            function(ChildSnapshot){
-                let todoTask = ChildSnapshot.val().title;
-                addItemsToList(todoTask);
-            }
-        )
-    })
-}
-
-window.onload(fetchAllData());
 
