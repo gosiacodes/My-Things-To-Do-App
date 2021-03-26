@@ -1,7 +1,6 @@
 // Disable buttons without functions.
 document.getElementById("edit-button").disabled = true;
 document.getElementById("sort-button").disabled = true;
-//document.getElementById("delete-all-button").disabled = true;
 
 // Web app's Firebase configuration.
 var firebaseConfig = {
@@ -49,8 +48,7 @@ const addItemsToList = (inputValue) => {
     updates["my_todos/" + key] = task;
     firebase.database().ref().update(updates);
       
-    //database.ref("my_todos/").push(task);
-    listItem.id = task.key;      
+    listItem.id = task.key;
     listItem.innerHTML = task.title;
 
     document.getElementById("task-list").appendChild(listItem);
@@ -88,8 +86,14 @@ const close = document.getElementsByClassName("close");
 let i;
 for (i = 0; i < close.length; i++) {
     close[i].onclick = function() {
-        let div = this.parentElement;
-        div.style.display = "none";
+        let listItem = this.parentElement;             
+        key = listItem.id;  
+        database.ref("my_todos/").child(key).remove();
+        listItem.style.display = "none"; 
+        
+        //database.ref("my_todos/" + key).remove();
+        //database.ref("my_todos/").child(key).remove();
+        //database.ref().child("my_todos/").remove().key;
     }
 }
 
@@ -112,4 +116,49 @@ document.querySelector(".input").addEventListener("keyup", (event) => {
 document.getElementById("delete-all-button").addEventListener("click", () => {
     database.ref("my_todos/").remove();
 });
+
+// Fetch all data with Firebase database.
+function fetchAllData(){
+    database.ref("my_todos/").once("value", function(snapshot){
+        snapshot.forEach(function(ChildSnapshot){
+            let task = ChildSnapshot.val();
+            let key = ChildSnapshot.val().key;
+            
+            const listItem = document.createElement("li");
+            
+            listItem.id = task.key;      
+            listItem.innerHTML = task.title;
+
+            document.getElementById("task-list").appendChild(listItem);
+            document.getElementById("new-task").value = "";
+
+            // Add "trash can" icon at the end of task.
+            const span = document.createElement("span");
+            const deleteIcon = document.createElement("img");
+            deleteIcon.setAttribute('src', 'images/trash-can.png');
+            deleteIcon.className = "trash";
+            span.className = "close";
+            span.appendChild(deleteIcon);
+            listItem.appendChild(span);
+
+            for (i = 0; i < close.length; i++) {
+                close[i].onclick = function() {
+                    var div = this.parentElement;
+                    div.style.display = "none";
+                }
+            }
+
+            // Add checkbox at the begining of task.
+            const span2 = document.createElement("span");
+            const checkbox = document.createElement("INPUT");
+            checkbox.setAttribute("type", "checkbox");
+            checkbox.className = "checkbox";
+            span2.className = "check";
+            span2.appendChild(checkbox);
+            listItem.appendChild(span2);
+            });           
+    });   
+}
+
+window.onload(fetchAllData());
 
