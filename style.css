@@ -70,13 +70,22 @@ div {
 
 .input {
     margin: 0;
-    width: 100%;
     height: 50px;
     padding: 15px;
     float: none;
-    font-size: 18px;
     border: 5px solid #00C9A2;
     border-radius: 15px;
+}
+
+#task-title {
+    width: 75%;
+    font-size: 18px;
+}
+
+#task-date {
+    width: 22%;
+    font-size: 14px;
+    margin-left: 2%;
 }
 
 .button {
@@ -91,6 +100,7 @@ div {
     margin: 10px 10px;
     padding: 10px 40px;
     width: 20%;
+    transition-duration: 0.4s;
     box-shadow: 0px 3px 8px rgba(74,68,83,.7);
 }
 
@@ -118,18 +128,18 @@ ul {
 ul li {
     margin: 0;
     width: 100%;
-    cursor: pointer;
     position: relative;
-    padding: 15px 15px 15px 45px;
+    font-size: 16px;
+    padding: 10px 10px 10px 50px;
     list-style-type: none;
-    background: #E1E2E1;
-    font-size: 18px;
-    transition: 0.2s;
+    background: #E1E2E1; 
+    transition-duration: 0.2s;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
     word-wrap: break-word;
+    margin-bottom: 2px;
 }
 
 ul li:nth-child(odd) {
@@ -138,6 +148,7 @@ ul li:nth-child(odd) {
 
 ul li:hover {
     background: #cccccc;
+    box-shadow: 0px 0px 2px 2px rgba(0,201,162,.7);
 }
 
 ul li.checked {
@@ -145,6 +156,12 @@ ul li.checked {
     color: #ffffff;
     text-decoration: line-through;
     text-decoration-color: #ff4d4d;
+}
+
+.date {
+    font-size: 12px;
+    font-family: monospace;
+    font-style: italic;
 }
 
 .check {
@@ -157,6 +174,7 @@ ul li.checked {
 .trash, .checkbox {
     width: 25px;
     height: 25px;
+    cursor: pointer;
 }
 
 .close {
@@ -198,7 +216,7 @@ ul li.checked {
 }
 
 @media only screen and (max-width: 1024px) {
-     .title {
+    .title {
         font-size: 1.5em;
     }
     .button {
@@ -220,10 +238,14 @@ ul li.checked {
         padding: 40px;
     }
     .input {
-        width: 100%;
         height: 40px;
-        font-size: 15px;
         padding: 10px;
+    }
+    #task-title {
+        font-size: 15px;
+    }
+    #task-date {
+        font-size: 12px;
     }
     .button {
         font-size: 12px;
@@ -232,8 +254,11 @@ ul li.checked {
         width: 20%;
     }
     ul li {
-        font-size: 15px;
-        padding: 10px 10px 10px 40px;
+        font-size: 14px;
+        padding: 8px 8px 8px 40px;
+    }
+    .date {
+        font-size: 11px;
     }
     .trash, .checkbox {
         width: 20px;
@@ -258,8 +283,17 @@ ul li.checked {
         max-width: 100px;
     }
     .input {
-        font-size: 14px;
         border: 4px solid #00C9A2;
+    }
+    #task-title {
+        font-size: 14px;
+        width: 100%;
+    }
+    #task-date {
+        font-size: 12px;
+        width: 100%;
+        margin-left: 0;
+        margin-top: 5px;
     }
     .button {
         font-size: 12px;
@@ -274,8 +308,11 @@ ul li.checked {
         justify-content: center;
     }
     ul li {
-        font-size: 14px;
-        padding: 10px 10px 10px 30px;
+        font-size: 12px;
+        padding: 5px 5px 5px 30px;
+    }
+     .date {
+        font-size: 9px;
     }
     .trash, .checkbox {
         width: 15px;

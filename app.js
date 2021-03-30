@@ -21,11 +21,20 @@ let database = firebase.database();
 
 // Read input when clicking on the "Add new task" button.
 document.getElementById("add-button").addEventListener("click", () => {
-    const inputValue = document.getElementById("new-task").value;   
-    if (inputValue === '') {
+    const inputValue = document.getElementById("task-title").value;
+    const dateValue = document.getElementById("task-date").value;
+    //const currentDate = new Date();
+    //const givenDate = new Date(dateValue);
+    if (inputValue === "" && dateValue === "") {
+        alert("You must write what you want to do and choose deadline date!")
+    } else if (inputValue === "") {
         alert("You must write what you want to do!");
+    } else if (dateValue === "") {
+        alert("You must choose deadline date!")
+    //} else if (givenDate < currentDate) {
+    //    alert("The date must be bigger or equal to current date!")
     } else {
-        addItemsToDatabase(inputValue);
+        addItemsToDatabase(inputValue, dateValue);
     } 
 });
 
@@ -38,10 +47,11 @@ document.querySelector(".input").addEventListener("keyup", (event) => {
 });
 
 // Send task-items to Firebase.
-const addItemsToDatabase = (inputValue) => {
+const addItemsToDatabase = (inputValue, dateValue) => {
     let key = database.ref().child("my_todos/").push().key;
     let task = {
         title: inputValue,
+        date: dateValue,
         done: false,
         key: key
     };
@@ -56,11 +66,19 @@ const addItemsToDatabase = (inputValue) => {
 // Add task-items to lists.
 const addItemsToListView = (task, key) => {
     const listItem = document.createElement("li");
+    const taskTitle = document.createElement("p");
+    const taskDate = document.createElement("p");
+    
+    taskDate.className = "date";
     listItem.id = task.key;
-    listItem.innerHTML = task.title;
+    taskTitle.innerHTML = task.title;
+    taskDate.innerHTML = task.date;
+    
+    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML;
 
     document.getElementById("task-list").appendChild(listItem);
-    document.getElementById("new-task").value = "";
+    document.getElementById("task-title").value = "";
+    document.getElementById("task-date").value = "";
    
     // Add "trash can" icon at the end of task.
     const span = document.createElement("span");
