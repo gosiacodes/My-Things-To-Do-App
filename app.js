@@ -86,7 +86,7 @@ const addItemsToListView = (task, key) => {
     deleteIcon.setAttribute("src", "images/trash-can.png");
     deleteIcon.className = "trash";
     span.className = "close";
-    span.appendChild(deleteIcon);
+    span.appendChild(deleteIcon);   
     listItem.appendChild(span);
     
     // Click on a "trush can" icon to delete item from the list. 
@@ -116,7 +116,14 @@ const addItemsToListView = (task, key) => {
             let listItem = this.parentElement.parentElement;
             listItem.classList.toggle("checked");
         }
-    }   
+    }
+    
+    // Description???
+    document.querySelector(".list").addEventListener("click",(event)  => {
+        if (event.target.tagName === "LI") {
+            alert("Here will come the description");  
+        }
+    });
 };
 
 // Delete all tasks from Firebase database.
