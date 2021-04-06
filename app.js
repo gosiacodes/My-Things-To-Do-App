@@ -1,7 +1,3 @@
-// Disable buttons without functions.
-document.getElementById("edit-button").disabled = true;
-document.getElementById("sort-button").disabled = true;
-
 // Web app's Firebase configuration.
 var firebaseConfig = {
     apiKey: "AIzaSyB5kRc09ifanS9_tXPoOAPh2OYcYGZibM8",
@@ -26,11 +22,11 @@ document.getElementById("add-button").addEventListener("click", () => {
     //const currentDate = new Date();
     //const givenDate = new Date(dateValue);
     if (inputValue === "" && dateValue === "") {
-        alert("You must write what you want to do and choose deadline date!")
+        alert("You must write what you want to do and choose deadline date!");
     } else if (inputValue === "") {
         alert("You must write what you want to do!");
     } else if (dateValue === "") {
-        alert("You must choose deadline date!")
+        alert("You must choose deadline date!");
     //} else if (givenDate < currentDate) {
     //    alert("The date must be bigger or equal to current date!")
     } else {
@@ -46,7 +42,7 @@ document.querySelector(".input").addEventListener("keyup", (event) => {
     }
 });
 
-// Send task-items to Firebase.
+// Send task-items to Firebase database.
 const addItemsToDatabase = (inputValue, dateValue) => {
     let key = database.ref().child("my_todos/").push().key;
     let task = {
@@ -63,7 +59,7 @@ const addItemsToDatabase = (inputValue, dateValue) => {
     addItemsToListView(task, key);
 };
 
-// Add task-items to lists.
+// Add task-items to list-view.
 const addItemsToListView = (task, key) => {
     const listItem = document.createElement("li");
     const taskTitle = document.createElement("p");
@@ -79,17 +75,34 @@ const addItemsToListView = (task, key) => {
     document.getElementById("task-list").appendChild(listItem);
     document.getElementById("task-title").value = "";
     document.getElementById("task-date").value = "";
-   
-    // Add "trash can" icon at the end of task.
-    const span = document.createElement("span");
-    const deleteIcon = document.createElement("img");
-    deleteIcon.setAttribute("src", "images/trash-can.png");
-    deleteIcon.className = "trash";
-    span.className = "close";
-    span.appendChild(deleteIcon);   
-    listItem.appendChild(span);
     
-    // Click on a "trush can" icon to delete item from the list. 
+    // Add delete-button at the end of task.
+    const buttonDelete = document.createElement("button");    
+    const deleteIcon = document.createElement("i");
+    deleteIcon.setAttribute('class', 'fas fa-trash-alt');    
+    buttonDelete.setAttribute('id', 'task-delete-button');
+    buttonDelete.setAttribute('class', 'close');
+    buttonDelete.appendChild(deleteIcon);
+    listItem.appendChild(buttonDelete); 
+    
+    // Add edit-button at the end of task.
+    const buttonEdit = document.createElement("button");  
+    const editIcon = document.createElement("i");
+    editIcon.setAttribute('class', 'fas fa-pencil-alt');   
+    buttonEdit.setAttribute('id', 'task-edit-button');
+    buttonEdit.appendChild(editIcon);
+    listItem.appendChild(buttonEdit);
+    
+    // Add checkbox at the end of task.
+    const buttonChecked = document.createElement("button");
+    const checkbox = document.createElement("i");
+    checkbox.setAttribute('class', 'fas fa-check');
+    buttonChecked.setAttribute('id', 'task-done-button');
+    buttonChecked.setAttribute('class', 'check');
+    buttonChecked.appendChild(checkbox);
+    listItem.appendChild(buttonChecked);
+    
+    // Delete item from the list when clicked on a "trash can" icon.
     const close = document.getElementsByClassName("close");
     for (i = 0; i < close.length; i++) {
         close[i].onclick = function() {
@@ -99,37 +112,57 @@ const addItemsToListView = (task, key) => {
             database.ref("my_todos/").child(key).remove();
         }
     }
-        
-    // Add checkbox at the begining of task.
-    const span2 = document.createElement("span");
-    const checkbox = document.createElement("INPUT");
-    checkbox.setAttribute("type", "checkbox");
-    checkbox.className = "checkbox";
-    span2.className = "check";
-    span2.appendChild(checkbox);
-    listItem.appendChild(span2);
     
-    // Add "line-through" when checkbox is checked.
-    const checkBox = document.getElementsByClassName("checkbox");
+    // Add "line-through" on task when checkbox is checked.
+    const checkBox = document.getElementsByClassName("check");
     for (i = 0; i < checkBox.length; i++) {
         checkBox[i].onclick = function() {
-            let listItem = this.parentElement.parentElement;
+            let listItem = this.parentElement;
             listItem.classList.toggle("checked");
+            this.firstChild.classList.toggle("fa-check-double");
         }
     }
-    
+    /*
     // Description???
     document.querySelector(".list").addEventListener("click",(event)  => {
         if (event.target.tagName === "LI") {
             alert("Here will come the description");  
         }
     });
+    */
 };
 
-// Delete all tasks from Firebase database.
+// Sort tasks by deadline-date.
+document.getElementById("sort-button").addEventListener("click", () => {
+    let list, i, switching, listItem, dateValue, shouldSwitch;
+    list = document.getElementById("task-list");
+    switching = true;
+    while (switching) {
+        switching = false;
+        listItem = list.getElementsByTagName("LI");
+        for (i = 0; i < (listItem.length - 1); i++) {
+            shouldSwitch = false;
+            dateValue = list.getElementsByClassName("date");
+            if (dateValue[i].innerHTML.toLowerCase() > dateValue[i + 1].innerHTML.toLowerCase()) {
+            shouldSwitch = true;
+            break;
+            }
+        }
+        if (shouldSwitch) {
+            listItem[i].parentNode.insertBefore(listItem[i + 1], listItem[i]);
+            switching = true;
+        }
+    }
+});
+
+// Delete all tasks from list-view and from Firebase database.
 document.getElementById("delete-all-button").addEventListener("click", () => {
     database.ref("my_todos/").remove();
-    document.getElementById("task-list").style.display = "none"; // dziala, ale nie odswieza po dodaniu nowego task-u
+    let list = document.getElementById("task-list");
+    let listItem = list.getElementsByTagName("LI");
+    for (i = 0; i < listItem.length; i++) {
+        listItem[i].style.display = "none";
+    }
 });
 
 // Fetch all data with Firebase database.
@@ -143,5 +176,4 @@ function fetchAllData(){
     });   
 }
 
-//window.onload(fetchAllData());
 window.onload = fetchAllData();
