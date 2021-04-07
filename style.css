@@ -138,7 +138,7 @@ ul li {
     width: 100%;
     position: relative;
     font-size: 16px;
-    padding: 10px 100px 10px 20px;
+    padding: 10px 120px 10px 20px;
     list-style-type: none;
     background: #E1E2E1; 
     transition-duration: 0.2s;
@@ -184,7 +184,7 @@ ul li.checked {
 
 #task-done-button {
     position: absolute;
-    right: 70px;
+    right: 80px;
     top: 40%;
     bottom: 50%;
     height: 30px;
@@ -206,7 +206,7 @@ ul li.checked {
 
 #task-edit-button {
     position: absolute;
-    right: 40px;
+    right: 45px;
     top: 40%;
     bottom: 50%;
     height: 30px;
@@ -246,6 +246,49 @@ ul li.checked {
 
 #task-delete-button:active {
     transform: translateY(4px);
+}
+
+#task-edit-button-editing {
+    position: absolute;
+    right: 45px;
+    top: 40%;
+    bottom: 50%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    border :none;
+    border-radius: 20px;
+    outline: none;
+    background: #ffed83;
+}
+
+#title-editing {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding-left: 10px;
+}
+
+#title-editing:focus {
+    border: 3px solid #ffed83;
+    font-weight: bold;
+}
+
+#date-editing {
+    background-color: #ffffff;
+    border-radius: 14px;
+    padding-left: 10px;
+}
+
+#date-editing:focus {
+    border: 3px solid #ffed83;
+    font-weight: bold;
+}
+
+#no-editing {
+    background-color: inherit;
+    border: none;
+    padding-left: none;
+    font-weight: normal;
 }
 
 .footer {    
@@ -318,7 +361,7 @@ ul li.checked {
     }
     ul li {
         font-size: 15px;
-        padding: 8px 90px 8px 15px;
+        padding: 8px 100px 8px 15px;
     }
     .date {
         font-size: 11px;
@@ -327,16 +370,21 @@ ul li.checked {
         font-size: 15px;
     }
     #task-done-button {
-        right: 60px;
+        right: 70px;
         height: 25px;
         width: 25px;
     }
     #task-edit-button {
-        right: 35px;
+        right: 40px;
         height: 25px;
         width: 25px;
     }
     #task-delete-button {       
+        height: 25px;
+        width: 25px;
+    }
+    #task-edit-button-editing {
+        right: 40px;
         height: 25px;
         width: 25px;
     }
@@ -385,7 +433,7 @@ ul li.checked {
     }
     ul li {
         font-size: 12px;
-        padding: 5px 80px 5px 10px;
+        padding: 5px 90px 5px 10px;
     }
      .date {
         font-size: 9px;
@@ -403,16 +451,21 @@ ul li.checked {
         font-size: 12px;
     }
     #task-done-button {
-        right: 50px;
+        right: 60px;
         height: 20px;
         width: 20px;
     }
     #task-edit-button {
-        right: 30px;
+        right: 35px;
         height: 20px;
         width: 20px;
     }
     #task-delete-button {       
+        height: 20px;
+        width: 20px;
+    }
+    #task-edit-button-editing {
+        right: 35px;
         height: 20px;
         width: 20px;
     }

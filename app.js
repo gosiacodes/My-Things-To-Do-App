@@ -90,17 +90,18 @@ const addItemsToListView = (task, key) => {
     const editIcon = document.createElement("i");
     editIcon.setAttribute('class', 'fas fa-pencil-alt');   
     buttonEdit.setAttribute('id', 'task-edit-button');
+    buttonEdit.setAttribute('onclick', "taskEdit(this.parentElement, this)");
     buttonEdit.appendChild(editIcon);
     listItem.appendChild(buttonEdit);
     
-    // Add checkbox at the end of task.
-    const buttonChecked = document.createElement("button");
+    // Add checkbox-button at the end of task.
+    const buttonCheckbox = document.createElement("button");
     const checkbox = document.createElement("i");
     checkbox.setAttribute('class', 'fas fa-check');
-    buttonChecked.setAttribute('id', 'task-done-button');
-    buttonChecked.setAttribute('class', 'check');
-    buttonChecked.appendChild(checkbox);
-    listItem.appendChild(buttonChecked);
+    buttonCheckbox.setAttribute('id', 'task-done-button');
+    buttonCheckbox.setAttribute('class', 'check');
+    buttonCheckbox.appendChild(checkbox);
+    listItem.appendChild(buttonCheckbox);
     
     // Delete item from the list when clicked on a "trash can" icon.
     const close = document.getElementsByClassName("close");
@@ -164,6 +165,35 @@ document.getElementById("delete-all-button").addEventListener("click", () => {
         listItem[i].style.display = "none";
     }
 });
+
+// Edit task when edit-button clicked.
+const taskEdit = (listItem, buttonEdit) => {
+        buttonEdit.setAttribute("id", "task-edit-button-editing");
+        buttonEdit.setAttribute("onclick", "finishEdit(this.parentElement, this)");
+        
+        taskTitle = listItem.childNodes[0];
+        taskTitle.setAttribute("contenteditable", true);
+        taskTitle.setAttribute("id", "title-editing");
+        taskTitle.focus();
+        
+        taskDate = listItem.childNodes[1];
+        taskDate.setAttribute("contenteditable", true);
+        taskDate.setAttribute("id", "date-editing");
+};
+
+// Finish editing task when edit-button clicked again.
+const finishEdit = (listItem, buttonEdit) => {
+        buttonEdit.setAttribute('id', 'task-edit-button');
+        buttonEdit.setAttribute("onclick", "taskEdit(this.parentElement, this)");
+
+        taskTitle = listItem.childNodes[0];
+        taskTitle.setAttribute("contenteditable", false);
+        taskTitle.setAttribute("id", "no-editing");
+        
+        taskDate = listItem.childNodes[1];
+        taskDate.setAttribute("contenteditable", false);
+        taskDate.setAttribute("id", "no-editing");
+};
 
 // Fetch all data with Firebase database.
 function fetchAllData(){   
