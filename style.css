@@ -266,6 +266,8 @@ ul li.checked {
     background-color: #ffffff;
     border-radius: 14px;
     padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 #title-editing:focus {
@@ -277,6 +279,8 @@ ul li.checked {
     background-color: #ffffff;
     border-radius: 14px;
     padding-left: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
 }
 
 #date-editing:focus {
@@ -287,7 +291,7 @@ ul li.checked {
 #no-editing {
     background-color: inherit;
     border: none;
-    padding-left: none;
+    padding: none;
     font-weight: normal;
 }
 
