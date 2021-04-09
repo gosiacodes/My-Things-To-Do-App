@@ -82,7 +82,7 @@ const addItemsToListView = (task, key) => {
     deleteIcon.setAttribute('class', 'fas fa-trash-alt');    
     buttonDelete.setAttribute('id', 'task-delete-button');
     buttonDelete.setAttribute('onclick', "deleteTask(this.parentElement, this)");
-    buttonDelete.setAttribute('class', 'close');
+    //buttonDelete.setAttribute('class', 'close');
     buttonDelete.appendChild(deleteIcon);
     listItem.appendChild(buttonDelete); 
     
@@ -92,7 +92,7 @@ const addItemsToListView = (task, key) => {
     editIcon.setAttribute('class', 'fas fa-pencil-alt');   
     buttonEdit.setAttribute('id', 'task-edit-button');
     buttonEdit.setAttribute('onclick', "taskEdit(this.parentElement, this)");
-    buttonEdit.setAttribute('class', 'edit');
+    //buttonEdit.setAttribute('class', 'edit');
     buttonEdit.appendChild(editIcon);
     listItem.appendChild(buttonEdit);
     
@@ -102,7 +102,7 @@ const addItemsToListView = (task, key) => {
     checkbox.setAttribute('class', 'fas fa-check');
     buttonCheckbox.setAttribute('id', 'task-done-button');
     buttonCheckbox.setAttribute('onclick', "taskChecked(this.parentElement, this)");
-    buttonCheckbox.setAttribute('class', 'check');
+    //buttonCheckbox.setAttribute('class', 'check');
     buttonCheckbox.appendChild(checkbox);
     listItem.appendChild(buttonCheckbox);
     
@@ -152,7 +152,17 @@ document.getElementById("delete-all-button").addEventListener("click", () => {
 // Add "line-through" on task when checkbox is checked.
 const taskChecked = (listItem, buttonCheckbox) => {
     listItem.classList.toggle("checked");
-    buttonCheckbox.firstChild.classList.toggle("fa-check-double");    
+    buttonCheckbox.firstChild.classList.toggle("fa-check-double");
+    buttonCheckbox.classList.toggle("checked");
+    
+    buttonEdit = listItem.childNodes[3];
+    buttonEdit.classList.toggle("disabled");
+    if (buttonEdit.className === "disabled") {
+        buttonEdit.setAttribute("disabled", "true");
+    }
+    else if (buttonEdit.className !== "disabled") {
+        buttonEdit.removeAttribute("disabled");
+    }
 };
 
 // Edit task when edit-button clicked.
@@ -168,6 +178,10 @@ const taskEdit = (listItem, buttonEdit) => {
     taskDate = listItem.childNodes[1];
     taskDate.setAttribute("contenteditable", true);
     taskDate.setAttribute("id", "date-editing");
+    
+    buttonCheck = listItem.childNodes[4];
+    buttonCheck.setAttribute("class", "disabled");
+    buttonCheck.setAttribute("disabled", "true");
 };
 
 // Finish editing task when edit-button clicked again.
@@ -182,6 +196,10 @@ const finishEdit = (listItem, buttonEdit) => {
     taskDate = listItem.childNodes[1];
     taskDate.setAttribute("contenteditable", false);
     taskDate.setAttribute("id", "no-editing");
+    
+    buttonCheck = listItem.childNodes[4];
+    buttonCheck.removeAttribute("class", "disabled");
+    buttonCheck.removeAttribute("disabled");
     
     let key = listItem.id;
     

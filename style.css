@@ -155,12 +155,12 @@ ul li:nth-child(odd) {
 }
 
 ul li:hover {
-    background: #cccccc;
+    background: #d9d9d9;
     box-shadow: 0px 0px 2px 2px rgba(0,201,162,.7);
 }
 
 ul li.checked {
-    background: #888888;
+    background: #737373;
     color: #ffffff;
     text-decoration: line-through;
     text-decoration-color: #ff4d4d;
@@ -173,13 +173,7 @@ ul li.checked {
 }
 
 .fas {
-    color: #00C9A2;
-    font-size: 18px;
     margin-right: 1px;
-}
-
-.fas:hover {
-    color: #ff4d4d;
 }
 
 #task-done-button {
@@ -189,19 +183,37 @@ ul li.checked {
     bottom: 50%;
     height: 30px;
     width: 30px;
-    cursor:pointer;
-    border:none;
-    border-radius:20px;
-    outline:none;    
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    outline: none;    
     background: none;
+    color: #00C9A2;
+    font-size: 18px;
 }
 
 #task-done-button:hover {
-    background-color: #5ffdd2;
+    background: #5ffdd2;
+    color: #000000;
 }
 
 #task-done-button:active {
     transform: translateY(4px);
+}
+
+#task-done-button.disabled {
+    cursor: inherit;   
+    background-color: #b3b3b3;
+    color: #ff4d4d;
+}
+
+#task-done-button.checked {
+    background: #ffed83;
+}
+
+#task-done-button.checked:hover {
+    background: #5ffdd2;
+    color: #000000;
 }
 
 #task-edit-button {
@@ -211,41 +223,28 @@ ul li.checked {
     bottom: 50%;
     height: 30px;
     width: 30px;
-    cursor:pointer;
-    border:none;
-    border-radius:20px;
-    outline:none;    
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    outline: none;    
     background: none;
+    color: #00C9A2;
+    font-size: 18px;
   }
 
 #task-edit-button:hover {
-    background-color: #5ffdd2;
+    background: #5ffdd2;
+    color: #000000;
 }
 
 #task-edit-button:active {
     transform: translateY(4px);
 }
 
-#task-delete-button {
-    position: absolute;
-    right: 10px;
-    top: 40%;
-    bottom: 50%;
-    height: 30px;
-    width: 30px;
-    cursor:pointer;
-    border:none;
-    border-radius:20px;
-    outline:none;   
-    background: none;
-}
-
-#task-delete-button:hover {
-    background-color: #5ffdd2;
-}
-
-#task-delete-button:active {
-    transform: translateY(4px);
+#task-edit-button.disabled {
+    cursor: inherit;   
+    background: #b3b3b3;
+    color: #ff4d4d;
 }
 
 #task-edit-button-editing {
@@ -256,10 +255,42 @@ ul li.checked {
     height: 30px;
     width: 30px;
     cursor: pointer;
-    border :none;
+    border: none;
     border-radius: 20px;
     outline: none;
     background: #ffed83;
+    color: #00C9A2;
+    font-size: 18px;
+}
+
+#task-edit-button-editing:hover {
+    background: #5ffdd2;
+    color: #000000;
+}
+
+#task-delete-button {
+    position: absolute;
+    right: 10px;
+    top: 40%;
+    bottom: 50%;
+    height: 30px;
+    width: 30px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+    outline: none;   
+    background: none;
+    color: #00C9A2;
+    font-size: 18px;
+}
+
+#task-delete-button:hover {
+    background: #5ffdd2;
+    color: #000000;
+}
+
+#task-delete-button:active {
+    transform: translateY(4px);
 }
 
 #title-editing {
@@ -310,7 +341,7 @@ ul li.checked {
     padding: 20px;
 }
 
-.chevron a {
+#chevron a {
     color: #ffffff;
     font-size: 40px;
     padding: 10px;
@@ -318,7 +349,7 @@ ul li.checked {
     float: right;
 }
 
-.chevron a:hover {
+#chevron a:hover {
     color: #5ffdd2;
 }
 
@@ -370,32 +401,33 @@ ul li.checked {
     .date {
         font-size: 11px;
     }
-    .fas {
-        font-size: 15px;
-    }
     #task-done-button {
         right: 70px;
         height: 25px;
         width: 25px;
+        font-size: 15px;
     }
     #task-edit-button {
         right: 40px;
         height: 25px;
         width: 25px;
+        font-size: 15px;
     }
     #task-delete-button {       
         height: 25px;
         width: 25px;
+        font-size: 15px;
     }
     #task-edit-button-editing {
         right: 40px;
         height: 25px;
         width: 25px;
+        font-size: 15px;
     }
     .footer {
         font-size: 15px;
     }
-    .chevron a {
+    #chevron a {
         font-size: 30px;
     }
 }
@@ -439,44 +471,36 @@ ul li.checked {
         font-size: 12px;
         padding: 5px 90px 5px 10px;
     }
-     .date {
+    .date {
         font-size: 9px;
-    }
-    .checkbox {
-        width: 15px;
-        height: 15px;
-    }
-    .check {
-        padding: 5px;
-        padding-top: 8%;
-        padding-bottom: 8%;
-    }
-    .fas {
-        font-size: 12px;
     }
     #task-done-button {
         right: 60px;
         height: 20px;
         width: 20px;
+        font-size: 12px;
     }
     #task-edit-button {
         right: 35px;
         height: 20px;
         width: 20px;
+        font-size: 12px;
     }
     #task-delete-button {       
         height: 20px;
         width: 20px;
+        font-size: 12px;
     }
     #task-edit-button-editing {
         right: 35px;
         height: 20px;
         width: 20px;
+        font-size: 12px;
     }
     .footer {
         font-size: 12px;
     }
-    .chevron a {
+    #chevron a {
         font-size: 20px;
     }
 }
