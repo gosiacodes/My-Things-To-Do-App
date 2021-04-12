@@ -14,11 +14,13 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 let database = firebase.database();
+let sort = false;
 
 // Read input when clicking on the "Add new task" button.
 document.getElementById("add-button").addEventListener("click", () => {
     const inputValue = document.getElementById("task-title").value;
     const dateValue = document.getElementById("task-date").value;
+    const timestamp = Date.now();
     //const currentDate = new Date();
     //const givenDate = new Date(dateValue);
     if (inputValue === "" && dateValue === "") {
@@ -30,7 +32,7 @@ document.getElementById("add-button").addEventListener("click", () => {
     //} else if (givenDate < currentDate) {
     //    alert("The date must be bigger or equal to current date!")
     } else {
-        addItemsToDatabase(inputValue, dateValue);
+        addItemsToDatabase(inputValue, dateValue, timestamp);
     } 
 });
 
@@ -43,11 +45,12 @@ document.querySelector(".input").addEventListener("keyup", (event) => {
 });
 
 // Send task-items to Firebase database.
-const addItemsToDatabase = (inputValue, dateValue) => {
+const addItemsToDatabase = (inputValue, dateValue, timestamp) => {
     let key = database.ref().child("my_todos/").push().key;
     let task = {
         title: inputValue,
         date: dateValue,
+        timestamp: timestamp,
         done: false,
         key: key
     };
@@ -64,17 +67,18 @@ const addItemsToListView = (task, key) => {
     const listItem = document.createElement("li");
     const taskTitle = document.createElement("p");
     const taskDate = document.createElement("p");
+    const timestamp = document.createElement("p");
     
-    taskDate.className = "date";
     listItem.id = task.key;
     taskTitle.innerHTML = task.title;
     taskDate.innerHTML = task.date;
+    taskDate.className = "date";
+    timestamp.innerHTML = task.timestamp;
+    timestamp.className = "timestamp";
+    timestamp.style.display = "none";
+    done = task.done;   
     
-    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML;
-
-    document.getElementById("task-list").appendChild(listItem);
-    document.getElementById("task-title").value = "";
-    document.getElementById("task-date").value = "";
+    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML + timestamp.outerHTML;
     
     // Add delete-button at the end of task.
     const buttonDelete = document.createElement("button");    
@@ -82,7 +86,6 @@ const addItemsToListView = (task, key) => {
     deleteIcon.setAttribute('class', 'fas fa-trash-alt');    
     buttonDelete.setAttribute('id', 'task-delete-button');
     buttonDelete.setAttribute('onclick', "deleteTask(this.parentElement, this)");
-    //buttonDelete.setAttribute('class', 'close');
     buttonDelete.appendChild(deleteIcon);
     listItem.appendChild(buttonDelete); 
     
@@ -92,7 +95,6 @@ const addItemsToListView = (task, key) => {
     editIcon.setAttribute('class', 'fas fa-pencil-alt');   
     buttonEdit.setAttribute('id', 'task-edit-button');
     buttonEdit.setAttribute('onclick', "taskEdit(this.parentElement, this)");
-    //buttonEdit.setAttribute('class', 'edit');
     buttonEdit.appendChild(editIcon);
     listItem.appendChild(buttonEdit);
     
@@ -102,9 +104,21 @@ const addItemsToListView = (task, key) => {
     checkbox.setAttribute('class', 'fas fa-check');
     buttonCheckbox.setAttribute('id', 'task-done-button');
     buttonCheckbox.setAttribute('onclick', "taskChecked(this.parentElement, this)");
-    //buttonCheckbox.setAttribute('class', 'check');
     buttonCheckbox.appendChild(checkbox);
     listItem.appendChild(buttonCheckbox);
+    
+    listItem = list.getElementsByTagName("LI");
+    if (done === true) {
+        listItem.setAttribute("class", "checked");
+        buttonCheckbox.firstChild.setAttribute("class", "fas fa-check-double");
+        buttonCheckbox.setAttribute("class", "checked");
+        buttonEdit.setAttribute("class", "disabled");
+        buttonEdit.setAttribute("disabled", "true");
+    }
+    
+    document.getElementById("task-list").appendChild(listItem);
+    document.getElementById("task-title").value = "";
+    document.getElementById("task-date").value = "";
     
     /*
     // Description???
@@ -116,27 +130,51 @@ const addItemsToListView = (task, key) => {
     */
 };
 
-// Sort tasks by deadline-date.
+// Toggle sorting tasks due deadline-date and due created-date.
 document.getElementById("sort-button").addEventListener("click", () => {
-    let list, i, switching, listItem, dateValue, shouldSwitch;
-    list = document.getElementById("task-list");
-    switching = true;
-    while (switching) {
-        switching = false;
-        listItem = list.getElementsByTagName("LI");
-        for (i = 0; i < (listItem.length - 1); i++) {
-            shouldSwitch = false;
-            dateValue = list.getElementsByClassName("date");
-            if (dateValue[i].innerHTML.toLowerCase() > dateValue[i + 1].innerHTML.toLowerCase()) {
-            shouldSwitch = true;
-            break;
+    let list, i, switching, listItem, dateValue, shouldSwitch, timestamp;
+    if (!sort) {
+        list = document.getElementById("task-list");
+        switching = true;
+        while (switching) {
+            switching = false;
+            listItem = list.getElementsByTagName("LI");
+            for (i = 0; i < (listItem.length - 1); i++) {
+                shouldSwitch = false;
+                dateValue = list.getElementsByClassName("date");
+                if (dateValue[i].innerHTML.toLowerCase() > dateValue[i + 1].innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                listItem[i].parentNode.insertBefore(listItem[i + 1], listItem[i]);
+                switching = true;
             }
         }
-        if (shouldSwitch) {
-            listItem[i].parentNode.insertBefore(listItem[i + 1], listItem[i]);
-            switching = true;
-        }
+        sort = true;        
     }
+    else if (sort) {        
+        list = document.getElementById("task-list");
+        switching = true;
+        while (switching) {
+            switching = false;
+            listItem = list.getElementsByTagName("LI");
+            for (i = 0; i < (listItem.length - 1); i++) {
+                shouldSwitch = false;
+                timestamp = list.getElementsByClassName("timestamp");
+                if (timestamp[i].innerHTML.toLowerCase() > timestamp[i + 1].innerHTML.toLowerCase()) {
+                    shouldSwitch = true;
+                    break;
+                }
+            }
+            if (shouldSwitch) {
+                listItem[i].parentNode.insertBefore(listItem[i + 1], listItem[i]);
+                switching = true;
+            }
+        }              
+        sort = false;        
+    }    
 });
 
 // Delete all tasks from list and from database.
@@ -151,19 +189,38 @@ document.getElementById("delete-all-button").addEventListener("click", () => {
 
 // Add "line-through" on task when checkbox is checked.
 const taskChecked = (listItem, buttonCheckbox) => {
-    listItem.classList.toggle("checked");
-    buttonCheckbox.firstChild.classList.toggle("fa-check-double");
-    buttonCheckbox.classList.toggle("checked");
-    
-    buttonEdit = listItem.childNodes[3];
-    buttonEdit.classList.toggle("disabled");
-    if (buttonEdit.className === "disabled") {
+    listItem.classList.toggle("checked");    
+    buttonEdit = listItem.childNodes[4];
+    if (listItem.className === "checked") {
+        done = true;
+        buttonCheckbox.firstChild.setAttribute("class", "fas fa-check-double");
+        buttonCheckbox.setAttribute("class", "checked");
+        buttonEdit.setAttribute("class", "disabled");
         buttonEdit.setAttribute("disabled", "true");
-    }
-    else if (buttonEdit.className !== "disabled") {
+    } else if (listItem.className !== "checked") {
+        done = false;
+        buttonCheckbox.firstChild.setAttribute("class", "fas fa-check");
+        buttonCheckbox.removeAttribute("class", "checked");
+        buttonEdit.removeAttribute("class", "disabled");
         buttonEdit.removeAttribute("disabled");
     }
+      
+    let key = listItem.id;
+    
+    let updatedTask = {
+        title: listItem.childNodes[0].innerHTML,
+        date: listItem.childNodes[1].innerHTML,
+        timestamp: listItem.childNodes[2].innerHTML,
+        done: done,
+        key: key
+    };
+    
+    let updates = {};
+    updates["my_todos/" + key] = updatedTask;
+    database.ref().update(updates);
+    
 };
+
 
 // Edit task when edit-button clicked.
 const taskEdit = (listItem, buttonEdit) => {
@@ -179,7 +236,7 @@ const taskEdit = (listItem, buttonEdit) => {
     taskDate.setAttribute("contenteditable", true);
     taskDate.setAttribute("id", "date-editing");
     
-    buttonCheck = listItem.childNodes[4];
+    buttonCheck = listItem.childNodes[5];
     buttonCheck.setAttribute("class", "disabled");
     buttonCheck.setAttribute("disabled", "true");
 };
@@ -197,7 +254,7 @@ const finishEdit = (listItem, buttonEdit) => {
     taskDate.setAttribute("contenteditable", false);
     taskDate.setAttribute("id", "no-editing");
     
-    buttonCheck = listItem.childNodes[4];
+    buttonCheck = listItem.childNodes[5];
     buttonCheck.removeAttribute("class", "disabled");
     buttonCheck.removeAttribute("disabled");
     
@@ -206,7 +263,8 @@ const finishEdit = (listItem, buttonEdit) => {
     let updatedTask = {
         title: listItem.childNodes[0].innerHTML,
         date: listItem.childNodes[1].innerHTML,
-        done: false,
+        timestamp: listItem.childNodes[2].innerHTML,
+        done: done,
         key: key
     };
     
