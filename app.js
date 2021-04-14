@@ -17,10 +17,9 @@ let database = firebase.database();
 let sort = false;
 
 // Read input when clicking on the "Add new task" button.
-document.getElementById("add-button").addEventListener("click", () => {
+document.querySelector("#add-button").addEventListener("click", () => {
     const inputValue = document.getElementById("task-title").value;
     const dateValue = document.getElementById("task-date").value;
-    const timestamp = Date.now();
     //const currentDate = new Date();
     //const givenDate = new Date(dateValue);
     if (inputValue === "" && dateValue === "") {
@@ -32,25 +31,25 @@ document.getElementById("add-button").addEventListener("click", () => {
     //} else if (givenDate < currentDate) {
     //    alert("The date must be bigger or equal to current date!")
     } else {
-        addItemsToDatabase(inputValue, dateValue, timestamp);
+        addItemsToDatabase(inputValue, dateValue);
     } 
 });
 
 // Setting EventListener for "enter" key.
-document.querySelector(".input").addEventListener("keyup", (event) => {
-    if (event.keyCode === 13) {
+document.querySelector(".input").addEventListener("keydown", (event) => {
+    if (event.keyCode === 13 || event.code === "Enter") {
         event.preventDefault();
         document.querySelector("#add-button").click();
     }
 });
 
 // Send task-items to Firebase database.
-const addItemsToDatabase = (inputValue, dateValue, timestamp) => {
+const addItemsToDatabase = (inputValue, dateValue) => {
     let key = database.ref().child("my_todos/").push().key;
     let task = {
         title: inputValue,
         date: dateValue,
-        timestamp: timestamp,
+        timestamp: Date.now(),
         done: false,
         key: key
     };
@@ -107,6 +106,16 @@ const addItemsToListView = (task, key) => {
     buttonCheckbox.appendChild(checkbox);
     listItem.appendChild(buttonCheckbox);
     
+    // Add info-button at the end of task.
+    const buttonInfo = document.createElement("button");
+    const info = document.createElement("i");
+    info.setAttribute('class', 'fas fa-info');
+    buttonInfo.setAttribute('id', 'task-info-button');
+    buttonInfo.setAttribute('onclick', "checkInfo(this.parentElement, this)");
+    buttonInfo.appendChild(info);
+    listItem.appendChild(buttonInfo);
+    
+    // Check if task is done and set checked-class if it's true.
     listItem = list.getElementsByTagName("LI");
     if (done === true) {
         listItem.setAttribute("class", "checked");
@@ -120,18 +129,31 @@ const addItemsToListView = (task, key) => {
     document.getElementById("task-title").value = "";
     document.getElementById("task-date").value = "";
     
-    /*
-    // Description???
-    document.querySelector(".list").addEventListener("click",(event)  => {
-        if (event.target.tagName === "LI") {
-            alert("Here will come the description");  
+};
+
+// Task description when clicked on info-button.
+const checkInfo = (listItem, buttonInfo) => {
+    let modal = document.getElementById("myModal");
+        let span = document.getElementsByClassName("close")[0];
+        let taskInfo = document.getElementById("task-info");
+        let addInfo = document.getElementById("add-info-button");
+        modal.style.display = "block";
+        span.onclick = function() {
+            modal.style.display = "none";
         }
-    });
-    */
+        taskInfo.setAttribute("contenteditable", true);
+        addInfo.onclick = function() {
+            taskInfo.setAttribute("contenteditable", false);
+        }  
+        window.onclick = function(event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
 };
 
 // Toggle sorting tasks due deadline-date and due created-date.
-document.getElementById("sort-button").addEventListener("click", () => {
+document.querySelector("#sort-button").addEventListener("click", () => {
     let list, i, switching, listItem, dateValue, shouldSwitch, timestamp;
     if (!sort) {
         list = document.getElementById("task-list");
@@ -178,7 +200,7 @@ document.getElementById("sort-button").addEventListener("click", () => {
 });
 
 // Delete all tasks from list and from database.
-document.getElementById("delete-all-button").addEventListener("click", () => {
+document.querySelector("#delete-all-button").addEventListener("click", () => {
     database.ref("my_todos/").remove();
     let list = document.getElementById("task-list");
     let listItem = list.getElementsByTagName("LI");
@@ -187,7 +209,7 @@ document.getElementById("delete-all-button").addEventListener("click", () => {
     }
 });
 
-// Add "line-through" on task when checkbox is checked.
+/// Add "line-through" on task and set task to done when checkbox is checked, send updated data to Firebase.
 const taskChecked = (listItem, buttonCheckbox) => {
     listItem.classList.toggle("checked");    
     buttonEdit = listItem.childNodes[4];
@@ -239,9 +261,16 @@ const taskEdit = (listItem, buttonEdit) => {
     buttonCheck = listItem.childNodes[5];
     buttonCheck.setAttribute("class", "disabled");
     buttonCheck.setAttribute("disabled", "true");
+    
+    listItem.addEventListener("keydown", (event) => {
+        if (event.keyCode === 13 || event.code === "Enter") {
+            event.preventDefault();
+            finishEdit(listItem, buttonEdit);
+        }
+    });
 };
 
-// Finish editing task when edit-button clicked again.
+// Finish editing task when edit-button clicked again, send updated data to Firebase.
 const finishEdit = (listItem, buttonEdit) => {
     buttonEdit.setAttribute('id', 'task-edit-button');
     buttonEdit.setAttribute("onclick", "taskEdit(this.parentElement, this)");
