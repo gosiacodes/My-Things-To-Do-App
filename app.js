@@ -46,9 +46,11 @@ document.querySelector(".input").addEventListener("keydown", (event) => {
 // Send task-items to Firebase database.
 const addItemsToDatabase = (inputValue, dateValue) => {
     let key = database.ref().child("my_todos/").push().key;
+    let description = "Task description";
     let task = {
         title: inputValue,
         date: dateValue,
+        description: description,
         timestamp: Date.now(),
         done: false,
         key: key
@@ -67,6 +69,7 @@ const addItemsToListView = (task, key) => {
     const taskTitle = document.createElement("p");
     const taskDate = document.createElement("p");
     const timestamp = document.createElement("p");
+    const taskInfo = document.createElement("p");  
     
     listItem.id = task.key;
     taskTitle.innerHTML = task.title;
@@ -75,9 +78,12 @@ const addItemsToListView = (task, key) => {
     timestamp.innerHTML = task.timestamp;
     timestamp.className = "timestamp";
     timestamp.style.display = "none";
+    taskInfo.innerHTML = task.description;
+    taskInfo.className = "description";
+    taskInfo.style.display = "none";
     done = task.done;   
     
-    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML + timestamp.outerHTML;
+    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML + timestamp.outerHTML + taskInfo.outerHTML;
     
     // Add delete-button at the end of task.
     const buttonDelete = document.createElement("button");    
@@ -132,40 +138,8 @@ const addItemsToListView = (task, key) => {
 
 // Task description when clicked on info-button.
 const checkInfo = (listItem, buttonInfo) => {
-    let modal = document.getElementById("myModal");
-    let span = document.getElementsByClassName("close")[0];
-    let taskInfo = document.getElementById("task-info");
-    let addInfo = document.getElementById("add-info-button");
-
-    modal.style.display = "block";
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-    taskInfo.setAttribute("contenteditable", true);
-    addInfo.onclick = function() {
-        taskInfo.setAttribute("contenteditable", false);
-        
-        let key = listItem.id;
     
-        let updatedTask = {
-            title: listItem.childNodes[0].innerHTML,
-            date: listItem.childNodes[1].innerHTML,
-            description: taskInfo.innerHTML,
-            timestamp: listItem.childNodes[2].innerHTML,
-            done: done,
-            key: key
-        };
-
-        let updates = {};
-        updates["my_todos/" + key] = updatedTask;
-        database.ref().update(updates);
-    }
     
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
 };
 
 // Toggle sorting tasks due deadline-date and due created-date.
@@ -228,7 +202,7 @@ document.querySelector("#delete-all-button").addEventListener("click", () => {
 /// Add "line-through" on task and set task to done when checkbox is checked, send updated data to Firebase.
 const taskChecked = (listItem, buttonCheckbox) => {
     listItem.classList.toggle("checked");    
-    buttonEdit = listItem.childNodes[4];
+    buttonEdit = listItem.childNodes[5];
     if (listItem.className === "checked") {
         done = true;
         buttonCheckbox.firstChild.setAttribute("class", "fas fa-check-double");
@@ -249,6 +223,7 @@ const taskChecked = (listItem, buttonCheckbox) => {
         title: listItem.childNodes[0].innerHTML,
         date: listItem.childNodes[1].innerHTML,
         timestamp: listItem.childNodes[2].innerHTML,
+        description: listItem.childNodes[3].innerHTML,
         done: done,
         key: key
     };
@@ -274,7 +249,7 @@ const taskEdit = (listItem, buttonEdit) => {
     taskDate.setAttribute("contenteditable", true);
     taskDate.setAttribute("id", "date-editing");
     
-    buttonCheck = listItem.childNodes[5];
+    buttonCheck = listItem.childNodes[6];
     buttonCheck.setAttribute("class", "disabled");
     buttonCheck.setAttribute("disabled", "true");
     
@@ -299,7 +274,7 @@ const finishEdit = (listItem, buttonEdit) => {
     taskDate.setAttribute("contenteditable", false);
     taskDate.setAttribute("id", "no-editing");
     
-    buttonCheck = listItem.childNodes[5];
+    buttonCheck = listItem.childNodes[6];
     buttonCheck.removeAttribute("class", "disabled");
     buttonCheck.removeAttribute("disabled");
     
@@ -309,6 +284,7 @@ const finishEdit = (listItem, buttonEdit) => {
         title: listItem.childNodes[0].innerHTML,
         date: listItem.childNodes[1].innerHTML,
         timestamp: listItem.childNodes[2].innerHTML,
+        description: listItem.childNodes[3].innerHTML,
         done: done,
         key: key
     };
