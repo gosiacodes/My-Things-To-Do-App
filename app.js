@@ -116,7 +116,6 @@ const addItemsToListView = (task, key) => {
     listItem.appendChild(buttonInfo);
     
     // Check if task is done and set checked-class if it's true.
-    listItem = list.getElementsByTagName("LI");
     if (done === true) {
         listItem.setAttribute("class", "checked");
         buttonCheckbox.firstChild.setAttribute("class", "fas fa-check-double");
@@ -134,22 +133,39 @@ const addItemsToListView = (task, key) => {
 // Task description when clicked on info-button.
 const checkInfo = (listItem, buttonInfo) => {
     let modal = document.getElementById("myModal");
-        let span = document.getElementsByClassName("close")[0];
-        let taskInfo = document.getElementById("task-info");
-        let addInfo = document.getElementById("add-info-button");
-        modal.style.display = "block";
-        span.onclick = function() {
+    let span = document.getElementsByClassName("close")[0];
+    let taskInfo = document.getElementById("task-info");
+    let addInfo = document.getElementById("add-info-button");
+
+    modal.style.display = "block";
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+    taskInfo.setAttribute("contenteditable", true);
+    addInfo.onclick = function() {
+        taskInfo.setAttribute("contenteditable", false);
+        
+        let key = listItem.id;
+    
+        let updatedTask = {
+            title: listItem.childNodes[0].innerHTML,
+            date: listItem.childNodes[1].innerHTML,
+            description: taskInfo.innerHTML,
+            timestamp: listItem.childNodes[2].innerHTML,
+            done: done,
+            key: key
+        };
+
+        let updates = {};
+        updates["my_todos/" + key] = updatedTask;
+        database.ref().update(updates);
+    }
+    
+    window.onclick = function(event) {
+        if (event.target === modal) {
             modal.style.display = "none";
         }
-        taskInfo.setAttribute("contenteditable", true);
-        addInfo.onclick = function() {
-            taskInfo.setAttribute("contenteditable", false);
-        }  
-        window.onclick = function(event) {
-            if (event.target === modal) {
-                modal.style.display = "none";
-            }
-        }
+    }
 };
 
 // Toggle sorting tasks due deadline-date and due created-date.
@@ -164,7 +180,7 @@ document.querySelector("#sort-button").addEventListener("click", () => {
             for (i = 0; i < (listItem.length - 1); i++) {
                 shouldSwitch = false;
                 dateValue = list.getElementsByClassName("date");
-                if (dateValue[i].innerHTML.toLowerCase() > dateValue[i + 1].innerHTML.toLowerCase()) {
+                if (dateValue[i].innerHTML > dateValue[i + 1].innerHTML) {
                     shouldSwitch = true;
                     break;
                 }
@@ -185,7 +201,7 @@ document.querySelector("#sort-button").addEventListener("click", () => {
             for (i = 0; i < (listItem.length - 1); i++) {
                 shouldSwitch = false;
                 timestamp = list.getElementsByClassName("timestamp");
-                if (timestamp[i].innerHTML.toLowerCase() > timestamp[i + 1].innerHTML.toLowerCase()) {
+                if (timestamp[i].innerHTML > timestamp[i + 1].innerHTML) {
                     shouldSwitch = true;
                     break;
                 }
