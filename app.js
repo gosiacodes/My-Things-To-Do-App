@@ -83,34 +83,7 @@ const addItemsToListView = (task, key) => {
     taskInfo.style.display = "none";
     done = task.done;   
     
-    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML + timestamp.outerHTML + taskInfo.outerHTML;
-    
-    // Add delete-button at the end of task.
-    const buttonDelete = document.createElement("button");    
-    const deleteIcon = document.createElement("i");
-    deleteIcon.setAttribute('class', 'fas fa-trash-alt');    
-    buttonDelete.setAttribute('id', 'task-delete-button');
-    buttonDelete.setAttribute('onclick', "deleteTask(this.parentElement, this)");
-    buttonDelete.appendChild(deleteIcon);
-    listItem.appendChild(buttonDelete); 
-    
-    // Add edit-button at the end of task.
-    const buttonEdit = document.createElement("button");  
-    const editIcon = document.createElement("i");
-    editIcon.setAttribute('class', 'fas fa-pencil-alt');   
-    buttonEdit.setAttribute('id', 'task-edit-button');
-    buttonEdit.setAttribute('onclick', "taskEdit(this.parentElement, this)");
-    buttonEdit.appendChild(editIcon);
-    listItem.appendChild(buttonEdit);
-    
-    // Add checkbox-button at the end of task.
-    const buttonCheckbox = document.createElement("button");
-    const checkbox = document.createElement("i");
-    checkbox.setAttribute('class', 'fas fa-check');
-    buttonCheckbox.setAttribute('id', 'task-done-button');
-    buttonCheckbox.setAttribute('onclick', "taskChecked(this.parentElement, this)");
-    buttonCheckbox.appendChild(checkbox);
-    listItem.appendChild(buttonCheckbox);
+    listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML + taskInfo.outerHTML + timestamp.outerHTML;
     
     // Add info-button at the end of task.
     const buttonInfo = document.createElement("button");
@@ -121,6 +94,33 @@ const addItemsToListView = (task, key) => {
     buttonInfo.appendChild(info);
     listItem.appendChild(buttonInfo);
     
+    // Add checkbox-button at the end of task.
+    const buttonCheckbox = document.createElement("button");
+    const checkbox = document.createElement("i");
+    checkbox.setAttribute('class', 'fas fa-check');
+    buttonCheckbox.setAttribute('id', 'task-done-button');
+    buttonCheckbox.setAttribute('onclick', "taskChecked(this.parentElement, this)");
+    buttonCheckbox.appendChild(checkbox);
+    listItem.appendChild(buttonCheckbox);
+    
+    // Add edit-button at the end of task.
+    const buttonEdit = document.createElement("button");  
+    const editIcon = document.createElement("i");
+    editIcon.setAttribute('class', 'fas fa-pencil-alt');   
+    buttonEdit.setAttribute('id', 'task-edit-button');
+    buttonEdit.setAttribute('onclick', "taskEdit(this.parentElement, this)");
+    buttonEdit.appendChild(editIcon);
+    listItem.appendChild(buttonEdit);
+    
+    // Add delete-button at the end of task.
+    const buttonDelete = document.createElement("button");    
+    const deleteIcon = document.createElement("i");
+    deleteIcon.setAttribute('class', 'fas fa-trash-alt');    
+    buttonDelete.setAttribute('id', 'task-delete-button');
+    buttonDelete.setAttribute('onclick', "deleteTask(this.parentElement, this)");
+    buttonDelete.appendChild(deleteIcon);
+    listItem.appendChild(buttonDelete); 
+        
     // Check if task is done and set checked-class if it's true.
     if (done === true) {
         listItem.setAttribute("class", "checked");
@@ -128,17 +128,13 @@ const addItemsToListView = (task, key) => {
         buttonCheckbox.setAttribute("class", "checked");
         buttonEdit.setAttribute("class", "disabled");
         buttonEdit.setAttribute("disabled", "true");
+        buttonInfo.setAttribute("class", "disabled");
+        buttonInfo.setAttribute("disabled", "true"); 
     }
     
     document.getElementById("task-list").appendChild(listItem);
     document.getElementById("task-title").value = "";
     document.getElementById("task-date").value = "";
-    
-};
-
-// Task description when clicked on info-button.
-const checkInfo = (listItem, buttonInfo) => {
-    
     
 };
 
@@ -199,41 +195,68 @@ document.querySelector("#delete-all-button").addEventListener("click", () => {
     }
 });
 
-/// Add "line-through" on task and set task to done when checkbox is checked, send updated data to Firebase.
+// Task description (end edit) when clicked on info-button.
+const checkInfo = (listItem, buttonInfo) => {   
+    buttonInfo.classList.toggle("checked"); 
+    taskInfo = listItem.childNodes[2];
+    buttonCheck = listItem.childNodes[5];
+    buttonEdit = listItem.childNodes[6];
+    
+    if (buttonInfo.className === "checked") {
+        buttonCheck.setAttribute("class", "disabled");
+        buttonCheck.setAttribute("disabled", "true");
+        buttonEdit.setAttribute("class", "disabled");
+        buttonEdit.setAttribute("disabled", "true");
+        taskInfo.style.display = "block";
+        taskInfo.setAttribute("contenteditable", true);
+        taskInfo.setAttribute("id", "info-editing");
+        taskInfo.addEventListener("keydown", (event) => {
+            if (event.keyCode === 13 || event.code === "Enter") {
+                event.preventDefault();
+                taskInfo.setAttribute("contenteditable", false);
+                updateTask(listItem);
+            }
+        });
+    } else if (listItem.className !== "checked") {
+        buttonCheck.removeAttribute("class", "disabled");
+        buttonCheck.removeAttribute("disabled");
+        buttonEdit.removeAttribute("class", "disabled");
+        buttonEdit.removeAttribute("disabled");
+        taskInfo.style.display = "none";
+        taskInfo.setAttribute("contenteditable", false);
+        taskInfo.setAttribute("id", "no-editing");
+        updateTask(listItem);
+    }      
+    
+};
+
+// Add "line-through" on task and set task to done when checkbox is checked.
 const taskChecked = (listItem, buttonCheckbox) => {
-    listItem.classList.toggle("checked");    
-    buttonEdit = listItem.childNodes[5];
+    listItem.classList.toggle("checked");
+    buttonInfo = listItem.childNodes[4];
+    buttonEdit = listItem.childNodes[6];
+    
     if (listItem.className === "checked") {
         done = true;
         buttonCheckbox.firstChild.setAttribute("class", "fas fa-check-double");
         buttonCheckbox.setAttribute("class", "checked");
+        buttonInfo.setAttribute("class", "disabled");
+        buttonInfo.setAttribute("disabled", "true"); 
         buttonEdit.setAttribute("class", "disabled");
-        buttonEdit.setAttribute("disabled", "true");
-    } else if (listItem.className !== "checked") {
+        buttonEdit.setAttribute("disabled", "true");           
+    } 
+    else if (listItem.className !== "checked") {
         done = false;
         buttonCheckbox.firstChild.setAttribute("class", "fas fa-check");
         buttonCheckbox.removeAttribute("class", "checked");
+        buttonInfo.removeAttribute("class", "disabled");
+        buttonInfo.removeAttribute("disabled"); 
         buttonEdit.removeAttribute("class", "disabled");
-        buttonEdit.removeAttribute("disabled");
+        buttonEdit.removeAttribute("disabled");           
     }
-      
-    let key = listItem.id;
     
-    let updatedTask = {
-        title: listItem.childNodes[0].innerHTML,
-        date: listItem.childNodes[1].innerHTML,
-        timestamp: listItem.childNodes[2].innerHTML,
-        description: listItem.childNodes[3].innerHTML,
-        done: done,
-        key: key
-    };
-    
-    let updates = {};
-    updates["my_todos/" + key] = updatedTask;
-    database.ref().update(updates);
-    
+    updateTask(listItem);
 };
-
 
 // Edit task when edit-button clicked.
 const taskEdit = (listItem, buttonEdit) => {
@@ -249,7 +272,11 @@ const taskEdit = (listItem, buttonEdit) => {
     taskDate.setAttribute("contenteditable", true);
     taskDate.setAttribute("id", "date-editing");
     
-    buttonCheck = listItem.childNodes[6];
+    buttonInfo = listItem.childNodes[4];
+    buttonInfo.setAttribute("class", "disabled");
+    buttonInfo.setAttribute("disabled", "true");
+    
+    buttonCheck = listItem.childNodes[5];
     buttonCheck.setAttribute("class", "disabled");
     buttonCheck.setAttribute("disabled", "true");
     
@@ -261,7 +288,7 @@ const taskEdit = (listItem, buttonEdit) => {
     });
 };
 
-// Finish editing task when edit-button clicked again, send updated data to Firebase.
+// Finish editing task when edit-button clicked again (or enter when editing task).
 const finishEdit = (listItem, buttonEdit) => {
     buttonEdit.setAttribute('id', 'task-edit-button');
     buttonEdit.setAttribute("onclick", "taskEdit(this.parentElement, this)");
@@ -274,24 +301,15 @@ const finishEdit = (listItem, buttonEdit) => {
     taskDate.setAttribute("contenteditable", false);
     taskDate.setAttribute("id", "no-editing");
     
-    buttonCheck = listItem.childNodes[6];
+    buttonInfo = listItem.childNodes[4];
+    buttonInfo.removeAttribute("class", "disabled");
+    buttonInfo.removeAttribute("disabled", "true");
+    
+    buttonCheck = listItem.childNodes[5];
     buttonCheck.removeAttribute("class", "disabled");
     buttonCheck.removeAttribute("disabled");
     
-    let key = listItem.id;
-    
-    let updatedTask = {
-        title: listItem.childNodes[0].innerHTML,
-        date: listItem.childNodes[1].innerHTML,
-        timestamp: listItem.childNodes[2].innerHTML,
-        description: listItem.childNodes[3].innerHTML,
-        done: done,
-        key: key
-    };
-    
-    let updates = {};
-    updates["my_todos/" + key] = updatedTask;
-    database.ref().update(updates);
+    updateTask(listItem);
 };
 
 // Delete one task from the list when clicked on a "trash can" icon.
@@ -299,6 +317,24 @@ const deleteTask = (listItem, buttonDelete) => {
     listItem.style.display = "none";
     let key = listItem.id;
     database.ref("my_todos/").child(key).remove();
+};
+
+// Update task and send updated data to Firebase.
+const updateTask = (listItem) => {
+    let key = listItem.id;
+    
+    let updatedTask = {
+        title: listItem.childNodes[0].innerHTML,
+        date: listItem.childNodes[1].innerHTML,
+        description: listItem.childNodes[2].innerHTML,
+        timestamp: listItem.childNodes[3].innerHTML,
+        done: done,
+        key: key
+    };
+    
+    let updates = {};
+    updates["my_todos/" + key] = updatedTask;
+    database.ref().update(updates);
 };
 
 // Fetch all data with Firebase database.
