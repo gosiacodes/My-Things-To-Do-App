@@ -13,8 +13,30 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
-let database = firebase.database();
+const database = firebase.database();
+const auth = firebase.auth();
 let sort = false;
+
+let uid = null;
+auth.onAuthStateChanged(function(user) {
+    if (user) {
+        // User is signed in.
+        uid = user.uid;
+        alert("Active user: " + uid);
+    }
+    else {
+        // Redirect to login-page.
+        uid = null;
+        alert("No active user")
+        window.location.replace("login.html");
+    }
+});
+
+// Logout user from database.
+document.querySelector("#logout-button").addEventListener("click", () => {
+    auth.signOut();
+    alert("Signed out");
+});
 
 // Read input when clicking on the "Add new task" button.
 document.querySelector("#add-button").addEventListener("click", () => {

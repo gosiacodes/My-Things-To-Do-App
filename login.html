@@ -3,16 +3,15 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta charset="utf-8">
-        <meta name="description" content="ToDo List | Web Application">
+        <meta name="description" content="ToDo List | Login Page">
         <meta name="keywords" content="ToDo App, To-Do List, Checklist, Application, Java Developer, Javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API">
         <meta name="author" content="Malgorzata Pick">
-        <title>My Things To Do</title>
+        <title>My Things To Do | Login</title>
         <link rel="icon" href="images/task-list.png" type="image/jpg" sizes="16x16">
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
         <link href="style.css" rel="stylesheet">
         <script src="https://kit.fontawesome.com/3318035e44.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
         <link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.css" />
     </head>
 
@@ -23,10 +22,11 @@
                 <h1 class="title">My Things To Do</h1>
                 <h4 class="title">Login</h4>
             </ul>
-        </div> 
+        </div>
         <form class="form" action="" method="post">
             <div class="container-login">
-                <h2 class="font-style">Login</h2>
+                <h2 class="font-style">Welcome!</h2>
+                <h5>Sign in to your account or sign up to create a new account.</h5>
                 <ul class = "login-group">
                     <label for="uname" class="label"><b>Email</b></label>
                     <input type="email" class="input-login" id="email" name="uname" placeholder="Enter Email" maxlength="50" required/>
@@ -35,13 +35,15 @@
                 </ul>
                 <div >
                     <ul class = "button-group">
-                        <button type="submit" class="button" id="login-button"  title="Login">LOGIN</button>
-                        <button type="submit" class="button" id="cancel-button" title="Cancel">CANCEL</button>
+                        <button type="submit" class="button-auth" id="sign-up-button"  title="Sign Up">Sign Up</button>
+                        <button type="submit" class="button-auth" id="sign-in-button"  title="Sign In">Sign In</button>
+                        <button type="submit" class="button-auth" id="cancel-button" title="Cancel">Cancel</button>
                     </ul>
                 </div>
             </div>
         </form>
-        
+        <div id="firebaseui-auth-container"></div>
+        <div id="loader">Loading...</div>
         
         <!-- Footer -->
         <footer>
@@ -53,16 +55,17 @@
         
         
         
-        <script src="app.js"></script>
+        <script src="login.js"></script>
         
         <!-- The core Firebase JS SDK is always required and must be listed first -->
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script> 
+        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/ui/4.8.0/firebase-ui-auth.js"></script>
 
         <!-- TODO: Add SDKs for Firebase products that you want to use
              https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-analytics.js"></script>
-
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
 
     </body>
 </html>
