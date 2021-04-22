@@ -16,7 +16,8 @@ firebase.analytics();
 const database = firebase.database();
 const auth = firebase.auth();
 
-var ui = new firebaseui.auth.AuthUI(firebase.auth());
+/*
+var ui = new firebaseui.auth.AuthUI(auth);
 
 var uiConfig = {
   callbacks: {
@@ -52,18 +53,24 @@ var uiConfig = {
 
 // The start method will wait until the DOM is loaded.
 ui.start('#firebaseui-auth-container', uiConfig);
+*/
 
 // Sign up to create a new account.
 document.querySelector("#sign-up-button").addEventListener("click", () => {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
+    let displayName = document.getElementById("username").value;
     
     const promise = auth.createUserWithEmailAndPassword(email, password);
     promise
         .then((userCredential) => {
-            // Signed in 
+            // Signed up 
             var user = userCredential.user;
-            alert("Signed Up");
+            window.location = "index.html";
+            alert("Signed Up: " + email);
+            user.updateProfile({
+                displayName: displayName
+            })
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -82,11 +89,18 @@ document.querySelector("#sign-in-button").addEventListener("click", () => {
         .then((userCredential) => {
             // Signed in 
             var user = userCredential.user;
-            alert("Signed In" + email);
+            window.location = "index.html";
+            alert("Signed In: " + email);
         })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
             alert(errorMessage);
         });
+});
+
+// Reset input.
+document.querySelector("#cancel-button").addEventListener("click", () => {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
 });

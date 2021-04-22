@@ -10,11 +10,6 @@ body {
     height: 100%;
 }
 
-.main {
-    min-height: 100%;
-    margin-bottom: -50px;
-}
-
 div {
     display: block;
 }
@@ -37,7 +32,14 @@ div {
 }
 
 .main {
+    min-height: 100%;
+    margin-bottom: -50px;
     padding: 30px;
+}
+
+.welcome {
+    color: #00C9A2;
+    font-weight: bold;
 }
 
 #checklist {
@@ -453,15 +455,16 @@ ul.login-group {
     justify-content: center;
 }
 
+/*
 #footer {
     position: fixed;
     left: 0;
     bottom: 0;
 }
+*/
 
 .button-auth {
-    color: #ffffff;
-    background-color: #00C9A2;
+    color: #000000;
     font-size: 15px;
     text-align: center;
     cursor: pointer;
@@ -478,11 +481,38 @@ ul.login-group {
 
 .button-auth:hover {
     background-color: #5ffdd2;
-    color: #000000;
+}
+
+#sign-up-button {
+    background-color: #ffed83;
+}
+
+#sign-up-button:hover {
+    background-color: #5ffdd2;
+}
+
+#sign-in-button {
+    background-color: #00C9A2;
+}
+
+#sign-in-button:hover {
+    background-color: #5ffdd2;
 }
 
 #cancel-button {
     background-color: #ff4d4d;
+}
+
+#cancel-button:hover {
+    background-color: #5ffdd2;
+}
+
+#logout-button {
+    background-color: #ffed83;
+}
+
+#logout-button:hover {
+    background-color: #5ffdd2;
 }
 
 @media only screen and (max-width: 1024px) {

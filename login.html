@@ -23,28 +23,29 @@
                 <h4 class="title">Login</h4>
             </ul>
         </div>
-        <form class="form" action="" method="post">
-            <div class="container-login">
-                <h2 class="font-style">Welcome!</h2>
-                <h5>Sign in to your account or sign up to create a new account.</h5>
-                <ul class = "login-group">
-                    <label for="uname" class="label"><b>Email</b></label>
-                    <input type="email" class="input-login" id="email" name="uname" placeholder="Enter Email" maxlength="50" required/>
-                    <label for="psw" class="label"><b>Password</b></label>
-                    <input type="password" class="input-login" id="password" name="psw" placeholder="Enter Password" maxlength="50" required/>
+        <div class="container-login">
+            <h2 class="welcome font-style">Welcome!</h2>
+            <h5>Sign in to your account or sign up to create a new account.</h5>
+            <ul class = "login-group">
+                <label for="email" class="label"><b>Email</b></label>
+                <input type="email" class="input-login" id="email" name="email" placeholder="Enter Email" maxlength="50" required/>
+                <label for="psw" class="label"><b>Password</b></label>
+                <input type="password" class="input-login" id="password" name="psw" placeholder="Enter Password" maxlength="50" required/>
+                <label for="username" class="label"><b>Name</b></label>
+                <input type="text" class="input-login" id="username" name="username" placeholder="Enter Name To Sign Up" maxlength="50"/>
+            </ul>
+            <div >
+                <ul class = "button-group">
+                    <button type="submit" class="button-auth" id="sign-up-button"  title="Sign Up">Sign Up</button>
+                    <button type="submit" class="button-auth" id="sign-in-button"  title="Sign In">Sign In</button>
+                    <button type="submit" class="button-auth" id="cancel-button" title="Cancel">Cancel</button>
                 </ul>
-                <div >
-                    <ul class = "button-group">
-                        <button type="submit" class="button-auth" id="sign-up-button"  title="Sign Up">Sign Up</button>
-                        <button type="submit" class="button-auth" id="sign-in-button"  title="Sign In">Sign In</button>
-                        <button type="submit" class="button-auth" id="cancel-button" title="Cancel">Cancel</button>
-                    </ul>
-                </div>
             </div>
-        </form>
+        </div>
+        <!--
         <div id="firebaseui-auth-container"></div>
         <div id="loader">Loading...</div>
-        
+        -->
         <!-- Footer -->
         <footer>
             <div class="footer" id="footer">

@@ -17,16 +17,18 @@ const database = firebase.database();
 const auth = firebase.auth();
 let sort = false;
 
-let uid = null;
 auth.onAuthStateChanged(function(user) {
+    let email, name;
     if (user) {
         // User is signed in.
-        uid = user.uid;
-        alert("Active user: " + uid);
+        email = user.email;
+        name = user.displayName;
+        alert("Active user: " + email);
+        document.getElementById("welcome").innerText = "Welcome: " + name
     }
     else {
         // Redirect to login-page.
-        uid = null;
+        email = null;
         alert("No active user")
         window.location.replace("login.html");
     }
