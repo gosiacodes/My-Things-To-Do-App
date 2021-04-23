@@ -67,7 +67,7 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
             // Signed up 
             var user = userCredential.user;
             window.location = "index.html";
-            alert("Signed Up: " + email);
+            //alert("Signed Up: " + email);
             user.updateProfile({
                 displayName: displayName
             })
@@ -90,7 +90,7 @@ document.querySelector("#sign-in-button").addEventListener("click", () => {
             // Signed in 
             var user = userCredential.user;
             window.location = "index.html";
-            alert("Signed In: " + email);
+            //alert("Signed In: " + email);
         })
         .catch((error) => {
             var errorCode = error.code;
@@ -103,4 +103,5 @@ document.querySelector("#sign-in-button").addEventListener("click", () => {
 document.querySelector("#cancel-button").addEventListener("click", () => {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
+    document.getElementById("username").value = "";
 });

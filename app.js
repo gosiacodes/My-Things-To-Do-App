@@ -17,19 +17,20 @@ const database = firebase.database();
 const auth = firebase.auth();
 let sort = false;
 
+// Check if user is signed in.
 auth.onAuthStateChanged(function(user) {
     let email, name;
     if (user) {
         // User is signed in.
         email = user.email;
         name = user.displayName;
-        alert("Active user: " + email);
+        //alert("Active user: " + email);
         document.getElementById("welcome").innerText = "Welcome: " + name
     }
     else {
         // Redirect to login-page.
         email = null;
-        alert("No active user")
+        //alert("No active user")
         window.location.replace("login.html");
     }
 });
@@ -37,7 +38,7 @@ auth.onAuthStateChanged(function(user) {
 // Logout user from database.
 document.querySelector("#logout-button").addEventListener("click", () => {
     auth.signOut();
-    alert("Signed out");
+    //alert("Signed out");
 });
 
 // Read input when clicking on the "Add new task" button.
