@@ -25,7 +25,7 @@ auth.onAuthStateChanged(function(user) {
         email = user.email;
         name = user.displayName;
         //alert("Active user: " + email);
-        document.getElementById("welcome").innerText = "Welcome: " + name
+        document.getElementById("welcome").innerText = "Welcome " + name + "!"
     }
     else {
         // Redirect to login-page.
