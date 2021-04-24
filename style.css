@@ -357,16 +357,18 @@ ul li.checked {
 }
 
 #info-editing {
-    background-color: #ffffff;
-    border-radius: 14px;
-    padding-left: 10px;
-    padding-top: 2px;
-    padding-bottom: 2px;
+  font-family: monospace;
+  font-size: 14px;
+  border-radius: 14px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 #info-editing:focus {
-    border: 3px solid #ffed83;
-    font-weight: bold;
+  background-color: #ffffff;
+  border: 3px solid #ffed83;
+  padding-left: 10px;
+  font-weight: bold;
 }
 
 #no-editing {
