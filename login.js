@@ -22,7 +22,10 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
     let password = document.getElementById("password").value;
     let displayName = document.getElementById("username").value;
     
-    const promise = auth.createUserWithEmailAndPassword(email, password);
+    if (displayName === "") {
+        alert("Enter your name!");
+    } else {
+        const promise = auth.createUserWithEmailAndPassword(email, password);
     promise
         .then((userCredential) => {
             // Signed up 
@@ -38,6 +41,7 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
             var errorMessage = error.message;
             alert(errorMessage);
         });
+    }
 });
 
 // Sign in with existing account.

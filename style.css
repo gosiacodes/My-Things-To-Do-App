@@ -101,6 +101,7 @@ div {
 .button {
     color: #ffffff;
     background-color: #00C9A2;
+    letter-spacing: 1px;
     font-size: 15px;
     font-weight: bold;
     text-align: center;
@@ -378,6 +379,7 @@ ul li.checked {
     font-weight: normal;
 }
 
+/* Footer */ 
 .footer {    
     width: 100%;
     height: 70px;
@@ -386,6 +388,7 @@ ul li.checked {
     text-align: center;
     font-size: 18px;
     display: block;
+    margin-top: 50px;
     box-shadow: 0px 1px 5px rgba(74,68,83,.7);
 }
 
@@ -405,6 +408,8 @@ ul li.checked {
 #chevron a:hover {
     color: #5ffdd2;
 }
+
+/* Login page */ 
 
 ul.title-group {
     display: flex;
@@ -448,6 +453,7 @@ ul.title-group {
     border-radius: 15px;
 }
 
+/* Login page - buttons */ 
 ul.login-group {
     display: flex;
     flex-direction: column;
@@ -463,7 +469,7 @@ ul.login-group {
     border: none;
     border-radius: 14px;
     display: inline-block;
-    margin: 10px 10px;
+    margin: 10px 20px;
     padding: 10px;
     width: 100px;
     float: right;
@@ -513,6 +519,111 @@ ul.button-auth-group {
     justify-content: center;
 }
 
+/* Modal */
+.modal-background {
+    display: none; 
+    position: fixed; 
+    z-index: 1; 
+    padding-top: 100px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+}
+
+.modal-container {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    border: 1px solid #888888;
+    width: 35%;
+    border-radius: 15px;
+    box-shadow: 0px 1px 5px rgba(74,68,83,.7);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+.modal-header {
+    padding: 10px 20px;
+    background-color: #7F65C5;
+    color: #ffffff;
+    font-size: 18px;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+
+.modal-all-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.close {
+    color: #ffffff;
+    float: right;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.message {
+    color: #ff4d4d;
+    font-size: 18px;
+    text-align: center;
+    padding: 10px;
+    word-wrap: break-word;
+}
+
+.message-button {
+    color: #ffffff;
+    background-color: #00C9A2;
+    letter-spacing: 1px;
+    font-size: 15px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 14px;
+    margin-top: 10px;
+    margin-bottom: 30px;
+    padding: 10px 20px;
+    width: 120px;
+    box-shadow: 0px 3px 8px rgba(74,68,83,.7);
+}
+
+.message-button:hover {
+    background: #5ffdd2;
+    color: #000000;
+}
+
 @media only screen and (max-width: 1024px) {
     .title {
         font-size: 1.5em;
@@ -528,6 +639,9 @@ ul.button-auth-group {
         margin: 5px 5px;
         padding: 8px 20px;
         width: 20%;
+    }
+    .footer {
+        margin-top: 40px;
     }
 }
 
@@ -595,6 +709,7 @@ ul.button-auth-group {
     }
     .footer {
         font-size: 15px;
+        margin-top: 30px;
     }
     #chevron a {
         font-size: 30px;
@@ -610,6 +725,7 @@ ul.button-auth-group {
     }
     .button-auth {
         font-size: 14px;
+        margin: 5px 15px;
         padding: 8px;
         width: 90px;
     }
@@ -688,6 +804,7 @@ ul.button-auth-group {
     }
     .footer {
         font-size: 12px;
+        margin-top: 20px;
     }
     #chevron a {
         font-size: 20px;

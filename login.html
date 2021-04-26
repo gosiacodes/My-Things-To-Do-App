@@ -14,30 +14,37 @@
         <script src="https://kit.fontawesome.com/3318035e44.js"></script>
     </head>
 
-    <body> 
+    <body>
+        <!-- Header -->
         <div class="header font-style">
             <ul class = "title-group">
                 <h1 class="title" style="padding-left: 10px">My Things To Do</h1>
                 <img src="images/office-checklist.png" alt="checklist" id="checklist-logo">                
             </ul>
         </div>
-        <div class="container-login">
-            <h2 class="welcome font-style">Welcome!</h2>
-            <h5>Sign in to your account or sign up to create a new account.</h5>
-            <ul class = "login-group">
-                <label for="email" class="label"><b>Email</b></label>
-                <input type="email" class="input-login" id="email" name="email" placeholder="Enter Email" maxlength="50" required/>
-                <label for="password" class="label"><b>Password</b></label>
-                <input type="password" class="input-login" id="password" name="password" placeholder="Enter Password" maxlength="50" required/>
-                <label for="username" class="label"><b>Name</b></label>
-                <input type="text" class="input-login" id="username" name="username" placeholder="Enter Name To Sign Up" maxlength="50"/>
-            </ul>
-            <div >
-                <ul class = "button-auth-group">
-                    <button type="submit" class="button-auth font-style" id="sign-up-button"  title="Sign Up">Sign Up</button>
-                    <button type="submit" class="button-auth font-style" id="sign-in-button"  title="Sign In">Sign In</button>
-                    <button type="submit" class="button-auth font-style" id="cancel-button" title="Cancel">Cancel</button>
+        <!-- Main -->
+        <div class="main">
+            <!-- Login container -->
+            <div class="container-login">
+                <h2 class="welcome font-style">Welcome!</h2>
+                <h5>Sign in to your account or sign up to create a new account.</h5>
+                <!-- Inputs -->
+                <ul class = "login-group">
+                    <label for="email" class="label"><b>Email</b></label>
+                    <input type="email" class="input-login" id="email" name="email" placeholder="Enter email" maxlength="50" required/>
+                    <label for="password" class="label"><b>Password</b></label>
+                    <input type="password" class="input-login" id="password" name="password" placeholder="Enter password" maxlength="30" required/>
+                    <label for="username" class="label"><b>Name</b></label>
+                    <input type="text" class="input-login" id="username" name="username" placeholder="Enter name to sign up" maxlength="50"/>
                 </ul>
+                <div >
+                    <!-- Buttons -->
+                    <ul class = "button-auth-group">
+                        <button type="submit" class="button-auth font-style" id="sign-up-button"  title="Sign Up">Sign Up</button>
+                        <button type="submit" class="button-auth font-style" id="sign-in-button"  title="Sign In">Sign In</button>
+                        <button type="submit" class="button-auth font-style" id="cancel-button" title="Cancel">Cancel</button>
+                    </ul>
+                </div>
             </div>
         </div>
         
@@ -49,9 +56,9 @@
         </footer>
         <!-- End footer -->
         
-        <script defer src="login.js"></script>
-        
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
+         <!-- Scripts js -->
+        <script defer src="login.js"></script>       
+        <!-- Firebase js -->
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script> 
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>

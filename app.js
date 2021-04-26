@@ -45,14 +45,21 @@ document.querySelector("#logout-button").addEventListener("click", () => {
 document.querySelector("#add-button").addEventListener("click", () => {
     const inputValue = document.getElementById("task-title").value;
     const dateValue = document.getElementById("task-date").value;
+    const message = document.getElementById("error-message");
     //const currentDate = new Date();
     //const givenDate = new Date(dateValue);
     if (inputValue === "" && dateValue === "") {
-        alert("You must write what you want to do and choose deadline date!");
+        message.innerHTML = "Enter what you want to do and choose deadline date!";
+        showModal();
+        //alert("Enter what you want to do and choose deadline date!");
     } else if (inputValue === "") {
-        alert("You must write what you want to do!");
+        message.innerHTML = "Enter what you want to do!";
+        showModal();
+        //alert("Enter what you want to do!");
     } else if (dateValue === "") {
-        alert("You must choose deadline date!");
+        message.innerHTML = "Choose deadline date!";
+        showModal();
+        //alert("Choose deadline date!");
     //} else if (givenDate < currentDate) {
     //    alert("The date must be bigger or equal to current date!")
     } else {
@@ -212,12 +219,7 @@ document.querySelector("#sort-button").addEventListener("click", () => {
 
 // Delete all tasks from list and from database.
 document.querySelector("#delete-all-button").addEventListener("click", () => {
-    database.ref("my_todos/").remove();
-    let list = document.getElementById("task-list");
-    let listItem = list.getElementsByTagName("LI");
-    for (i = 0; i < listItem.length; i++) {
-        listItem[i].style.display = "none";
-    }
+    showDeleteModal();
 });
 
 // Task description (end edit) when clicked on info-button.
@@ -251,8 +253,7 @@ const checkInfo = (listItem, buttonInfo) => {
         taskInfo.setAttribute("contenteditable", false);
         taskInfo.setAttribute("id", "no-editing");
         updateTask(listItem);
-    }      
-    
+    }         
 };
 
 // Add "line-through" on task and set task to done when checkbox is checked.
@@ -374,3 +375,57 @@ function fetchAllData(){
 }
 
 window.onload = fetchAllData();
+
+function showModal() {
+    let modal = document.getElementById("message-modal");
+    let span = document.getElementsByClassName("close")[0];
+    
+    modal.style.display = "block";
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+};
+
+function closeModal() {
+    let modal = document.getElementById("message-modal");
+    modal.style.display = "none";
+};
+
+function showDeleteModal() {
+    let modal = document.getElementById("delete-message-modal");
+    let span = document.getElementsByClassName("close")[1];
+    
+    modal.style.display = "block";
+    span.onclick = function() {
+        modal.style.display = "none";
+    }
+
+    window.onclick = function(event) {
+        if (event.target === modal) {
+            modal.style.display = "none";
+        }
+    }
+};
+
+function closeDeleteModal() {
+    let modal = document.getElementById("delete-message-modal");    
+    modal.style.display = "none";
+};
+
+function deleteAllTasks() {
+    database.ref("my_todos/").remove();
+    let list = document.getElementById("task-list");
+    let listItem = list.getElementsByTagName("LI");
+    for (i = 0; i < listItem.length; i++) {
+        listItem[i].style.display = "none";
+    }
+    
+    let modal = document.getElementById("delete-message-modal");    
+    modal.style.display = "none";
+};

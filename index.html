@@ -19,9 +19,10 @@
         <div class="header font-style">
             <h1 class="title">My Things To Do</h1>           
         </div> 
+        <!-- Main -->
         <div class="main">
             <button type="submit" class="button-auth font-style" id="logout-button" title="Logout">Logout</button>
-            <h2 class="welcome font-style" id="welcome">Welcome!</h2>
+            <h2 class="welcome font-style" id="welcome"></h2>
             <!-- Image -->
             <div class="img"><img src="images/office-checklist.png" alt="checklist" id="checklist"></div>
             <!-- Task container -->
@@ -42,6 +43,43 @@
             </div>
         </div>
         
+        <!-- Error Modal -->
+        <div id="message-modal" class="modal-background">
+            <!-- Modal content -->
+            <div class="modal-container">
+                <div class="modal-header font-style">
+                    <div>Error<span class="close" title="Close">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-all-content">
+                    <p class="message" id="error-message">Here comes error message.</p>
+                    <div class="modal-buttons">
+                        <button type="submit" class="message-button font-style" id="ok-button" title="OK" onclick="closeModal()">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Error Modal -->
+        
+        <!-- Delete All Modal -->
+        <div id="delete-message-modal" class="modal-background">
+            <!-- Modal content -->
+            <div class="modal-container">
+                <div class="modal-header font-style">
+                    <div>Message<span class="close" title="Close">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-all-content">
+                    <p class="message" id="delete-message">Are you sure you want to delete all tasks?</p>
+                    <div class="modal-buttons">
+                        <button type="submit" class="message-button font-style" id="delete-cancel-button" title="Cancel" onclick="closeDeleteModal()">CANCEL</button>
+                        <button type="submit" class="message-button font-style" id="delete-button" title="Delete" onclick="deleteAllTasks()">DELETE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Delete All Modal -->
+        
         <!-- Footer -->
         <footer>
             <div class="footer">
@@ -51,9 +89,9 @@
         </footer>
         <!-- End footer -->
         
-        <script defer src="app.js"></script>
-        
-        <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <!-- Scripts js -->
+        <script defer src="app.js"></script>    
+        <!-- Firebase js -->
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
