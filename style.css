@@ -525,6 +525,8 @@ ul.button-auth-group {
     position: fixed; 
     z-index: 1; 
     padding-top: 100px; 
+    padding-left: 30px;
+    padding-right: 30px;
     left: 0;
     top: 0;
     width: 100%; 
@@ -539,7 +541,7 @@ ul.button-auth-group {
     background-color: #fefefe;
     margin: auto;
     border: 1px solid #888888;
-    width: 35%;
+    max-width: 500px;
     border-radius: 15px;
     box-shadow: 0px 1px 5px rgba(74,68,83,.7);
     -webkit-animation-name: animatetop;
@@ -612,7 +614,6 @@ ul.button-auth-group {
     cursor: pointer;
     border: none;
     border-radius: 14px;
-    margin-top: 10px;
     margin-bottom: 30px;
     padding: 10px 20px;
     width: 120px;
@@ -729,6 +730,12 @@ ul.button-auth-group {
         padding: 8px;
         width: 90px;
     }
+    .modal-header, .message, .close {
+        font-size: 16px;
+    }
+    .message-button {
+        font-size: 14px;
+    }
 }
 
 @media only screen and (max-width: 600px) {
@@ -827,5 +834,11 @@ ul.button-auth-group {
         margin: 5px 5px;
         padding: 6px;
         width: 80px;
+    }
+    .modal-header, .message, .close {
+        font-size: 14px;
+    }
+    .message-button {
+        font-size: 12px;
     }
 }

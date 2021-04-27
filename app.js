@@ -15,6 +15,22 @@ firebase.analytics();
 
 const database = firebase.database();
 const auth = firebase.auth();
+
+// Global variables.
+const addTaskButton = document.querySelector("#add-button");
+const sortTasksButton = document.querySelector("#sort-button");
+const deleteAllTasksButton = document.querySelector("#delete-all-button");
+
+const messageModal = document.getElementById("message-modal");
+const spanCloseModal = document.getElementsByClassName("close")[0];
+const okButton = document.getElementById("ok-button");
+const message = document.getElementById("error-message");
+
+const deleteModal = document.getElementById("delete-message-modal");
+const spanCloseDeleteModal = document.getElementsByClassName("close")[1];
+const cancelButton = document.getElementById("delete-cancel-button");
+const deleteButton = document.getElementById("delete-button");
+
 let sort = false;
 
 // Check if user is signed in.
@@ -24,13 +40,11 @@ auth.onAuthStateChanged(function(user) {
         // User is signed in.
         email = user.email;
         name = user.displayName;
-        //alert("Active user: " + email);
         document.getElementById("welcome").innerText = "Welcome " + name + "!"
     }
     else {
         // Redirect to login-page.
         email = null;
-        //alert("No active user")
         window.location.replace("login.html");
     }
 });
@@ -38,34 +52,29 @@ auth.onAuthStateChanged(function(user) {
 // Logout user from database.
 document.querySelector("#logout-button").addEventListener("click", () => {
     auth.signOut();
-    //alert("Signed out");
 });
 
 // Read input when clicking on the "Add new task" button.
-document.querySelector("#add-button").addEventListener("click", () => {
+const createTask = () => {
     const inputValue = document.getElementById("task-title").value;
     const dateValue = document.getElementById("task-date").value;
-    const message = document.getElementById("error-message");
     //const currentDate = new Date();
     //const givenDate = new Date(dateValue);
     if (inputValue === "" && dateValue === "") {
         message.innerHTML = "Enter what you want to do and choose deadline date!";
-        showModal();
-        //alert("Enter what you want to do and choose deadline date!");
+        showMessageModal();
     } else if (inputValue === "") {
         message.innerHTML = "Enter what you want to do!";
-        showModal();
-        //alert("Enter what you want to do!");
+        showMessageModal();
     } else if (dateValue === "") {
         message.innerHTML = "Choose deadline date!";
-        showModal();
-        //alert("Choose deadline date!");
+        showMessageModal();
     //} else if (givenDate < currentDate) {
     //    alert("The date must be bigger or equal to current date!")
     } else {
         addItemsToDatabase(inputValue, dateValue);
     } 
-});
+}
 
 // Setting EventListener for "enter" key.
 document.querySelector(".input").addEventListener("keydown", (event) => {
@@ -104,15 +113,23 @@ const addItemsToListView = (task, key) => {
     const taskInfo = document.createElement("p");  
     
     listItem.id = task.key;
+    
     taskTitle.innerHTML = task.title;
+    taskTitle.setAttribute("maxlength", "10");
+    taskTitle.setAttribute('contenteditable', false);
+    
     taskDate.innerHTML = task.date;
     taskDate.className = "date";
+    taskDate.setAttribute('contenteditable', false);
+    
     timestamp.innerHTML = task.timestamp;
     timestamp.className = "timestamp";
     timestamp.style.display = "none";
+    
     taskInfo.innerHTML = task.description;
     taskInfo.className = "description";
     taskInfo.style.display = "none";
+    
     done = task.done;   
     
     listItem.innerHTML += taskTitle.outerHTML + taskDate.outerHTML + taskInfo.outerHTML + timestamp.outerHTML;
@@ -171,7 +188,7 @@ const addItemsToListView = (task, key) => {
 };
 
 // Toggle sorting tasks due deadline-date and due created-date.
-document.querySelector("#sort-button").addEventListener("click", () => {
+const sortTasks = () => {
     let list, i, switching, listItem, dateValue, shouldSwitch, timestamp;
     if (!sort) {
         list = document.getElementById("task-list");
@@ -215,7 +232,7 @@ document.querySelector("#sort-button").addEventListener("click", () => {
         }              
         sort = false;        
     }    
-});
+}
 
 // Delete all tasks from list and from database.
 document.querySelector("#delete-all-button").addEventListener("click", () => {
@@ -363,6 +380,50 @@ const updateTask = (listItem) => {
     database.ref().update(updates);
 };
 
+// Show modal with error-message.
+const showMessageModal = () => {    
+    messageModal.style.display = "block";
+    okButton.setAttribute("onclick", "hideModal(messageModal)");
+    spanCloseModal.setAttribute("onclick", "hideModal(messageModal)");
+
+    window.onclick = function(event) {
+        if (event.target === messageModal) {
+            hideModal(messageModal);
+        }
+    }
+}
+
+// Show modal with delete-message.
+const showDeleteModal = () => {    
+    cancelButton.setAttribute("onclick", "hideModal(deleteModal)");
+    deleteButton.setAttribute("onclick", "deleteAllTasks()");
+    spanCloseDeleteModal.setAttribute("onclick", "hideModal(deleteModal)");
+    deleteModal.style.display = "block";
+    
+    window.onclick = function(event) {
+        if (event.target === deleteModal) {
+            hideModal(deleteModal);
+        }
+    }
+}
+
+// Delete all tasks from list and hide modal.
+const deleteAllTasks = () => {
+    database.ref("my_todos/").remove();
+    let list = document.getElementById("task-list");
+    let listItem = list.getElementsByTagName("LI");
+
+    for (i = 0; i < listItem.length; i++) {
+        listItem[i].style.display = "none";
+    }   
+    hideModal(deleteModal);
+}
+
+// Hide modal.
+const hideModal = (modal) => {
+    modal.style.display = "none";
+}
+
 // Fetch all data with Firebase database.
 function fetchAllData(){   
     database.ref("my_todos/").once("value", function(snapshot){
@@ -376,56 +437,7 @@ function fetchAllData(){
 
 window.onload = fetchAllData();
 
-function showModal() {
-    let modal = document.getElementById("message-modal");
-    let span = document.getElementsByClassName("close")[0];
-    
-    modal.style.display = "block";
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
-};
-
-function closeModal() {
-    let modal = document.getElementById("message-modal");
-    modal.style.display = "none";
-};
-
-function showDeleteModal() {
-    let modal = document.getElementById("delete-message-modal");
-    let span = document.getElementsByClassName("close")[1];
-    
-    modal.style.display = "block";
-    span.onclick = function() {
-        modal.style.display = "none";
-    }
-
-    window.onclick = function(event) {
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }
-};
-
-function closeDeleteModal() {
-    let modal = document.getElementById("delete-message-modal");    
-    modal.style.display = "none";
-};
-
-function deleteAllTasks() {
-    database.ref("my_todos/").remove();
-    let list = document.getElementById("task-list");
-    let listItem = list.getElementsByTagName("LI");
-    for (i = 0; i < listItem.length; i++) {
-        listItem[i].style.display = "none";
-    }
-    
-    let modal = document.getElementById("delete-message-modal");    
-    modal.style.display = "none";
-};
+// Event listeners to buttons.
+addTaskButton.addEventListener("click", createTask);
+sortTasksButton.addEventListener("click", sortTasks);
+deleteAllTasksButton.addEventListener("click", showDeleteModal);

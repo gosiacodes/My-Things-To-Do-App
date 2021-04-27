@@ -16,6 +16,12 @@ firebase.initializeApp(firebaseConfig);
 const database = firebase.database();
 const auth = firebase.auth();
 
+// Global variables.
+const messageModal = document.getElementById("message-modal");
+const spanCloseModal = document.getElementsByClassName("close")[0];
+const okButton = document.getElementById("ok-button");
+const message = document.getElementById("error-message");
+
 // Sign up to create a new account.
 document.querySelector("#sign-up-button").addEventListener("click", () => {
     let email = document.getElementById("email").value;
@@ -23,24 +29,27 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
     let displayName = document.getElementById("username").value;
     
     if (displayName === "") {
-        alert("Enter your name!");
+        message.innerHTML = "Enter your name!";
+        showMessageModal();
+        //alert("Enter your name!");
     } else {
         const promise = auth.createUserWithEmailAndPassword(email, password);
-    promise
-        .then((userCredential) => {
-            // Signed up 
-            var user = userCredential.user;
-            window.location = "index.html";
-            //alert("Signed Up: " + email);
-            user.updateProfile({
-                displayName: displayName
+        promise
+            .then((userCredential) => {
+                // Signed up 
+                var user = userCredential.user;
+                window.location = "index.html";
+                user.updateProfile({
+                    displayName: displayName
+                })
             })
-        })
-        .catch((error) => {
-            var errorCode = error.code;
-            var errorMessage = error.message;
-            alert(errorMessage);
-        });
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                message.innerHTML = errorMessage;
+                showMessageModal();
+                //alert(errorMessage);
+            });
     }
 });
 
@@ -55,12 +64,13 @@ document.querySelector("#sign-in-button").addEventListener("click", () => {
             // Signed in 
             var user = userCredential.user;
             window.location = "index.html";
-            //alert("Signed In: " + email);
         })
         .catch((error) => {
             var errorCode = error.code;
             var errorMessage = error.message;
-            alert(errorMessage);
+            message.innerHTML = errorMessage;
+            showMessageModal();
+            //alert(errorMessage);
         });
 });
 
@@ -70,3 +80,21 @@ document.querySelector("#cancel-button").addEventListener("click", () => {
     document.getElementById("password").value = "";
     document.getElementById("username").value = "";
 });
+
+// Show modal with error-message.
+const showMessageModal = () => {    
+    messageModal.style.display = "block";
+    okButton.setAttribute("onclick", "hideModal(messageModal)");
+    spanCloseModal.setAttribute("onclick", "hideModal(messageModal)");
+
+    window.onclick = function(event) {
+        if (event.target === messageModal) {
+            hideModal(messageModal);
+        }
+    }
+}
+
+// Hide modal.
+const hideModal = (modal) => {
+    modal.style.display = "none";
+}
