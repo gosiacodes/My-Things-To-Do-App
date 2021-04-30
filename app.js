@@ -58,8 +58,14 @@ document.querySelector("#logout-button").addEventListener("click", () => {
 const createTask = () => {
     const inputValue = document.getElementById("task-title").value;
     const dateValue = document.getElementById("task-date").value;
-    //const currentDate = new Date();
-    //const givenDate = new Date(dateValue);
+    alert(dateValue);
+    console.log(dateValue);
+    const currentDate = new Date();
+    const givenDate = new Date(dateValue);
+    currentDate.setHours(0,0,0,0);
+    alert(currentDate);
+    console.log(currentDate);
+    alert(givenDate);
     if (inputValue === "" && dateValue === "") {
         message.innerHTML = "Enter what you want to do and choose deadline date!";
         showMessageModal();
@@ -69,8 +75,11 @@ const createTask = () => {
     } else if (dateValue === "") {
         message.innerHTML = "Choose deadline date!";
         showMessageModal();
-    //} else if (givenDate < currentDate) {
-    //    alert("The date must be bigger or equal to current date!")
+    } else if (givenDate < currentDate) {
+        alert("The date must be bigger or equal to current date!");
+        console.log("The date must be bigger or equal to current date!");
+        message.innerHTML = "The date must be bigger or equal to current date!";
+        showMessageModal();
     } else {
         addItemsToDatabase(inputValue, dateValue);
     } 
@@ -233,11 +242,6 @@ const sortTasks = () => {
         sort = false;        
     }    
 }
-
-// Delete all tasks from list and from database.
-document.querySelector("#delete-all-button").addEventListener("click", () => {
-    showDeleteModal();
-});
 
 // Task description (end edit) when clicked on info-button.
 const checkInfo = (listItem, buttonInfo) => {   
