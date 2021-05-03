@@ -40,7 +40,11 @@ auth.onAuthStateChanged(function(user) {
         // User is signed in.
         email = user.email;
         name = user.displayName;
+        console.log(name);
+        userId = user.uid;
+        console.log(userId);
         document.getElementById("welcome").innerText = "Welcome " + name + "!"
+        fetchAllData();
     }
     else {
         // Redirect to login-page.
@@ -58,14 +62,9 @@ document.querySelector("#logout-button").addEventListener("click", () => {
 const createTask = () => {
     const inputValue = document.getElementById("task-title").value;
     const dateValue = document.getElementById("task-date").value;
-    alert(dateValue);
-    console.log(dateValue);
     const currentDate = new Date();
     const givenDate = new Date(dateValue);
     currentDate.setHours(0,0,0,0);
-    alert(currentDate);
-    console.log(currentDate);
-    alert(givenDate);
     if (inputValue === "" && dateValue === "") {
         message.innerHTML = "Enter what you want to do and choose deadline date!";
         showMessageModal();
@@ -76,8 +75,6 @@ const createTask = () => {
         message.innerHTML = "Choose deadline date!";
         showMessageModal();
     } else if (givenDate < currentDate) {
-        alert("The date must be bigger or equal to current date!");
-        console.log("The date must be bigger or equal to current date!");
         message.innerHTML = "The date must be bigger or equal to current date!";
         showMessageModal();
     } else {
@@ -95,7 +92,7 @@ document.querySelector(".input").addEventListener("keydown", (event) => {
 
 // Send task-items to Firebase database.
 const addItemsToDatabase = (inputValue, dateValue) => {
-    let key = database.ref().child("my_todos/").push().key;
+    let key = database.ref().child(userId + "/todos/").push().key;
     let description = "Task description";
     let task = {
         title: inputValue,
@@ -106,8 +103,10 @@ const addItemsToDatabase = (inputValue, dateValue) => {
         key: key
     };
     
+    //console.log("task added by: " + name + "user id: " + userId);
+    
     let updates = {};
-    updates["my_todos/" + key] = task;
+    updates[userId + "/todos/" + key] = task;
     database.ref().update(updates);
     
     addItemsToListView(task, key);
@@ -363,7 +362,7 @@ const finishEdit = (listItem, buttonEdit) => {
 const deleteTask = (listItem, buttonDelete) => {
     listItem.style.display = "none";
     let key = listItem.id;
-    database.ref("my_todos/").child(key).remove();
+    database.ref(userId + "/todos/").child(key).remove();
 };
 
 // Update task and send updated data to Firebase.
@@ -380,7 +379,7 @@ const updateTask = (listItem) => {
     };
     
     let updates = {};
-    updates["my_todos/" + key] = updatedTask;
+    updates[userId + "/todos/" + key] = updatedTask;
     database.ref().update(updates);
 };
 
@@ -413,7 +412,7 @@ const showDeleteModal = () => {
 
 // Delete all tasks from list and hide modal.
 const deleteAllTasks = () => {
-    database.ref("my_todos/").remove();
+    database.ref(userId + "/todos/").remove();
     let list = document.getElementById("task-list");
     let listItem = list.getElementsByTagName("LI");
 
@@ -430,7 +429,7 @@ const hideModal = (modal) => {
 
 // Fetch all data with Firebase database.
 function fetchAllData(){   
-    database.ref("my_todos/").once("value", function(snapshot){
+    database.ref(userId + "/todos/").once("value", function(snapshot){
         snapshot.forEach(function(ChildSnapshot){
             let task = ChildSnapshot.val();
             let key = ChildSnapshot.val().key;
@@ -439,7 +438,7 @@ function fetchAllData(){
     });   
 }
 
-window.onload = fetchAllData();
+//window.onload = fetchAllData();
 
 // Event listeners to buttons.
 addTaskButton.addEventListener("click", createTask);
