@@ -44,6 +44,12 @@ auth.onAuthStateChanged(function(user) {
         userId = user.uid;
         console.log(userId);
         document.getElementById("welcome").innerText = "Welcome " + name + "!"
+        /*
+        database.ref("users/" + displayName).on("value", function(snapshot){
+            let displayName = snapshot.val().displayName;
+            document.getElementById("welcome").innerText = "Welcome " + displayName + "!"
+        });
+        */
         fetchAllData();
     }
     else {
@@ -102,8 +108,6 @@ const addItemsToDatabase = (inputValue, dateValue) => {
         done: false,
         key: key
     };
-    
-    //console.log("task added by: " + name + "user id: " + userId);
     
     let updates = {};
     updates[userId + "/todos/" + key] = task;

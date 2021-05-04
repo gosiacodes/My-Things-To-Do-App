@@ -39,6 +39,13 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
                 // Signed up 
                 var user = userCredential.user;
                 window.location = "index.html";
+            
+                database.ref("users/" + displayName).set({
+                    email: email,
+                    password: password,
+                    displayName: displayName
+                })
+                
                 user.updateProfile({
                     displayName: displayName
                 })
