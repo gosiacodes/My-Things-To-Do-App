@@ -35,21 +35,17 @@ let sort = false;
 
 // Check if user is signed in.
 auth.onAuthStateChanged(function(user) {
-    let email, name;
+    let email, displayName;
     if (user) {
-        // User is signed in.
-        email = user.email;
-        name = user.displayName;
-        console.log(name);
+       // User is signed in.
         userId = user.uid;
-        console.log(userId);
-        document.getElementById("welcome").innerText = "Welcome " + name + "!"
-        /*
-        database.ref("users/" + displayName).on("value", function(snapshot){
-            let displayName = snapshot.val().displayName;
-            document.getElementById("welcome").innerText = "Welcome " + displayName + "!"
-        });
-        */
+        console.log("reading: " + userId);
+        email = user.email;
+        console.log(email);
+        displayName = user.displayName;
+        console.log(displayName);
+        document.getElementById("welcome").innerText = "Welcome " + displayName + "!"
+        writeUserData(displayName, email);
         fetchAllData();
     }
     else {
@@ -58,6 +54,38 @@ auth.onAuthStateChanged(function(user) {
         window.location.replace("login.html");
     }
 });
+
+// Save user data in database.
+function writeUserData(displayName, email) {
+    console.log("writing: " + userId);
+    database.ref("users/" + userId).set({
+        displayName: displayName,
+        email: email                  
+    });
+    getUserData();
+}
+
+// Get user data from database.
+function getUserData(){
+    database.ref("users/" + userId).on("value", (snapshot) => {
+        let data = snapshot.val();
+        let email = data.email;
+        console.log("snapshot email: " + email);
+        let displayName = data.displayName;
+        console.log("snapshot displayName: " + displayName);
+    });
+}
+
+// Fetch all data with Firebase database.
+function fetchAllData(){   
+    database.ref(userId + "/todos/").once("value", function(snapshot){
+        snapshot.forEach(function(ChildSnapshot){
+            let task = ChildSnapshot.val();
+            let key = ChildSnapshot.val().key;
+            addItemsToListView(task, key);
+        });           
+    });   
+}
 
 // Logout user from database.
 document.querySelector("#logout-button").addEventListener("click", () => {
@@ -430,19 +458,6 @@ const deleteAllTasks = () => {
 const hideModal = (modal) => {
     modal.style.display = "none";
 }
-
-// Fetch all data with Firebase database.
-function fetchAllData(){   
-    database.ref(userId + "/todos/").once("value", function(snapshot){
-        snapshot.forEach(function(ChildSnapshot){
-            let task = ChildSnapshot.val();
-            let key = ChildSnapshot.val().key;
-            addItemsToListView(task, key);
-        });           
-    });   
-}
-
-//window.onload = fetchAllData();
 
 // Event listeners to buttons.
 addTaskButton.addEventListener("click", createTask);

@@ -31,31 +31,22 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
     if (displayName === "") {
         message.innerHTML = "Enter your name!";
         showMessageModal();
-        //alert("Enter your name!");
     } else {
         const promise = auth.createUserWithEmailAndPassword(email, password);
         promise
             .then((userCredential) => {
                 // Signed up 
-                var user = userCredential.user;
-                window.location = "index.html";
-            
-                database.ref("users/" + displayName).set({
-                    email: email,
-                    password: password,
-                    displayName: displayName
-                })
-                
+                var user = userCredential.user;                               
                 user.updateProfile({
                     displayName: displayName
                 })
+                window.location = "index.html";
             })
             .catch((error) => {
                 var errorCode = error.code;
                 var errorMessage = error.message;
                 message.innerHTML = errorMessage;
                 showMessageModal();
-                //alert(errorMessage);
             });
     }
 });
@@ -77,7 +68,6 @@ document.querySelector("#sign-in-button").addEventListener("click", () => {
             var errorMessage = error.message;
             message.innerHTML = errorMessage;
             showMessageModal();
-            //alert(errorMessage);
         });
 });
 
