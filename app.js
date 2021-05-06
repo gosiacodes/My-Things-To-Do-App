@@ -37,7 +37,33 @@ let sort = false;
 auth.onAuthStateChanged(function(user) {
     let email, displayName;
     if (user) {
-       // User is signed in.
+        firebase.auth().getRedirectResult().then(function(result) {
+            if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
+                // User just created.
+                userId = user.uid;
+                console.log("reading: " + userId);
+                email = user.email;
+                console.log(email);
+                displayName = user.displayName;
+                console.log(displayName);
+                document.getElementById("welcome").innerText = "Welcome 1 " + displayName + "!"
+                writeUserData(displayName, email);
+                fetchAllData();              
+            }
+            if (result.user) {
+                // User just signed in.
+                userId = user.uid;
+                console.log("reading: " + userId);
+                email = user.email;
+                console.log(email);
+                displayName = user.displayName;
+                console.log(displayName);
+                document.getElementById("welcome").innerText = "Welcome 2 " + displayName + "!"
+                writeUserData(displayName, email);
+                fetchAllData();
+            }
+        });
+        // User is signed in.
         userId = user.uid;
         console.log("reading: " + userId);
         email = user.email;
@@ -81,7 +107,7 @@ function fetchAllData(){
     database.ref(userId + "/todos/").once("value", function(snapshot){
         snapshot.forEach(function(ChildSnapshot){
             let task = ChildSnapshot.val();
-            let key = ChildSnapshot.val().key;
+            let key = task.key;
             addItemsToListView(task, key);
         });           
     });   
