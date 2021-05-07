@@ -39,8 +39,10 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
                 var user = userCredential.user;                               
                 user.updateProfile({
                     displayName: displayName
-                })
-                window.location = "index.html";
+                }).then(function() {
+                    // Update successful, go to main page.
+                    window.location = "index.html";   
+                })                 
             })
             .catch((error) => {
                 var errorCode = error.code;

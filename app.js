@@ -35,35 +35,9 @@ let sort = false;
 
 // Check if user is signed in.
 auth.onAuthStateChanged(function(user) {
-    let email, displayName;
     if (user) {
-        firebase.auth().getRedirectResult().then(function(result) {
-            if (result.additionalUserInfo && result.additionalUserInfo.isNewUser) {
-                // User just created.
-                userId = user.uid;
-                console.log("reading: " + userId);
-                email = user.email;
-                console.log(email);
-                displayName = user.displayName;
-                console.log(displayName);
-                document.getElementById("welcome").innerText = "Welcome 1 " + displayName + "!"
-                writeUserData(displayName, email);
-                fetchAllData();              
-            }
-            if (result.user) {
-                // User just signed in.
-                userId = user.uid;
-                console.log("reading: " + userId);
-                email = user.email;
-                console.log(email);
-                displayName = user.displayName;
-                console.log(displayName);
-                document.getElementById("welcome").innerText = "Welcome 2 " + displayName + "!"
-                writeUserData(displayName, email);
-                fetchAllData();
-            }
-        });
         // User is signed in.
+        let email, displayName;
         userId = user.uid;
         console.log("reading: " + userId);
         email = user.email;
