@@ -513,6 +513,14 @@ ul.login-group {
     background-color: #5ffdd2;
 }
 
+#user-button {
+    background-color: #00C9A2;
+}
+
+#user-button:hover {
+    background-color: #5ffdd2;
+}
+
 ul.button-auth-group {
     display: flex;
     flex-direction: row;
@@ -625,6 +633,12 @@ ul.button-auth-group {
     color: #000000;
 }
 
+.container-user-modal {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+/* Media queries */
 @media only screen and (max-width: 1024px) {
     .title {
         font-size: 1.5em;
@@ -719,6 +733,9 @@ ul.button-auth-group {
         max-width: 80px;
         max-height: 70px;
     }
+    .container-login {
+        padding: 30px;
+    }
     .input-login {
         height: 40px;
         padding: 10px;
@@ -735,6 +752,12 @@ ul.button-auth-group {
     }
     .message-button {
         font-size: 14px;
+        padding: 8px 15px;
+        width: 100px;
+    }
+    .container-user-modal {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
 
@@ -821,9 +844,7 @@ ul.button-auth-group {
         max-height: 53px;
     }
     .container-login {
-        margin-left: 10px;
-        margin-right: 10px;
-        padding: 30px;
+        padding: 20px;
     }
     .input-login {
         border: 3px solid #00C9A2;
@@ -840,5 +861,11 @@ ul.button-auth-group {
     }
     .message-button {
         font-size: 12px;
+        padding: 6px 12px;
+        width: 80px;
+    }
+    .container-user-modal {
+        padding-left: 20px;
+        padding-right: 20px;
     }
 }

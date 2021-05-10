@@ -22,6 +22,7 @@
         <!-- Main -->
         <div class="main">
             <button type="submit" class="button-auth font-style" id="logout-button" title="Logout">Logout</button>
+            <button type="submit" class="button-auth font-style" id="user-button">User <i class="fas fa-user-circle"></i></button>
             <h2 class="welcome font-style" id="welcome"></h2>
             <!-- Image -->
             <div class="img"><img src="images/office-checklist.png" alt="checklist" id="checklist"></div>
@@ -48,7 +49,7 @@
             <!-- Modal content -->
             <div class="modal-container">
                 <div class="modal-header font-style">
-                    <div>Ups! Something is missing.<span class="close" title="Close">&times;</span>
+                    <div>Ups! Something is missing.<span class="close" id="error-close" title="Close">&times;</span>
                     </div>
                 </div>
                 <div class="modal-all-content">
@@ -66,7 +67,7 @@
             <!-- Modal content -->
             <div class="modal-container">
                 <div class="modal-header font-style">
-                    <div>Confirm deletion.<span class="close" title="Close">&times;</span>
+                    <div>Confirm deletion.<span class="close" id="delete-close" title="Close">&times;</span>
                     </div>
                 </div>
                 <div class="modal-all-content">
@@ -85,18 +86,21 @@
             <!-- Modal content -->
             <div class="modal-container">
                 <div class="modal-header font-style">
-                    <div>User Profile.<span class="close" title="Close">&times;</span>
+                    <div>User Profile.<span class="close" id="user-close" title="Close">&times;</span>
                     </div>
                 </div>
-                <div class="modal-all-content">
-                    <label for="email" class="label"><b>Update email</b></label>
-                    <input type="email" class="input-login" id="email" name="email" placeholder="Update email" maxlength="50"/>
-                    <label for="password" class="label"><b>Update password</b></label>
-                    <input type="password" class="input-login" id="password" name="password" placeholder="Update password" maxlength="30" required/>
-                    <label for="username" class="label"><b>Update name</b></label>
-                    <input type="text" class="input-login" id="username" name="username" placeholder="Update name" maxlength="50"/>
+                <div class="container-user-modal modal-all-content">
+                    <ul class = "login-group">
+                        <label for="email" class="label"><b>Update email</b></label>
+                        <input type="email" class="input-login" id="email" name="email" placeholder="Enter new email" maxlength="50"/>
+                        <label for="password" class="label"><b>Update password</b></label>
+                        <input type="password" class="input-login" id="password" name="password" placeholder="Enter new password" maxlength="30" required/>
+                        <label for="username" class="label"><b>Update name</b></label>
+                        <input type="text" class="input-login" id="username" name="username" placeholder="Enter new name" maxlength="50"/>
+                    </ul>
                     <div class="modal-buttons">
-                        <button type="submit" class="update-button font-style" id="update-button" title="Update">Update</button>
+                        <button type="submit" class="message-button font-style" id="update-button" title="Update">UPDATE</button>
+                        <button type="submit" class="message-button font-style" id="user-cancel-button" title="Cancel">CANCEL</button>
                     </div>
                 </div>
             </div>

@@ -20,14 +20,18 @@ const auth = firebase.auth();
 const addTaskButton = document.querySelector("#add-button");
 const sortTasksButton = document.querySelector("#sort-button");
 const deleteAllTasksButton = document.querySelector("#delete-all-button");
+const userProfileButton = document.querySelector("#user-button");
 
 const messageModal = document.getElementById("message-modal");
-const spanCloseModal = document.getElementsByClassName("close")[0];
+const closeMessageModal = document.getElementById("error-close");
 const okButton = document.getElementById("ok-button");
 const message = document.getElementById("error-message");
 
+const userModal = document.getElementById("user-profile-modal");
+const closeUserModal = document.getElementById("user-close");
+
 const deleteModal = document.getElementById("delete-message-modal");
-const spanCloseDeleteModal = document.getElementsByClassName("close")[1];
+const closeDeleteModal = document.getElementById("delete-close");
 const cancelButton = document.getElementById("delete-cancel-button");
 const deleteButton = document.getElementById("delete-button");
 
@@ -419,7 +423,7 @@ const updateTask = (listItem) => {
 const showMessageModal = () => {    
     messageModal.style.display = "block";
     okButton.setAttribute("onclick", "hideModal(messageModal)");
-    spanCloseModal.setAttribute("onclick", "hideModal(messageModal)");
+    closeMessageModal.setAttribute("onclick", "hideModal(messageModal)");
 
     window.onclick = function(event) {
         if (event.target === messageModal) {
@@ -432,7 +436,7 @@ const showMessageModal = () => {
 const showDeleteModal = () => {    
     cancelButton.setAttribute("onclick", "hideModal(deleteModal)");
     deleteButton.setAttribute("onclick", "deleteAllTasks()");
-    spanCloseDeleteModal.setAttribute("onclick", "hideModal(deleteModal)");
+    closeDeleteModal.setAttribute("onclick", "hideModal(deleteModal)");
     deleteModal.style.display = "block";
     
     window.onclick = function(event) {
@@ -454,6 +458,18 @@ const deleteAllTasks = () => {
     hideModal(deleteModal);
 }
 
+// Show modal for user edit profile function.
+const showUserModal = () => {    
+    closeUserModal.setAttribute("onclick", "hideModal(userModal)");
+    userModal.style.display = "block";
+    
+    window.onclick = function(event) {
+        if (event.target === userModal) {
+            hideModal(userModal);
+        }
+    }
+}
+
 // Hide modal.
 const hideModal = (modal) => {
     modal.style.display = "none";
@@ -463,3 +479,4 @@ const hideModal = (modal) => {
 addTaskButton.addEventListener("click", createTask);
 sortTasksButton.addEventListener("click", sortTasks);
 deleteAllTasksButton.addEventListener("click", showDeleteModal);
+userProfileButton.addEventListener("click", showUserModal);
