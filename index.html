@@ -18,7 +18,7 @@
         <!-- Header -->
         <div class="header font-style">
             <h1 class="title">My Things To Do</h1>           
-        </div> 
+        </div>
         <!-- Main -->
         <div class="main">
             <button type="submit" class="button-auth font-style" id="logout-button" title="Logout">Logout</button>
@@ -62,8 +62,8 @@
         </div>
         <!-- End Error Modal -->
         
-        <!-- Delete All Modal -->
-        <div id="delete-message-modal" class="modal-background">
+        <!-- Delete All Tasks Modal -->
+        <div id="delete-tasks-modal" class="modal-background">
             <!-- Modal content -->
             <div class="modal-container">
                 <div class="modal-header font-style">
@@ -71,41 +71,73 @@
                     </div>
                 </div>
                 <div class="modal-all-content">
-                    <p class="message" id="delete-message">Are you sure you want to permanently delete all tasks?</p>
+                    <p class="message" id="delete-tasks-message">Are you sure you want to permanently delete all tasks?</p>
                     <div class="modal-buttons">
                         <button type="submit" class="message-button font-style" id="delete-cancel-button" title="Cancel">CANCEL</button>
-                        <button type="submit" class="message-button font-style" id="delete-button" title="Delete">DELETE</button>
+                        <button type="submit" class="message-button font-style" id="delete-tasks-button" title="Delete All Tasks">DELETE</button>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End Delete All Modal -->
+        <!-- End Delete All Tasks Modal -->
         
         <!-- User Profile Modal -->
         <div id="user-profile-modal" class="modal-background">
             <!-- Modal content -->
-            <div class="modal-container">
+            <div class="modal-container" id="user-container">
                 <div class="modal-header font-style">
                     <div>User Profile.<span class="close" id="user-close" title="Close">&times;</span>
                     </div>
                 </div>
                 <div class="container-user-modal modal-all-content">
+                    <h5>Sign out and sign in again to update your profile.</h5>
+                    <!-- Inputs -->
                     <ul class = "login-group">
                         <label for="email" class="label"><b>Update email</b></label>
                         <input type="email" class="input-login" id="email" name="email" placeholder="Enter new email" maxlength="50"/>
+                        <div class="update-buttons">
+                            <button type="submit" class="update-button font-style" id="update-email-button" title="Update">UPDATE </button>
+                        </div>
                         <label for="password" class="label"><b>Update password</b></label>
-                        <input type="password" class="input-login" id="password" name="password" placeholder="Enter new password" maxlength="30" required/>
+                        <input type="password" class="input-login" id="password" name="password" placeholder="Enter new password" maxlength="30"/>
+                        <div class="update-buttons">
+                            <button type="submit" class="update-button font-style" id="update-password-button" title="Update">UPDATE</button>
+                        </div>
                         <label for="username" class="label"><b>Update name</b></label>
                         <input type="text" class="input-login" id="username" name="username" placeholder="Enter new name" maxlength="50"/>
+                        <div class="update-buttons">
+                            <button type="submit" class="update-button font-style" id="update-name-button" title="Update">UPDATE</button>
+                        </div>
                     </ul>
                     <div class="modal-buttons">
-                        <button type="submit" class="message-button font-style" id="update-button" title="Update">UPDATE</button>
-                        <button type="submit" class="message-button font-style" id="user-cancel-button" title="Cancel">CANCEL</button>
+                        <button type="submit" class="message-button font-style" id="delete-user-button" title="Delete account">DELETE USER</button>
+                        <button type="submit" class="message-button font-style" id="update-reset-button" title="Reset">RESET</button>
+                        <button type="submit" class="message-button font-style" id="update-close-button" title="Close">CLOSE</button>
                     </div>
                 </div>
             </div>
         </div>
         <!-- End User Profile Modal -->
+        
+        <!-- Delete User Modal -->
+        <div id="delete-user-modal" class="modal-background">
+            <!-- Modal content -->
+            <div class="modal-container">
+                <div class="modal-header font-style">
+                    <div>Confirm deletion.<span class="close" id="delete-user-close" title="Close">&times;</span>
+                    </div>
+                </div>
+                <div class="modal-all-content">
+                    <p class="message" id="delete-user-message">Are you sure you want to permanently delete your account? <br> 
+                        It can't be undone.</p>
+                    <div class="modal-buttons">
+                        <button type="submit" class="message-button font-style" id="delete-user-cancel-button" title="Cancel">CANCEL</button>
+                        <button type="submit" class="message-button font-style" id="delete-user-confirm-button" title="Delete my user account">DELETE</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Delete User Modal -->
         
         <!-- Footer -->
         <footer>
@@ -117,7 +149,7 @@
         <!-- End footer -->
         
         <!-- Scripts js -->
-        <script defer src="app.js"></script>    
+        <script defer src="app.js"></script>
         <!-- Firebase js -->
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
         <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>

@@ -9,31 +9,50 @@ var firebaseConfig = {
     appId: "1:701583012637:web:091b338bd38e88f345a7f4",
     measurementId: "G-TE1EGL3L0M"
 };
+
 // Initialize Firebase.
 firebase.initializeApp(firebaseConfig);
-firebase.analytics();
 
 const database = firebase.database();
 const auth = firebase.auth();
 
 // Global variables.
+
+// Main buttons variables.
 const addTaskButton = document.querySelector("#add-button");
 const sortTasksButton = document.querySelector("#sort-button");
 const deleteAllTasksButton = document.querySelector("#delete-all-button");
 const userProfileButton = document.querySelector("#user-button");
+const logoutButton = document.querySelector("#logout-button");
+const enterTask = document.querySelector("#task-title");
 
+// Error modal variables.
 const messageModal = document.getElementById("message-modal");
 const closeMessageModal = document.getElementById("error-close");
 const okButton = document.getElementById("ok-button");
 const message = document.getElementById("error-message");
 
+// User update profile modal variables.
 const userModal = document.getElementById("user-profile-modal");
 const closeUserModal = document.getElementById("user-close");
+const updateEmailButton = document.getElementById("update-email-button");
+const updatePasswordButton = document.getElementById("update-password-button");
+const updateNameButton = document.getElementById("update-name-button");
+const deleteUserButton = document.getElementById("delete-user-button");
+const resetButton = document.getElementById("update-reset-button");
+const closeUpdateButton = document.getElementById("update-close-button");
 
-const deleteModal = document.getElementById("delete-message-modal");
-const closeDeleteModal = document.getElementById("delete-close");
-const cancelButton = document.getElementById("delete-cancel-button");
-const deleteButton = document.getElementById("delete-button");
+// Delete user modal variables.
+const deleteUserModal = document.getElementById("delete-user-modal");
+const closeDeleteUserModal = document.getElementById("delete-user-close");
+const deleteUserCancelButton = document.getElementById("delete-user-cancel-button");
+const deleteUserConfirmButton = document.getElementById("delete-user-confirm-button");
+
+// Delete all tasks modal variables.
+const deleteTasksModal = document.getElementById("delete-tasks-modal");
+const closeDeleteTasksModal = document.getElementById("delete-close");
+const deleteTasksCancelButton = document.getElementById("delete-cancel-button");
+const deleteTasksButton = document.getElementById("delete-tasks-button");
 
 let sort = false;
 
@@ -43,11 +62,8 @@ auth.onAuthStateChanged(function(user) {
         // User is signed in.
         let email, displayName;
         userId = user.uid;
-        console.log("reading: " + userId);
         email = user.email;
-        console.log(email);
         displayName = user.displayName;
-        console.log(displayName);
         document.getElementById("welcome").innerText = "Welcome " + displayName + "!"
         writeUserData(displayName, email);
         fetchAllData();
@@ -60,8 +76,7 @@ auth.onAuthStateChanged(function(user) {
 });
 
 // Save user data in database.
-function writeUserData(displayName, email) {
-    console.log("writing: " + userId);
+const writeUserData = (displayName, email) => {
     database.ref("users/" + userId).set({
         displayName: displayName,
         email: email                  
@@ -70,7 +85,7 @@ function writeUserData(displayName, email) {
 }
 
 // Get user data from database.
-function getUserData(){
+const getUserData = () => {
     database.ref("users/" + userId).on("value", (snapshot) => {
         let data = snapshot.val();
         let email = data.email;
@@ -81,20 +96,28 @@ function getUserData(){
 }
 
 // Fetch all data with Firebase database.
-function fetchAllData(){   
+const fetchAllData = () => {   
     database.ref(userId + "/todos/").once("value", function(snapshot){
         snapshot.forEach(function(ChildSnapshot){
             let task = ChildSnapshot.val();
             let key = task.key;
             addItemsToListView(task, key);
         });           
-    });   
+    });  
 }
 
 // Logout user from database.
-document.querySelector("#logout-button").addEventListener("click", () => {
+const signOut = () => {
     auth.signOut();
-});
+}
+
+// EventListener for "enter" key used when adding new task.
+const enterTaskEvent = (event) => {
+    if (event.keyCode === 13 || event.code === "Enter") {
+        event.preventDefault();
+        document.querySelector("#add-button").click();
+    }
+}
 
 // Read input when clicking on the "Add new task" button.
 const createTask = () => {
@@ -119,14 +142,6 @@ const createTask = () => {
         addItemsToDatabase(inputValue, dateValue);
     } 
 }
-
-// Setting EventListener for "enter" key.
-document.querySelector(".input").addEventListener("keydown", (event) => {
-    if (event.keyCode === 13 || event.code === "Enter") {
-        event.preventDefault();
-        document.querySelector("#add-button").click();
-    }
-});
 
 // Send task-items to Firebase database.
 const addItemsToDatabase = (inputValue, dateValue) => {
@@ -399,7 +414,7 @@ const deleteTask = (listItem, buttonDelete) => {
     listItem.style.display = "none";
     let key = listItem.id;
     database.ref(userId + "/todos/").child(key).remove();
-};
+}
 
 // Update task and send updated data to Firebase.
 const updateTask = (listItem) => {
@@ -419,6 +434,123 @@ const updateTask = (listItem) => {
     database.ref().update(updates);
 };
 
+// Edit and update user email.
+const updateUserEmail = () => {
+    let user = firebase.auth().currentUser;
+    let newEmail = document.getElementById("email").value;    
+
+    if (newEmail !== ""){
+        user.updateEmail(newEmail)
+            .then(function() {
+                // Update successful.
+                database.ref("users/" + userId).set({
+                    displayName: user.displayName,
+                    email: newEmail
+                });
+                document.getElementById("email").value = "";
+                message.innerHTML = "Email updated successfully";
+                showMessageModal();
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                message.innerHTML = errorMessage;
+                showMessageModal();
+            });
+    }
+}
+
+// Edit and update user password.
+const updateUserPassword = () => {
+    let user = firebase.auth().currentUser;
+    let newPassword = document.getElementById("password").value;
+    
+    if (newPassword !== ""){
+        user.updatePassword(newPassword)
+            .then(function() {
+                // Update successful.
+                document.getElementById("password").value = "";
+                message.innerHTML = "Password updated successfully";
+                showMessageModal();
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                message.innerHTML = errorMessage;
+                showMessageModal();
+            });
+    }
+}
+
+// Edit and update user name.
+const updateUserName = () => {
+    let user = firebase.auth().currentUser;
+    let newUsername = document.getElementById("username").value;
+
+    if (newUsername !== ""){
+        user.updateProfile({
+            displayName: newUsername
+        })
+            .then(function() {
+                // Update successful.
+                database.ref("users/" + userId).set({
+                    displayName: newUsername,
+                    email: user.email
+                });
+                document.getElementById("welcome").innerText = "Welcome " + newUsername + "!"
+                document.getElementById("username").value = "";
+                message.innerHTML = "Name updated successfully";
+                showMessageModal();
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                message.innerHTML = errorMessage;
+                showMessageModal();
+            });
+    }
+}
+
+// Reset input.
+const resetInput = () => {
+    document.getElementById("email").value = "";
+    document.getElementById("password").value = "";
+    document.getElementById("username").value = "";
+}
+
+// Show modal with delete-user-message.
+const showDeleteUserModal = () => {    
+    deleteUserCancelButton.setAttribute("onclick", "hideModal(deleteUserModal)");
+    deleteUserConfirmButton.setAttribute("onclick", "deleteUser()");
+    closeDeleteUserModal.setAttribute("onclick", "hideModal(deleteUserModal)");
+    deleteUserModal.style.display = "block";
+    
+    window.onclick = function(event) {
+        if (event.target === deleteUserModal) {
+            hideModal(deleteUserModal);
+        }
+    }
+}
+
+// Delete user from database.
+const deleteUser = () => {
+    var user = firebase.auth().currentUser;
+    user.delete()
+        .then(function() {
+            // User deleted.
+            deleteAllTasks();
+            database.ref("users/" + userId).remove();
+            message.innerHTML = "Your account has been succesfully deleted";
+            showMessageModal();
+        })
+        .catch((error) => {
+            var errorCode = error.code;
+            var errorMessage = error.message;
+            message.innerHTML = errorMessage;
+            showMessageModal();
+        });
+}
+
 // Show modal with error-message.
 const showMessageModal = () => {    
     messageModal.style.display = "block";
@@ -434,14 +566,14 @@ const showMessageModal = () => {
 
 // Show modal with delete-message.
 const showDeleteModal = () => {    
-    cancelButton.setAttribute("onclick", "hideModal(deleteModal)");
-    deleteButton.setAttribute("onclick", "deleteAllTasks()");
-    closeDeleteModal.setAttribute("onclick", "hideModal(deleteModal)");
-    deleteModal.style.display = "block";
+    deleteTasksCancelButton.setAttribute("onclick", "hideModal(deleteTasksModal)");
+    deleteTasksButton.setAttribute("onclick", "deleteAllTasks()");
+    closeDeleteTasksModal.setAttribute("onclick", "hideModal(deleteTasksModal)");
+    deleteTasksModal.style.display = "block";
     
     window.onclick = function(event) {
-        if (event.target === deleteModal) {
-            hideModal(deleteModal);
+        if (event.target === deleteTasksModal) {
+            hideModal(deleteTasksModal);
         }
     }
 }
@@ -455,11 +587,12 @@ const deleteAllTasks = () => {
     for (i = 0; i < listItem.length; i++) {
         listItem[i].style.display = "none";
     }   
-    hideModal(deleteModal);
+    hideModal(deleteTasksModal);
 }
 
 // Show modal for user edit profile function.
-const showUserModal = () => {    
+const showUserModal = () => {
+    closeUpdateButton.setAttribute("onclick", "hideModal(userModal)");
     closeUserModal.setAttribute("onclick", "hideModal(userModal)");
     userModal.style.display = "block";
     
@@ -480,3 +613,10 @@ addTaskButton.addEventListener("click", createTask);
 sortTasksButton.addEventListener("click", sortTasks);
 deleteAllTasksButton.addEventListener("click", showDeleteModal);
 userProfileButton.addEventListener("click", showUserModal);
+logoutButton.addEventListener("click", signOut);
+updateEmailButton.addEventListener("click", updateUserEmail);
+updatePasswordButton.addEventListener("click", updateUserPassword);
+updateNameButton.addEventListener("click", updateUserName);
+resetButton.addEventListener("click", resetInput);
+deleteUserButton.addEventListener("click", showDeleteUserModal);
+enterTask.addEventListener("keydown", enterTaskEvent);

@@ -17,13 +17,17 @@ const database = firebase.database();
 const auth = firebase.auth();
 
 // Global variables.
+const signUpButton = document.querySelector("#sign-up-button");
+const signInButton = document.querySelector("#sign-in-button");
+const cancelButton = document.querySelector("#cancel-button");
+
 const messageModal = document.getElementById("message-modal");
-const spanCloseModal = document.getElementsByClassName("close")[0];
+const spanCloseModal = document.getElementById("close-error");
 const okButton = document.getElementById("ok-button");
 const message = document.getElementById("error-message");
 
 // Sign up to create a new account.
-document.querySelector("#sign-up-button").addEventListener("click", () => {
+const signUp = () => {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let displayName = document.getElementById("username").value;
@@ -36,13 +40,13 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
         promise
             .then((userCredential) => {
                 // Signed up 
-                var user = userCredential.user;                               
+                var user = userCredential.user;
                 user.updateProfile({
                     displayName: displayName
                 }).then(function() {
                     // Update successful, go to main page.
                     window.location = "index.html";   
-                })                 
+                })                
             })
             .catch((error) => {
                 var errorCode = error.code;
@@ -50,11 +54,11 @@ document.querySelector("#sign-up-button").addEventListener("click", () => {
                 message.innerHTML = errorMessage;
                 showMessageModal();
             });
-    }
-});
+    }    
+}
 
 // Sign in with existing account.
-document.querySelector("#sign-in-button").addEventListener("click", () => {
+const signIn = () => {
     let email = document.querySelector("#email").value;
     let password = document.querySelector("#password").value;
     
@@ -71,14 +75,14 @@ document.querySelector("#sign-in-button").addEventListener("click", () => {
             message.innerHTML = errorMessage;
             showMessageModal();
         });
-});
+}
 
 // Reset input.
-document.querySelector("#cancel-button").addEventListener("click", () => {
+const resetInput = () => {
     document.getElementById("email").value = "";
     document.getElementById("password").value = "";
     document.getElementById("username").value = "";
-});
+}
 
 // Show modal with error-message.
 const showMessageModal = () => {    
@@ -97,3 +101,8 @@ const showMessageModal = () => {
 const hideModal = (modal) => {
     modal.style.display = "none";
 }
+
+// Event listeners to buttons.
+signUpButton.addEventListener("click", signUp);
+signInButton.addEventListener("click", signIn);
+cancelButton.addEventListener("click", resetInput);

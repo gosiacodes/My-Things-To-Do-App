@@ -38,7 +38,7 @@ div {
 }
 
 .welcome {
-    color: #00C9A2;
+    color: #00C9A1;
     font-weight: bold;
 }
 
@@ -54,20 +54,17 @@ div {
 
 .container-tasks {
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin: 20px auto 30px;
     max-width: 1000px;
     height: auto;
     padding: 60px;
     background-color: #ffffff;
     border-radius: 15px;
-    box-shadow: 0px 1px 5px rgba(74,68,83,.7);
+    box-shadow: 0 1px 5px rgba(74,68,83,.7);
 }
 
 .container-tasks:hover {
-    box-shadow: 0px 5px 10px rgba(74,68,83,.7);
+    box-shadow: 0 5px 10px rgba(74,68,83,.7);
 }
 
 .input {
@@ -75,7 +72,7 @@ div {
     height: 50px;
     padding: 15px;
     float: none;
-    border: 4px solid #00C9A2;
+    border: 4px solid #00C9A1;
     border-radius: 15px;
 }
 
@@ -85,7 +82,7 @@ div {
 }
 
 #task-title:hover {
-    box-shadow: 0px 3px 8px rgba(74,68,83,.7);
+    box-shadow: 0 3px 8px rgba(74,68,83,.7);
 }
 
 #task-date {
@@ -95,12 +92,12 @@ div {
 }
 
 #task-date:hover {
-    box-shadow: 0px 3px 8px rgba(74,68,83,.7);
+    box-shadow: 0 3px 8px rgba(74,68,83,.7);
 }
 
 .button {
-    color: #ffffff;
-    background-color: #00C9A2;
+    color: #000000;
+    background-color: #00C9A1;
     letter-spacing: 1px;
     font-size: 15px;
     font-weight: bold;
@@ -109,11 +106,11 @@ div {
     border: none;
     border-radius: 14px;
     display: inline-block;
-    margin: 10px 10px;
-    padding: 10px 40px;
+    margin: 10px;
+    padding: 10px 30px;
     width: 25%;
     transition-duration: 0.4s;
-    box-shadow: 0px 3px 8px rgba(74,68,83,.7);
+    box-shadow: 0 3px 8px rgba(74,68,83,.7);
 }
 
 .button:hover {
@@ -127,10 +124,10 @@ div {
     cursor: inherit;
 }
 
-ul.button-group {
+.button-group {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 ul {
@@ -161,7 +158,7 @@ ul li:nth-child(odd) {
 
 ul li:hover {
     background: #d9d9d9;
-    box-shadow: 0px 0px 2px 2px rgba(0,201,162,.7);
+    box-shadow: 0 0 2px 2px rgba(0,201,162,.7);
 }
 
 ul li.checked {
@@ -189,7 +186,7 @@ ul li.checked {
     border-radius: 50%;
     outline: none;    
     background: none;
-    color: #00C9A2;
+    color: #00C9A1;
     font-size: 18px;
 }
 
@@ -224,7 +221,7 @@ ul li.checked {
     border-radius: 20px;
     outline: none;    
     background: none;
-    color: #00C9A2;
+    color: #00C9A1;
     font-size: 18px;
 }
 
@@ -264,7 +261,7 @@ ul li.checked {
     border-radius: 20px;
     outline: none;    
     background: none;
-    color: #00C9A2;
+    color: #00C9A1;
     font-size: 18px;
   }
 
@@ -295,7 +292,7 @@ ul li.checked {
     border-radius: 20px;
     outline: none;
     background: #ffed83;
-    color: #00C9A2;
+    color: #00C9A1;
     font-size: 18px;
 }
 
@@ -316,7 +313,7 @@ ul li.checked {
     border-radius: 20px;
     outline: none;   
     background: none;
-    color: #00C9A2;
+    color: #00C9A1;
     font-size: 18px;
 }
 
@@ -379,7 +376,6 @@ ul li.checked {
     font-weight: normal;
 }
 
-/* Footer */ 
 .footer {    
     width: 100%;
     height: 70px;
@@ -389,7 +385,7 @@ ul li.checked {
     font-size: 18px;
     display: block;
     margin-top: 50px;
-    box-shadow: 0px 1px 5px rgba(74,68,83,.7);
+    box-shadow: 0 1px 5px rgba(74,68,83,.7);
 }
 
 .copyright {
@@ -410,8 +406,7 @@ ul li.checked {
 }
 
 /* Login page */ 
-
-ul.title-group {
+.title-group {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -423,20 +418,17 @@ ul.title-group {
 
 .container-login {
     position: relative;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2%;
-    margin-bottom: 2%;
+    margin: 2% auto;
     max-width: 600px;
     height: auto;
     padding: 40px;
     background-color: #ffffff;
     border-radius: 15px;
-    box-shadow: 0px 1px 5px rgba(74,68,83,.7);
+    box-shadow: 0 1px 5px rgba(74,68,83,.7);
 }
 
 .container-login:hover {
-    box-shadow: 0px 5px 10px rgba(74,68,83,.7);
+    box-shadow: 0 5px 10px rgba(74,68,83,.7);
 }
 
 .label {
@@ -449,12 +441,11 @@ ul.title-group {
     margin: 10px 0;
     height: 50px;
     padding: 15px;
-    border: 4px solid #00C9A2;
+    border: 4px solid #00C9A1;
     border-radius: 15px;
 }
 
-/* Login page - buttons */ 
-ul.login-group {
+.login-group {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -468,13 +459,12 @@ ul.login-group {
     cursor: pointer;
     border: none;
     border-radius: 14px;
-    display: inline-block;
     margin: 10px 20px;
     padding: 10px;
     width: 100px;
     float: right;
     transition-duration: 0.4s;
-    box-shadow: 0px 3px 8px rgba(74,68,83,.7);
+    box-shadow: 0 3px 8px rgba(74,68,83,.7);
 }
 
 .button-auth:hover {
@@ -490,7 +480,7 @@ ul.login-group {
 }
 
 #sign-in-button {
-    background-color: #00C9A2;
+    background-color: #00C9A1;
 }
 
 #sign-in-button:hover {
@@ -514,17 +504,17 @@ ul.login-group {
 }
 
 #user-button {
-    background-color: #00C9A2;
+    background-color: #00C9A1;
 }
 
 #user-button:hover {
     background-color: #5ffdd2;
 }
 
-ul.button-auth-group {
+.button-auth-group {
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-around;
 }
 
 /* Modal */
@@ -532,7 +522,7 @@ ul.button-auth-group {
     display: none; 
     position: fixed; 
     z-index: 1; 
-    padding-top: 100px; 
+    padding-top: 100px;
     padding-left: 30px;
     padding-right: 30px;
     left: 0;
@@ -549,9 +539,9 @@ ul.button-auth-group {
     background-color: #fefefe;
     margin: auto;
     border: 1px solid #888888;
-    max-width: 500px;
+    max-width: 550px;
     border-radius: 15px;
-    box-shadow: 0px 1px 5px rgba(74,68,83,.7);
+    box-shadow: 0 1px 5px rgba(74,68,83,.7);
     -webkit-animation-name: animatetop;
     -webkit-animation-duration: 0.4s;
     animation-name: animatetop;
@@ -613,19 +603,20 @@ ul.button-auth-group {
 }
 
 .message-button {
-    color: #ffffff;
-    background-color: #00C9A2;
+    color: #000000;
+    background-color: #00C9A1;
     letter-spacing: 1px;
-    font-size: 15px;
+    font-size: 14px;
     font-weight: bold;
     text-align: center;
     cursor: pointer;
     border: none;
     border-radius: 14px;
     margin-bottom: 30px;
-    padding: 10px 20px;
-    width: 120px;
-    box-shadow: 0px 3px 8px rgba(74,68,83,.7);
+    padding: 10px;
+    width: 130px;
+    transition-duration: 0.4s;
+    box-shadow: 0 3px 8px rgba(74,68,83,.7);
 }
 
 .message-button:hover {
@@ -636,6 +627,41 @@ ul.button-auth-group {
 .container-user-modal {
     padding-left: 40px;
     padding-right: 40px;
+}
+
+.update-button{
+    color: #000000;
+    background-color: #00C9A1;
+    letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    border: none;
+    border-radius: 14px;
+    margin-bottom: 20px;
+    padding: 10px;
+    width: 100px;
+    transition-duration: 0.4s;
+    box-shadow: 0 3px 8px rgba(74,68,83,.7);
+}
+
+.update-button:hover {
+    background: #5ffdd2;
+}
+
+.update-buttons {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+#delete-user-button, #delete-user-confirm-button {
+    background-color: #ff4d4d;
+}
+
+#delete-user-button:hover, #delete-user-confirm-button:hover {
+    background-color: #5ffdd2;
 }
 
 /* Media queries */
@@ -651,9 +677,6 @@ ul.button-auth-group {
     }
     .button {
         font-size: 14px;
-        margin: 5px 5px;
-        padding: 8px 20px;
-        width: 20%;
     }
     .footer {
         margin-top: 40px;
@@ -682,9 +705,8 @@ ul.button-auth-group {
     }
     .button {
         font-size: 12px;
-        margin: 5px 5px;
-        padding: 8px 10px;
-        width: 20%;
+        margin: 5px;
+        padding: 8px 24px;
     }
     ul li {
         font-size: 15px;
@@ -772,7 +794,7 @@ ul.button-auth-group {
         padding: 30px;
     }
     .input {
-        border: 3px solid #00C9A2;
+        border: 3px solid #00C9A1;
     }
     #task-title {
         font-size: 14px;
@@ -785,17 +807,12 @@ ul.button-auth-group {
         margin-top: 5px;
     }
     .button {
-        font-size: 12px;
-        margin: 5px 5px;
-        padding: 6px 10px;
-        width: 100%;
+        font-size: 10px;
+        margin: 5px 0;
+        padding: 6px;
+        letter-spacing: inherit;
     }
-    ul.button-group {
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
+   
     ul li {
         font-size: 12px;
         padding: 5px 110px 5px 10px;
@@ -847,7 +864,7 @@ ul.button-auth-group {
         padding: 20px;
     }
     .input-login {
-        border: 3px solid #00C9A2;
+        border: 3px solid #00C9A1;
         font-size: 14px;
     }
     .button-auth {
