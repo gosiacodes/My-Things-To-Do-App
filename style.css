@@ -332,6 +332,7 @@ ul li.checked {
     padding-left: 10px;
     padding-top: 2px;
     padding-bottom: 2px;
+    width: 100%;
 }
 
 #title-editing:focus {
@@ -629,9 +630,9 @@ ul li.checked {
     padding-right: 40px;
 }
 
-.update-button{
+.update-button {
     color: #000000;
-    background-color: #00C9A1;
+    background-color: #ffed83;
     letter-spacing: 1px;
     font-size: 14px;
     font-weight: bold;
@@ -640,8 +641,8 @@ ul li.checked {
     border: none;
     border-radius: 14px;
     margin-bottom: 20px;
-    padding: 10px;
-    width: 100px;
+    padding: 5px;
+    width: 90px;
     transition-duration: 0.4s;
     box-shadow: 0 3px 8px rgba(74,68,83,.7);
 }
@@ -656,11 +657,17 @@ ul li.checked {
     justify-content: flex-end;
 }
 
-#delete-user-button, #delete-user-confirm-button {
+#delete-user-button, 
+#delete-user-confirm-button, 
+#delete-tasks-button,
+#delete-all-button {
     background-color: #ff4d4d;
 }
 
-#delete-user-button:hover, #delete-user-confirm-button:hover {
+#delete-user-button:hover, 
+#delete-user-confirm-button:hover, 
+#delete-tasks-button:hover,
+#delete-all-button:hover {
     background-color: #5ffdd2;
 }
 
@@ -773,13 +780,19 @@ ul li.checked {
         font-size: 16px;
     }
     .message-button {
-        font-size: 14px;
-        padding: 8px 15px;
+        font-size: 13px;
+        padding: 8px;
         width: 100px;
     }
     .container-user-modal {
         padding-left: 30px;
         padding-right: 30px;
+    }
+    .update-button {
+        font-size: 13px;
+        margin-bottom: 15px;
+        padding: 4px;
+        width: 80px;
     }
 }
 
@@ -878,11 +891,17 @@ ul li.checked {
     }
     .message-button {
         font-size: 12px;
-        padding: 6px 12px;
+        padding: 5px;
         width: 80px;
     }
     .container-user-modal {
         padding-left: 20px;
         padding-right: 20px;
+    }
+    .update-button {
+        font-size: 12px;
+        margin-bottom: 10px;
+        padding: 3px;
+        width: 70px;
     }
 }

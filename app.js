@@ -386,27 +386,42 @@ const taskEdit = (listItem, buttonEdit) => {
 };
 
 // Finish editing task when edit-button clicked again (or enter when editing task).
-const finishEdit = (listItem, buttonEdit) => {
-    buttonEdit.setAttribute('id', 'task-edit-button');
-    buttonEdit.setAttribute("onclick", "taskEdit(this.parentElement, this)");
+const finishEdit = (listItem, buttonEdit) => {    
+    const testTaskTitle = taskTitle.innerHTML;
+    console.log("test title: " + testTaskTitle);
+    const regex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
+    const testDate = taskDate.innerHTML;
+    console.log("test date: " + testDate);
+    const match = regex.test(testDate);
+    console.log(testDate, match);
+    
+    if (match === false) {
+        message.innerHTML = "Enter date in format YYYY-MM-DD.";
+        showMessageModal();
+    } else if (testTaskTitle === "") {
+        message.innerHTML = "Enter task title!";
+        showMessageModal();
+    } else {
+        buttonEdit.setAttribute('id', 'task-edit-button');
+        buttonEdit.setAttribute("onclick", "taskEdit(this.parentElement, this)");
 
-    taskTitle = listItem.childNodes[0];
-    taskTitle.setAttribute("contenteditable", false);
-    taskTitle.setAttribute("id", "no-editing");
+        taskTitle = listItem.childNodes[0];
+        taskTitle.setAttribute("contenteditable", false);
+        taskTitle.setAttribute("id", "no-editing");
 
-    taskDate = listItem.childNodes[1];
-    taskDate.setAttribute("contenteditable", false);
-    taskDate.setAttribute("id", "no-editing");
-    
-    buttonInfo = listItem.childNodes[4];
-    buttonInfo.removeAttribute("class", "disabled");
-    buttonInfo.removeAttribute("disabled", "true");
-    
-    buttonCheck = listItem.childNodes[5];
-    buttonCheck.removeAttribute("class", "disabled");
-    buttonCheck.removeAttribute("disabled");
-    
-    updateTask(listItem);
+        taskDate = listItem.childNodes[1];
+        taskDate.setAttribute("contenteditable", false);
+        taskDate.setAttribute("id", "no-editing");
+
+        buttonInfo = listItem.childNodes[4];
+        buttonInfo.removeAttribute("class", "disabled");
+        buttonInfo.removeAttribute("disabled", "true");
+
+        buttonCheck = listItem.childNodes[5];
+        buttonCheck.removeAttribute("class", "disabled");
+        buttonCheck.removeAttribute("disabled");
+        updateTask(listItem);
+    }
 };
 
 // Delete one task from the list when clicked on a "trash can" icon.
@@ -448,6 +463,7 @@ const updateUserEmail = () => {
                     email: newEmail
                 });
                 document.getElementById("email").value = "";
+                hideModal(userModal);
                 message.innerHTML = "Email updated successfully";
                 showMessageModal();
             })
@@ -457,6 +473,9 @@ const updateUserEmail = () => {
                 message.innerHTML = errorMessage;
                 showMessageModal();
             });
+    } else {
+        message.innerHTML = "Enter new email to update!";
+        showMessageModal();
     }
 }
 
@@ -470,6 +489,7 @@ const updateUserPassword = () => {
             .then(function() {
                 // Update successful.
                 document.getElementById("password").value = "";
+                hideModal(userModal);
                 message.innerHTML = "Password updated successfully";
                 showMessageModal();
             })
@@ -479,6 +499,9 @@ const updateUserPassword = () => {
                 message.innerHTML = errorMessage;
                 showMessageModal();
             });
+    } else {
+        message.innerHTML = "Enter new password to update!";
+        showMessageModal();
     }
 }
 
@@ -499,6 +522,7 @@ const updateUserName = () => {
                 });
                 document.getElementById("welcome").innerText = "Welcome " + newUsername + "!"
                 document.getElementById("username").value = "";
+                hideModal(userModal);
                 message.innerHTML = "Name updated successfully";
                 showMessageModal();
             })
@@ -508,6 +532,9 @@ const updateUserName = () => {
                 message.innerHTML = errorMessage;
                 showMessageModal();
             });
+    } else {
+        message.innerHTML = "Enter new name to update!";
+        showMessageModal();
     }
 }
 
@@ -540,8 +567,6 @@ const deleteUser = () => {
             // User deleted.
             deleteAllTasks();
             database.ref("users/" + userId).remove();
-            message.innerHTML = "Your account has been succesfully deleted";
-            showMessageModal();
         })
         .catch((error) => {
             var errorCode = error.code;
