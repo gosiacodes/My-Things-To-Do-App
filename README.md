@@ -1,13 +1,23 @@
-# My Thing To Do 
+# My Things To Do 
 ## Web Service - Todo App with Firebase
+
+https://margareta75.github.io/AdComo
+
 Web Service connected to Google's database Firebase (JSON-API).
+
 You need to create an account to use the app.
+
 After logging in, you can only see your own todo-list.
+
 You can create, read, edit and delete todo items from database.
+
 Each task has deadline-date and separate task-description.
+
 You can also edit your account: change username, password and email,
 or delete your account from the database.
+
 Have fun!
+
 
 **********************************************************************************************
 ![poster](poster.png)
