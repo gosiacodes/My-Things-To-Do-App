@@ -1,7 +1,7 @@
 # My Things To Do 
 ## Web Service - Todo App with Firebase
 
-https://margareta75.github.io/AdComo
+https://margareta75.github.io/My-Things-To-Do-App/
 
 Web Service connected to Google's database Firebase (JSON-API).
 
