@@ -388,12 +388,9 @@ const taskEdit = (listItem, buttonEdit) => {
 // Finish editing task when edit-button clicked again (or enter when editing task).
 const finishEdit = (listItem, buttonEdit) => {    
     const testTaskTitle = taskTitle.innerHTML;
-    console.log("test title: " + testTaskTitle);
     const regex = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))$/;
     const testDate = taskDate.innerHTML;
-    console.log("test date: " + testDate);
     const match = regex.test(testDate);
-    console.log(testDate, match);
     
     if (match === false) {
         message.innerHTML = "Enter date in format YYYY-MM-DD.";
