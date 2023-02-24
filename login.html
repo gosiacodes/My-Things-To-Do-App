@@ -1,85 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <meta name="description" content="ToDo List | Login Page">
-        <meta name="keywords" content="ToDo App, To-Do List, Checklist, Application, Java Developer, Javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API">
-        <meta name="author" content="Malgorzata Pick">
-        <title>My Things To Do | Login</title>
-        <link rel="icon" href="images/task-list.png" type="image/jpg" sizes="16x16">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/3318035e44.js"></script>
-    </head>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="ToDo List | Login Page" />
+    <meta
+      name="keywords"
+      content="ToDo App, To-Do List, Checklist, Application, Java Developer, Javautvecklare, HTML, CSS, JavaScript, Firebase, JSON-API"
+    />
+    <meta name="author" content="Malgorzata Pick" />
+    <title>My Things To Do | Login</title>
+    <link
+      rel="icon"
+      href="images/task-list.png"
+      type="image/jpg"
+      sizes="16x16"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/3318035e44.js"></script>
+  </head>
 
-    <body>
-        <!-- Header -->
-        <div class="header font-style">
-            <ul class = "title-group">
-                <h1 class="title" style="padding-left: 10px">My Things To Do</h1>
-                <img src="images/office-checklist.png" alt="checklist" id="checklist-logo">                
-            </ul>
+  <body>
+    <!-- Header -->
+    <header class="font-style">
+      <ul class="title-group">
+        <h1 class="title" style="padding-left: 10px">My Things To Do</h1>
+        <img
+          src="images/office-checklist.png"
+          alt="checklist"
+          id="checklist-logo"
+        />
+      </ul>
+    </header>
+    <!-- Main -->
+    <main>
+      <!-- Login container -->
+      <div class="container-login">
+        <h2 class="welcome font-style">Welcome!</h2>
+        <h5>Sign in to your account or sign up to create a new account.</h5>
+        <!-- Inputs -->
+        <ul class="login-group">
+          <label for="email" class="label"><b>Email</b></label>
+          <input
+            type="email"
+            class="input-login"
+            id="email"
+            name="email"
+            placeholder="Enter email"
+            maxlength="50"
+            required
+          />
+          <label for="password" class="label"><b>Password</b></label>
+          <input
+            type="password"
+            class="input-login"
+            id="password"
+            name="password"
+            placeholder="Enter password"
+            maxlength="30"
+            required
+          />
+          <label for="username" class="label"><b>Name</b></label>
+          <input
+            type="text"
+            class="input-login"
+            id="username"
+            name="username"
+            placeholder="Enter name to sign up"
+            maxlength="50"
+          />
+        </ul>
+        <div>
+          <!-- Buttons -->
+          <ul class="button-auth-group">
+            <button
+              type="submit"
+              class="button-auth font-style button-color-yellow button-hover-black"
+              id="sign-up-button"
+              title="Sign Up"
+            >
+              Sign Up
+            </button>
+            <button
+              type="submit"
+              class="button-auth font-style button-color-turqoise button-hover-black"
+              id="sign-in-button"
+              title="Sign In"
+            >
+              Sign In
+            </button>
+            <button
+              type="submit"
+              class="button-auth font-style button-color-cerise button-hover-black"
+              id="cancel-button"
+              title="Cancel"
+            >
+              Cancel
+            </button>
+          </ul>
         </div>
-        <!-- Main -->
-        <div class="main">
-            <!-- Login container -->
-            <div class="container-login">
-                <h2 class="welcome font-style">Welcome!</h2>
-                <h5>Sign in to your account or sign up to create a new account.</h5>
-                <!-- Inputs -->
-                <ul class = "login-group">
-                    <label for="email" class="label"><b>Email</b></label>
-                    <input type="email" class="input-login" id="email" name="email" placeholder="Enter email" maxlength="50" required/>
-                    <label for="password" class="label"><b>Password</b></label>
-                    <input type="password" class="input-login" id="password" name="password" placeholder="Enter password" maxlength="30" required/>
-                    <label for="username" class="label"><b>Name</b></label>
-                    <input type="text" class="input-login" id="username" name="username" placeholder="Enter name to sign up" maxlength="50"/>
-                </ul>
-                <div >
-                    <!-- Buttons -->
-                    <ul class = "button-auth-group">
-                        <button type="submit" class="button-auth font-style" id="sign-up-button"  title="Sign Up">Sign Up</button>
-                        <button type="submit" class="button-auth font-style" id="sign-in-button"  title="Sign In">Sign In</button>
-                        <button type="submit" class="button-auth font-style" id="cancel-button" title="Cancel">Cancel</button>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Message Modal -->
-        <div id="message-modal" class="modal-background">
-            <!-- Modal content -->
-            <div class="modal-container">
-                <div class="modal-header font-style">
-                    <div>Message.<span class="close" id="close-error" title="Close">&times;</span>
-                    </div>
-                </div>
-                <div class="modal-all-content">
-                    <p class="message" id="error-message">Here comes error message.</p>
-                    <div class="modal-buttons">
-                        <button type="submit" class="message-button font-style" id="ok-button" title="OK">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Message Modal -->
-        
-        <!-- Footer -->
-        <footer>
-            <div class="footer" id="footer">
-                <p class="copyright font-style">Copyright &copy; 2021 | Malgorzata Pick</p>
-            </div>
-        </footer>
-        <!-- End footer -->
-        
-        <!-- Scripts js -->
-        <script defer src="login.js"></script>       
-        <!-- Firebase js -->
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script> 
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+      </div>
+    </main>
 
-    </body>
+    <!-- Message Modal -->
+    <div id="message-modal" class="modal-background">
+      <!-- Modal content -->
+      <div class="modal-container">
+        <div class="modal-header font-style">
+          <div>
+            Message<span class="close" id="close-error" title="Close"
+              >&times;</span
+            >
+          </div>
+        </div>
+        <div class="modal-all-content">
+          <p class="message" id="error-message">Here comes error message.</p>
+          <div class="modal-buttons">
+            <button
+              type="submit"
+              class="message-button font-style button-color-turqoise button-hover-black"
+              id="ok-button"
+              title="OK"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Message Modal -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer" id="footer">
+        <p class="copyright font-style">
+          Copyright &copy; 2021-2023 | Malgorzata Pick
+        </p>
+      </div>
+    </footer>
+    <!-- End footer -->
+
+    <!-- Scripts js -->
+    <script defer src="login.js"></script>
+    <!-- Firebase js -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  </body>
 </html>

@@ -1,161 +1,348 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta charset="utf-8">
-        <meta name="description" content="ToDo List | Web Application">
-        <meta name="keywords" content="ToDo App, To-Do List, Checklist, Application, Java Developer, Javautvecklare, Webbutvecklare, Utvecklare, Front-End, Back-End, HTML, CSS, JavaScript, Firebase, JSON-API">
-        <meta name="author" content="Malgorzata Pick">
-        <title>My Things To Do</title>
-        <link rel="icon" href="images/task-list.png" type="image/jpg" sizes="16x16">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap" rel="stylesheet">
-        <link href="style.css" rel="stylesheet">
-        <script src="https://kit.fontawesome.com/3318035e44.js"></script>
-    </head>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="description" content="ToDo List | Web Application" />
+    <meta
+      name="keywords"
+      content="ToDo App, To-Do List, Checklist, Application, Java Developer, Javautvecklare, Webbutvecklare, Utvecklare, Front-End, Back-End, HTML, CSS, JavaScript, Firebase, JSON-API"
+    />
+    <meta name="author" content="Malgorzata Pick" />
+    <title>My Things To Do</title>
+    <link
+      rel="icon"
+      href="images/task-list.png"
+      type="image/jpg"
+      sizes="16x16"
+    />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quantico&family=Roboto&family=Varela+Round&display=swap"
+      rel="stylesheet"
+    />
+    <link href="style.css" rel="stylesheet" />
+    <script src="https://kit.fontawesome.com/3318035e44.js"></script>
+  </head>
 
-    <body>
-        <!-- Header -->
-        <div class="header font-style">
-            <h1 class="title">My Things To Do</h1>           
+  <body>
+    <!-- Header -->
+    <header class="font-style">
+      <ul class="title-group">
+        <h1 class="title" style="padding-left: 10px">My Things To Do</h1>
+        <img
+          src="images/office-checklist.png"
+          alt="checklist"
+          id="checklist-logo"
+        />
+      </ul>
+    </header>
+    <!-- Main -->
+    <main>
+      <div class="user-group">
+        <h2 class="welcome font-style" id="welcome"></h2>
+        <div class="user-buttons">
+          <button
+            type="submit"
+            class="button-auth font-style button-color-turqoise button-hover-black"
+            id="user-button"
+          >
+            User <i class="fas fa-user-circle"></i>
+          </button>
+          <button
+            type="submit"
+            class="button-auth font-style button-color-yellow button-hover-black"
+            id="logout-button"
+            title="Logout"
+          >
+            Logout
+          </button>
         </div>
-        <!-- Main -->
-        <div class="main">
-            <button type="submit" class="button-auth font-style" id="logout-button" title="Logout">Logout</button>
-            <button type="submit" class="button-auth font-style" id="user-button">User <i class="fas fa-user-circle"></i></button>
-            <h2 class="welcome font-style" id="welcome"></h2>
-            <!-- Image -->
-            <div class="img"><img src="images/office-checklist.png" alt="checklist" id="checklist"></div>
-            <!-- Task container -->
-            <div class="container-tasks">
-                <!-- Inputs -->
-                <input type="text" class="input" id="task-title" placeholder="What is there to do?" maxlength="100"/>
-                <input type="date" class="input" id="task-date"/>
-                <div >
-                    <!-- Buttons -->
-                    <ul class = "button-group">
-                        <button type="submit" class="button font-style" id="add-button"  title="Add new task">ADD TASK</button>
-                        <button type="submit" class="button font-style" id="sort-button" title="Sort tasks">SORT TASKS</button>
-                        <button type="submit" class="button font-style" id="delete-all-button" title="Delete all tasks">DELETE ALL</button>
-                    </ul>
-                </div>
-                <!-- Task list -->
-                <ul class="list" id="task-list"></ul>
-            </div>
+      </div>
+      <!-- Task container -->
+      <div class="container-tasks">
+        <!-- Inputs -->
+        <div class="tasks-inputs">
+          <input
+            type="text"
+            class="input"
+            id="task-title"
+            placeholder="What is there to do?"
+            maxlength="100"
+          />
+          <input
+            type="date"
+            class="input"
+            id="task-date"
+            placeholder="Choose date"
+          />
         </div>
-        
-        <!-- Delete All Tasks Modal -->
-        <div id="delete-tasks-modal" class="modal-background">
-            <!-- Modal content -->
-            <div class="modal-container">
-                <div class="modal-header font-style">
-                    <div>Confirm deletion.<span class="close" id="delete-close" title="Close">&times;</span>
-                    </div>
-                </div>
-                <div class="modal-all-content">
-                    <p class="message" id="delete-tasks-message">Are you sure you want to permanently delete all tasks?</p>
-                    <div class="modal-buttons">
-                        <button type="submit" class="message-button font-style" id="delete-tasks-button" title="Delete All Tasks">DELETE</button>
-                        <button type="submit" class="message-button font-style" id="delete-cancel-button" title="Cancel">CANCEL</button>
-                    </div>
-                </div>
-            </div>
+        <div>
+          <!-- Buttons -->
+          <ul class="button-group">
+            <button
+              type="submit"
+              class="button font-style button-color-turqoise button-hover-black"
+              id="add-button"
+              title="Add new task"
+            >
+              ADD TASK
+            </button>
+            <button
+              type="submit"
+              class="button font-style button-color-yellow button-hover-black"
+              id="sort-button"
+              title="Sort tasks"
+            >
+              SORT TASKS
+            </button>
+            <button
+              type="submit"
+              class="button font-style button-color-cerise button-hover-black"
+              id="delete-all-button"
+              title="Delete all tasks"
+            >
+              DELETE ALL
+            </button>
+          </ul>
         </div>
-        <!-- End Delete All Tasks Modal -->
-        
-        <!-- User Profile Modal -->
-        <div id="user-profile-modal" class="modal-background">
-            <!-- Modal content -->
-            <div class="modal-container" id="user-container">
-                <div class="modal-header font-style">
-                    <div>User Profile.<span class="close" id="user-close" title="Close">&times;</span>
-                    </div>
-                </div>
-                <div class="container-user-modal modal-all-content">
-                    <!-- Inputs -->
-                    <ul class = "login-group">
-                        <label for="email" class="label"><b>Update email</b></label>
-                        <input type="email" class="input-login" id="email" name="email" placeholder="Enter new email" maxlength="50"/>
-                        <div class="update-buttons">
-                            <button type="submit" class="update-button font-style" id="update-email-button" title="Update">UPDATE </button>
-                        </div>
-                        <label for="password" class="label"><b>Update password</b></label>
-                        <input type="password" class="input-login" id="password" name="password" placeholder="Enter new password" maxlength="30"/>
-                        <div class="update-buttons">
-                            <button type="submit" class="update-button font-style" id="update-password-button" title="Update">UPDATE</button>
-                        </div>
-                        <label for="username" class="label"><b>Update name</b></label>
-                        <input type="text" class="input-login" id="username" name="username" placeholder="Enter new name" maxlength="50"/>
-                        <div class="update-buttons">
-                            <button type="submit" class="update-button font-style" id="update-name-button" title="Update">UPDATE</button>
-                        </div>
-                    </ul>
-                    <div>
-                        <!-- Buttons -->
-                        <ul class="modal-buttons">
-                            <button type="submit" class="message-button font-style" id="delete-user-button" title="Delete account">DELETE</button>
-                            <button type="submit" class="message-button font-style" id="update-reset-button" title="Reset">RESET</button>
-                            <button type="submit" class="message-button font-style" id="update-close-button" title="Close">CLOSE</button>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End User Profile Modal -->
-        
-        <!-- Delete User Modal -->
-        <div id="delete-user-modal" class="modal-background">
-            <!-- Modal content -->
-            <div class="modal-container">
-                <div class="modal-header font-style">
-                    <div>Confirm deletion.<span class="close" id="delete-user-close" title="Close">&times;</span>
-                    </div>
-                </div>
-                <div class="modal-all-content">
-                    <p class="message" id="delete-user-message">Are you sure you want to permanently delete your account? <br> 
-                        It can't be undone.</p>
-                    <div class="modal-buttons">
-                        <button type="submit" class="message-button font-style" id="delete-user-confirm-button" title="Delete my user account">DELETE</button>
-                        <button type="submit" class="message-button font-style" id="delete-user-cancel-button" title="Cancel">CANCEL</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Delete User Modal -->
-        
-        <!-- Message Modal -->
-        <div id="message-modal" class="modal-background">
-            <!-- Modal content -->
-            <div class="modal-container">
-                <div class="modal-header font-style">
-                    <div>Message.<span class="close" id="error-close" title="Close">&times;</span>
-                    </div>
-                </div>
-                <div class="modal-all-content">
-                    <p class="message" id="error-message">Here comes message.</p>
-                    <div class="modal-buttons">
-                        <button type="submit" class="message-button font-style" id="ok-button" title="OK">OK</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- End Message Modal -->
-        
-        <!-- Footer -->
-        <footer>
-            <div class="footer">
-                <span id="chevron" title="To the top"><a href="#"><i class="fas fa-chevron-circle-up"></i></a></span>
-                <p class="copyright font-style">Copyright &copy; 2021 | Malgorzata Pick</p>
-            </div>
-        </footer>
-        <!-- End footer -->
-        
-        <!-- Scripts js -->
-        <script defer src="app.js"></script>
-        <!-- Firebase js -->
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
-        <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+        <!-- Task list -->
+        <ul class="list" id="task-list"></ul>
+      </div>
+    </main>
 
-    </body>
+    <!-- Delete All Tasks Modal -->
+    <div id="delete-tasks-modal" class="modal-background">
+      <!-- Modal content -->
+      <div class="modal-container">
+        <div class="modal-header font-style">
+          <div>
+            Confirm deletion.<span class="close" id="delete-close" title="Close"
+              >&times;</span
+            >
+          </div>
+        </div>
+        <div class="modal-all-content">
+          <p class="message" id="delete-tasks-message">
+            Are you sure you want to permanently delete all tasks?
+          </p>
+          <div class="modal-buttons">
+            <button
+              type="submit"
+              class="message-button font-style button-color-cerise button-hover-black"
+              id="delete-tasks-button"
+              title="Delete All Tasks"
+            >
+              DELETE
+            </button>
+            <button
+              type="submit"
+              class="message-button font-style button-color-turqoise button-hover-black"
+              id="delete-cancel-button"
+              title="Cancel"
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Delete All Tasks Modal -->
+
+    <!-- User Profile Modal -->
+    <div id="user-profile-modal" class="modal-background">
+      <!-- Modal content -->
+      <div class="modal-container" id="user-container">
+        <div class="modal-header font-style">
+          <div>
+            User Profile<span class="close" id="user-close" title="Close"
+              >&times;</span
+            >
+          </div>
+        </div>
+        <div class="container-user-modal modal-all-content">
+          <!-- Inputs -->
+          <ul class="login-group">
+            <label for="email" class="label"><b>Update email</b></label>
+            <input
+              type="email"
+              class="input-login"
+              id="email"
+              name="email"
+              placeholder="Enter new email"
+              maxlength="50"
+            />
+            <div class="update-buttons">
+              <button
+                type="submit"
+                class="update-button font-style button-hover-black"
+                id="update-email-button"
+                title="Update"
+              >
+                UPDATE
+              </button>
+            </div>
+            <label for="password" class="label"><b>Update password</b></label>
+            <input
+              type="password"
+              class="input-login"
+              id="password"
+              name="password"
+              placeholder="Enter new password"
+              maxlength="30"
+            />
+            <div class="update-buttons">
+              <button
+                type="submit"
+                class="update-button font-style button-hover-black"
+                id="update-password-button"
+                title="Update"
+              >
+                UPDATE
+              </button>
+            </div>
+            <label for="username" class="label"><b>Update name</b></label>
+            <input
+              type="text"
+              class="input-login"
+              id="username"
+              name="username"
+              placeholder="Enter new name"
+              maxlength="50"
+            />
+            <div class="update-buttons">
+              <button
+                type="submit"
+                class="update-button font-style button-hover-black"
+                id="update-name-button"
+                title="Update"
+              >
+                UPDATE
+              </button>
+            </div>
+          </ul>
+          <div>
+            <!-- Buttons -->
+            <ul class="modal-buttons">
+              <button
+                type="submit"
+                class="message-button font-style button-color-cerise button-hover-black"
+                id="delete-user-button"
+                title="Delete account"
+              >
+                DELETE
+              </button>
+              <button
+                type="submit"
+                class="message-button font-style button-color-yellow button-hover-black"
+                id="update-reset-button"
+                title="Reset"
+              >
+                RESET
+              </button>
+              <button
+                type="submit"
+                class="message-button font-style button-color-turqoise button-hover-black"
+                id="update-close-button"
+                title="Close"
+              >
+                CLOSE
+              </button>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End User Profile Modal -->
+
+    <!-- Delete User Modal -->
+    <div id="delete-user-modal" class="modal-background">
+      <!-- Modal content -->
+      <div class="modal-container">
+        <div class="modal-header font-style">
+          <div>
+            Confirm deletion<span
+              class="close"
+              id="delete-user-close"
+              title="Close"
+              >&times;</span
+            >
+          </div>
+        </div>
+        <div class="modal-all-content">
+          <p class="message" id="delete-user-message">
+            Are you sure you want to permanently delete your account? <br />
+            It can't be undone.
+          </p>
+          <div class="modal-buttons">
+            <button
+              type="submit"
+              class="message-button font-style button-color-cerise button-hover-black"
+              id="delete-user-confirm-button"
+              title="Delete my user account"
+            >
+              DELETE
+            </button>
+            <button
+              type="submit"
+              class="message-button font-style"
+              id="delete-user-cancel-button"
+              title="Cancel"
+            >
+              CANCEL
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Delete User Modal -->
+
+    <!-- Message Modal -->
+    <div id="message-modal" class="modal-background">
+      <!-- Modal content -->
+      <div class="modal-container">
+        <div class="modal-header font-style">
+          <div>
+            Message.<span class="close" id="error-close" title="Close"
+              >&times;</span
+            >
+          </div>
+        </div>
+        <div class="modal-all-content">
+          <p class="message" id="error-message">Here comes message.</p>
+          <div class="modal-buttons">
+            <button
+              type="submit"
+              class="message-button font-style button-color-turqoise button-hover-black"
+              id="ok-button"
+              title="OK"
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- End Message Modal -->
+
+    <!-- Footer -->
+    <footer>
+      <div class="footer">
+        <span id="chevron" title="To the top"
+          ><a href="#"><i class="fas fa-chevron-circle-up"></i></a
+        ></span>
+        <p class="copyright font-style">
+          Copyright &copy; 2021-2023 | Malgorzata Pick
+        </p>
+      </div>
+    </footer>
+    <!-- End footer -->
+
+    <!-- Scripts js -->
+    <script defer src="app.js"></script>
+    <!-- Firebase js -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-auth.js"></script>
+  </body>
 </html>
