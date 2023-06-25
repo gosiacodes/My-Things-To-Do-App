@@ -1,7 +1,7 @@
 # :sparkles: My Things To Do :sparkles:
 Web Service - Todo App with authentication connected to Google's realtime database Firebase (JSON-API).
 
-https://margareta75.github.io/My-Things-To-Do-App/
+https://gosiacodes.github.io/My-Things-To-Do-App/
 
 ## :pushpin: _How does the application work?_
 
