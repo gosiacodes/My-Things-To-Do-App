@@ -23,12 +23,16 @@ or delete your account from the database.
 
 Have fun!
 
-**********************************************************************************************
 
+
+## :pushpin: _New GUI examples_
+![MTTD 1](/images/MTTD_new1.png)
+
+![MTTD 1](/images/MTTD_new2.png)
+
+## :pushpin: _Changing email example_
 
 ![MTTD 1](/images/MTTDver3.0.a.png)
-
-![MTTD 2](/images/MTTDver3.0.b.png)
 
 ![MTTD 3](/images/MTTDver3.0.c.png)
 
