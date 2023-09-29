@@ -28,36 +28,36 @@ const logoutButton = document.querySelector("#logout-button");
 const enterTask = document.querySelector("#task-title");
 
 // Error modal variables.
-const messageModal = document.getElementById("message-modal");
-const closeMessageModal = document.getElementById("error-close");
-const okButton = document.getElementById("ok-button");
-const message = document.getElementById("error-message");
+const messageModal = document.querySelector("#message-modal");
+const closeMessageModal = document.querySelector("#error-close");
+const okButton = document.querySelector("#ok-button");
+const message = document.querySelector("#error-message");
 
 // User update profile modal variables.
-const userModal = document.getElementById("user-profile-modal");
-const closeUserModal = document.getElementById("user-close");
-const updateEmailButton = document.getElementById("update-email-button");
-const updatePasswordButton = document.getElementById("update-password-button");
-const updateNameButton = document.getElementById("update-name-button");
-const deleteUserButton = document.getElementById("delete-user-button");
-const resetButton = document.getElementById("update-reset-button");
-const closeUpdateButton = document.getElementById("update-close-button");
+const userModal = document.querySelector("#user-profile-modal");
+const closeUserModal = document.querySelector("#user-close");
+const updateEmailButton = document.querySelector("#update-email-button");
+const updatePasswordButton = document.querySelector("#update-password-button");
+const updateNameButton = document.querySelector("#update-name-button");
+const deleteUserButton = document.querySelector("#delete-user-button");
+const resetButton = document.querySelector("#update-reset-button");
+const closeUpdateButton = document.querySelector("#update-close-button");
 
 // Delete user modal variables.
-const deleteUserModal = document.getElementById("delete-user-modal");
-const closeDeleteUserModal = document.getElementById("delete-user-close");
-const deleteUserCancelButton = document.getElementById(
-  "delete-user-cancel-button"
+const deleteUserModal = document.querySelector("#delete-user-modal");
+const closeDeleteUserModal = document.querySelector("#delete-user-close");
+const deleteUserCancelButton = document.querySelector(
+  "#delete-user-cancel-button"
 );
-const deleteUserConfirmButton = document.getElementById(
-  "delete-user-confirm-button"
+const deleteUserConfirmButton = document.querySelector(
+  "#delete-user-confirm-button"
 );
 
 // Delete all tasks modal variables.
-const deleteTasksModal = document.getElementById("delete-tasks-modal");
-const closeDeleteTasksModal = document.getElementById("delete-close");
-const deleteTasksCancelButton = document.getElementById("delete-cancel-button");
-const deleteTasksButton = document.getElementById("delete-tasks-button");
+const deleteTasksModal = document.querySelector("#delete-tasks-modal");
+const closeDeleteTasksModal = document.querySelector("#delete-close");
+const deleteTasksCancelButton = document.querySelector("#delete-cancel-button");
+const deleteTasksButton = document.querySelector("#delete-tasks-button");
 
 let sort = false;
 
@@ -69,7 +69,7 @@ auth.onAuthStateChanged(function (user) {
     userId = user.uid;
     email = user.email;
     displayName = user.displayName;
-    document.getElementById("welcome").innerText =
+    document.querySelector("#welcome").innerText =
       "Welcome " + displayName + "!";
     writeUserData(displayName, email);
     fetchAllData();
@@ -126,8 +126,8 @@ const enterTaskEvent = (event) => {
 
 // Read input when clicking on the "Add new task" button.
 const createTask = () => {
-  const inputValue = document.getElementById("task-title").value;
-  const dateValue = document.getElementById("task-date").value;
+  const inputValue = document.querySelector("#task-title").value;
+  const dateValue = document.querySelector("#task-date").value;
   const currentDate = new Date();
   const givenDate = new Date(dateValue);
   currentDate.setHours(0, 0, 0, 0);
@@ -272,16 +272,16 @@ const addItemsToListView = (task, key) => {
     buttonInfo.setAttribute("disabled", "true");
   }
 
-  document.getElementById("task-list").appendChild(listItem);
-  document.getElementById("task-title").value = "";
-  document.getElementById("task-date").value = "";
+  document.querySelector("#task-list").appendChild(listItem);
+  document.querySelector("#task-title").value = "";
+  document.querySelector("#task-date").value = "";
 };
 
 // Toggle sorting tasks due deadline-date and due created-date.
 const sortTasks = () => {
   let list, i, switching, listItem, dateValue, shouldSwitch, timestamp;
   if (!sort) {
-    list = document.getElementById("task-list");
+    list = document.querySelector("#task-list");
     switching = true;
     while (switching) {
       switching = false;
@@ -301,7 +301,7 @@ const sortTasks = () => {
     }
     sort = true;
   } else if (sort) {
-    list = document.getElementById("task-list");
+    list = document.querySelector("#task-list");
     switching = true;
     while (switching) {
       switching = false;
@@ -489,7 +489,7 @@ const updateTask = (listItem) => {
 // Edit and update user email.
 const updateUserEmail = () => {
   let user = firebase.auth().currentUser;
-  let newEmail = document.getElementById("email").value;
+  let newEmail = document.querySelector("#email").value;
 
   if (newEmail !== "") {
     user
@@ -500,7 +500,7 @@ const updateUserEmail = () => {
           displayName: user.displayName,
           email: newEmail,
         });
-        document.getElementById("email").value = "";
+        document.querySelector("#email").value = "";
         hideModal(userModal);
         message.innerHTML = "Email updated successfully";
         showMessageModal();
@@ -520,14 +520,14 @@ const updateUserEmail = () => {
 // Edit and update user password.
 const updateUserPassword = () => {
   let user = firebase.auth().currentUser;
-  let newPassword = document.getElementById("password").value;
+  let newPassword = document.querySelector("#password").value;
 
   if (newPassword !== "") {
     user
       .updatePassword(newPassword)
       .then(function () {
         // Update successful.
-        document.getElementById("password").value = "";
+        document.querySelector("#password").value = "";
         hideModal(userModal);
         message.innerHTML = "Password updated successfully";
         showMessageModal();
@@ -547,7 +547,7 @@ const updateUserPassword = () => {
 // Edit and update user name.
 const updateUserName = () => {
   let user = firebase.auth().currentUser;
-  let newUsername = document.getElementById("username").value;
+  let newUsername = document.querySelector("#username").value;
 
   if (newUsername !== "") {
     user
@@ -560,9 +560,9 @@ const updateUserName = () => {
           displayName: newUsername,
           email: user.email,
         });
-        document.getElementById("welcome").innerText =
+        document.querySelector("#welcome").innerText =
           "Welcome " + newUsername + "!";
-        document.getElementById("username").value = "";
+        document.querySelector("#username").value = "";
         hideModal(userModal);
         message.innerHTML = "Name updated successfully";
         showMessageModal();
@@ -581,9 +581,9 @@ const updateUserName = () => {
 
 // Reset input.
 const resetInput = () => {
-  document.getElementById("email").value = "";
-  document.getElementById("password").value = "";
-  document.getElementById("username").value = "";
+  document.querySelector("#email").value = "";
+  document.querySelector("#password").value = "";
+  document.querySelector("#username").value = "";
 };
 
 // Show modal with delete-user-message.
@@ -651,7 +651,7 @@ const showDeleteModal = () => {
 // Delete all tasks from list and hide modal.
 const deleteAllTasks = () => {
   database.ref(userId + "/todos/").remove();
-  let list = document.getElementById("task-list");
+  let list = document.querySelector("#task-list");
   let listItem = list.getElementsByTagName("LI");
 
   for (i = 0; i < listItem.length; i++) {
